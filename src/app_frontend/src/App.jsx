@@ -1,8 +1,18 @@
-import { useState } from 'react';
-import { app_backend } from 'declarations/app_backend';
+import { useEffect, useState } from "react";
+import { app_backend } from "declarations/app_backend";
+import Onboarding from "./pages/Onboarding";
+import { initSatellite } from "@junobuild/core";
+import { BrowserRouter, Route, Routes, Router } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
-  const [greeting, setGreeting] = useState('');
+  const [greeting, setGreeting] = useState("");
+  useEffect(() => {
+    (async () =>
+      await initSatellite({
+        satelliteId: "m3e2r-niaaa-aaaal-ajjtq-cai",
+      }))();
+  }, []);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -15,15 +25,12 @@ function App() {
 
   return (
     <main>
-      <img src="/logo2.svg" alt="DFINITY logo" />
-      <br />
-      <br />
-      <form action="#" onSubmit={handleSubmit}>
-        <label htmlFor="name">Enter your name: &nbsp;</label>
-        <input id="name" alt="Name" type="text" />
-        <button type="submit">Click Me!</button>
-      </form>
-      <section id="greeting">{greeting}</section>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Onboarding />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </BrowserRouter>
     </main>
   );
 }
