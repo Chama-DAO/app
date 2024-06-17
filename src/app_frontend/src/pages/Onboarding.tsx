@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import backgroundImage from "../assets/onboarding.gif";
 import Auth from "../components/Auth";
-import { signIn, authSubscribe, User } from "@junobuild/core";
+import { signIn, authSubscribe, User, setDoc, getDoc } from "@junobuild/core";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import logo from "../assets/logo.png";
@@ -52,6 +52,8 @@ function Onboarding() {
   const [selectedFinanceType, setSelectedFinanceType] =
     useState<TFinanceType | null>(null);
   const [username, setUsername] = useState<string>("");
+  const [savingData, setSavingData] = useState<boolean>(false);
+  const [checkUser, setCheckingUser] = useState<boolean>(false);
 
   function validateForm() {
     switch (step) {
@@ -66,7 +68,7 @@ function Onboarding() {
     }
   }
 
-  function nextStep() {
+  async function nextStep() {
     if (step === 3) {
       if (userAvailable) {
         const currUser = {
@@ -78,8 +80,22 @@ function Onboarding() {
           role: selectedRole,
           isOnboarded: true,
         };
-        //  console.log("User:", currUser);
-        navigate("/dashboard");
+        try {
+          setSavingData(true);
+          await setDoc({
+            collection: "users",
+            doc: {
+              key: userAvailable.key,
+              data: currUser,
+            },
+          });
+          setSavingData(false);
+          toast.success("Profile saved successfully");
+          //  console.log("User:", currUser);
+          navigate("/dashboard");
+        } catch (error) {
+          toast.error("An error occurred!");
+        }
       } else {
         toast.error("An error occurred");
       }
@@ -292,16 +308,41 @@ function Onboarding() {
   const createUser = async () => {
     setAuthUser(true);
     await signIn();
-    //check if user is available in the db & route to dashboard
     setAuthUser(false);
   };
   useEffect(() => {
     authSubscribe((user: User | null) => {
       user ? setUserAvailable(user) : null;
+      const checkUser = async () => {
+        if (userAvailable) {
+          try {
+            setCheckingUser(true);
+            const currUser = await getDoc({
+              collection: "users",
+              key: userAvailable?.key,
+            });
+            // console.log(currUser);
+            currUser ? navigate("/dashboard") : null;
+          } catch (error) {
+            console.error("Error getting document:", error);
+          }
+        }
+      };
+      checkUser();
       // console.log("User:", user);
     });
-  }, []);
+  }, [authUser, userAvailable]);
 
+  if (savingData || checkUser) {
+    return (
+      <Skeleton
+        count={5}
+        baseColor="#d3d3d3"
+        height={30}
+        style={{ padding: 10, margin: 10 }}
+      />
+    );
+  }
   return (
     <div
       style={{
