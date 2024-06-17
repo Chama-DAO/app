@@ -313,6 +313,7 @@ function Onboarding() {
   useEffect(() => {
     authSubscribe((user: User | null) => {
       user ? setUserAvailable(user) : null;
+      //check if user exists in the db
       const checkUser = async () => {
         if (userAvailable) {
           try {
@@ -321,7 +322,6 @@ function Onboarding() {
               collection: "users",
               key: userAvailable?.key,
             });
-            // console.log(currUser);
             currUser ? navigate("/dashboard") : null;
           } catch (error) {
             console.error("Error getting document:", error);
@@ -329,7 +329,6 @@ function Onboarding() {
         }
       };
       checkUser();
-      // console.log("User:", user);
     });
   }, [authUser, userAvailable]);
 
