@@ -10,24 +10,100 @@ import Stepper from "../components/Stepper";
 import onb1 from "../assets/onb1.svg";
 import onb2 from "../assets/onb3.svg";
 import { useNavigate } from "react-router-dom";
-import Select from "../components/Select";
-import { TiTickOutline } from "react-icons/ti";
+import useWindowSize from "react-use/lib/useWindowSize";
+import CustomDropdown from "../components/CustomDropdown";
+import { avatars } from "../utils/avatars";
+import { roles } from "../utils/roles";
+import Confetti from "react-confetti";
+import finish from "../assets/onb3.png";
+import { financeTypes } from "../utils/financeTypes";
+import toast, { Toaster } from "react-hot-toast";
+import { TUser } from "../utils/user";
+
+export type TAvatar = {
+  id: number;
+  name: string;
+  image: any;
+};
+
+export type TRoles = {
+  id: number;
+  name: string;
+  image: any;
+};
+
+export type TFinanceType = {
+  id: number;
+  name: string;
+  image: any;
+};
+
+export type Theme = "dark" | "light";
 
 function Onboarding() {
-  type Theme = "dark" | "light";
   const navigate = useNavigate();
+  const { width, height } = useWindowSize();
   const [authUser, setAuthUser] = useState<Boolean>(false);
   const [userAvailable, setUserAvailable] = useState<User | null>(null);
   const [step, setStep] = useState<number>(0);
   const [theme, setTheme] = useState<Theme>("dark");
+  const [selectedAvatar, setSelectedAvatar] = useState<TAvatar | null>(null);
+  const [selectedRole, setSelectedRole] = useState<TRoles | null>(null);
+  const [selectedFinanceType, setSelectedFinanceType] =
+    useState<TFinanceType | null>(null);
+  const [username, setUsername] = useState<string>("");
+
+  function validateForm() {
+    switch (step) {
+      case 0:
+        return username !== "" && selectedFinanceType !== null;
+      case 1:
+        return selectedAvatar !== null;
+      case 2:
+        return selectedRole !== null;
+      default:
+        return true;
+    }
+  }
 
   function nextStep() {
-    // console.log(step);
     if (step === 3) {
-      // console.log(step);
-      navigate("/dashboard");
+      if (userAvailable) {
+        const currUser = {
+          id: userAvailable.key,
+          username,
+          financeType: selectedFinanceType,
+          theme,
+          avatar: selectedAvatar,
+          role: selectedRole,
+          isOnboarded: true,
+        };
+        //  console.log("User:", currUser);
+        navigate("/dashboard");
+      } else {
+        toast.error("An error occurred");
+      }
     } else {
-      setStep((prev) => prev + 1);
+      const checkForm = validateForm();
+      if (checkForm) {
+        setStep((prev) => prev + 1);
+      } else {
+        toast.error("Please fill all fields", {
+          duration: 4000,
+          position: "top-center",
+          className: "font-body",
+          icon: "❌",
+          iconTheme: {
+            primary: "#000",
+            secondary: "#fff",
+          },
+          ariaProps: {
+            role: "status",
+            "aria-live": "polite",
+          },
+        });
+        return;
+      }
     }
   }
   function prevStep() {
@@ -60,10 +136,17 @@ function Onboarding() {
             <input
               placeholder="Username"
               className="w-full bg-white focus:outline-none text-black font-body py-2 px-4 rounded-lg"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
           <div className="md:w-1/2 w-3/4">
-            <Select />
+            <CustomDropdown
+              avatars={financeTypes}
+              selectedAvatar={selectedFinanceType}
+              setSelectedAvatar={setSelectedFinanceType}
+              title="What best describes your finance group?"
+            />
           </div>
         </div>
       ),
@@ -92,7 +175,7 @@ function Onboarding() {
       ),
       content: (
         <div>
-          <div className="flex gap-2 my-4 py-2w-3/4">
+          <div className="flex gap-2 my-4 py-2 md:w-1/2 w-3/4">
             <div
               className="h-28 w-28 bg-black rounded-lg flex items-center justify-center font-body cursor-pointer relative"
               onClick={() => setTheme("dark")}
@@ -107,7 +190,7 @@ function Onboarding() {
               }
             </div>
             <div
-              className="h-28 w-28 bg-neutral rounded-lg flex items-center justify-center font-body cursor-pointer relative"
+              className="h-28 w-28 bg-neutral rounded-lg text-black flex items-center justify-center font-body cursor-pointer relative"
               onClick={() => setTheme("light")}
             >
               Light
@@ -120,6 +203,14 @@ function Onboarding() {
               }
             </div>
           </div>
+          <div className="md:w-1/2 w-3/4">
+            <CustomDropdown
+              avatars={avatars}
+              selectedAvatar={selectedAvatar}
+              setSelectedAvatar={setSelectedAvatar}
+              title="Pick an avatar"
+            />
+          </div>
         </div>
       ),
       sideImage: (
@@ -127,7 +218,7 @@ function Onboarding() {
           <img src={onb1} alt="onboarding image" />
         </div>
       ),
-      alt: "App appearance",
+      alt: "Select app appearance. Choose between light and dark mode. You can also select an avatar that will be used to represent you in the application.",
     },
     {
       id: 3,
@@ -146,8 +237,13 @@ function Onboarding() {
         </div>
       ),
       content: (
-        <div>
-          <h1>Contents</h1>
+        <div className="flex gap-2 my-4 py-2 md:w-1/2 w-3/4">
+          <CustomDropdown
+            avatars={roles}
+            selectedAvatar={selectedRole}
+            setSelectedAvatar={setSelectedRole}
+            title="What will be your community role?"
+          />
         </div>
       ),
       sideImage: (
@@ -155,7 +251,7 @@ function Onboarding() {
           <img src={onb2} alt="onboarding image" />
         </div>
       ),
-      alt: "Role",
+      alt: "Select your role. Choose between the roles of a member, admin or an investor. This will help us customize in-app features to match your role",
     },
     {
       id: 4,
@@ -167,7 +263,7 @@ function Onboarding() {
           </h1>
         </div>
       ),
-      title: "Finish",
+      title: "Congratulations you made it!",
       progress: (
         <div>
           <h1>Progress</h1>
@@ -175,7 +271,13 @@ function Onboarding() {
       ),
       content: (
         <div>
-          <h1>Contents</h1>
+          <Confetti
+            width={width}
+            height={height}
+            recycle={false}
+            colors={["#0052cc", "#D3D3D3", "#FFD700", "#28a745"]}
+          />
+          <img src={finish} alt="finish image" className="object-cover" />
         </div>
       ),
       sideImage: (
@@ -183,19 +285,20 @@ function Onboarding() {
           <img src={onb1} alt="onboarding image" />
         </div>
       ),
-      alt: "Finish",
+      alt: "You have successfully completed the onboarding process. You can now start using the application. We recommend starting with our Educational center to learn more about who we are, and the features we'll be rolling out.",
     },
   ];
 
   const createUser = async () => {
     setAuthUser(true);
     await signIn();
+    //check if user is available in the db & route to dashboard
     setAuthUser(false);
   };
   useEffect(() => {
     authSubscribe((user: User | null) => {
       user ? setUserAvailable(user) : null;
-      //   console.log("User:", user);
+      // console.log("User:", user);
     });
   }, []);
 
@@ -212,7 +315,9 @@ function Onboarding() {
       }}
       className="flex flex-col gap-4 items-center justify-center text-white"
     >
-      <h1 className="text-black font-heading text-3xl">User Onboarding</h1>
+      <h1 className="text-black font-heading text-3xl">
+        {step >= 2 ? "Almost There.." : "User Onboarding"}
+      </h1>
       <div className="p-4 rounded-md bg-neutral/50 md:w-1/2 w-[85%]">
         {authUser !== false ? (
           <Skeleton
@@ -234,16 +339,17 @@ function Onboarding() {
                 Back
               </button>
               <button
-                className={`font-body font-semibold text-white rounded-md px-8 py-2 bg-black
+                className={`font-body font-semibold text-white rounded-md px-6 py-2 bg-black
                 }`}
                 onClick={nextStep}
               >
-                {step === 3 ? "Finish" : "Next"}
+                {step === 3 ? "Finish 🎉" : "Next"}
               </button>
             </div>
           </div>
         )}
       </div>
+      <Toaster />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import { avatars } from "../utils/avatars";
 
 function Select() {
   return (
@@ -9,7 +10,7 @@ function Select() {
           className="block text-sm font-medium text-gray-900 font-body"
         >
           {" "}
-          What best describes your finance group?{" "}
+          Choose you avatar{" "}
         </label>
 
         <div className="relative mt-1.5 mb-4">
@@ -40,9 +41,14 @@ function Select() {
         </div>
 
         <datalist id="HeadlineActArtist">
-          <option value="chama">Chama</option>
-          <option value="sacco">Sacco</option>
-          <option value="investor">Investor</option>
+          {avatars.map((avatar) => (
+            <div key={avatar.id}>
+              <option value={avatar.name} className="font-body">
+                {avatar.name}
+                <img src={avatar.image} alt={avatar.name} />
+              </option>
+            </div>
+          ))}
         </datalist>
       </div>
     </div>

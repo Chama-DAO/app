@@ -17,7 +17,7 @@ function Select() {
             type="text"
             list="HeadlineActArtist"
             id="HeadlineAct"
-            className="w-full rounded-lg border-gray-300 pe-10 text-gray-700 sm:text-sm [&::-webkit-calendar-picker-indicator]:opacity-0 py-2 px-6 focus:outline-none"
+            className="w-full rounded-lg border-gray-300 font-body pe-10 text-gray-700 sm:text-sm [&::-webkit-calendar-picker-indicator]:opacity-0 py-2 px-6 focus:outline-none"
             placeholder="Please select"
           />
 
@@ -40,9 +40,15 @@ function Select() {
         </div>
 
         <datalist id="HeadlineActArtist">
-          <option value="chama">Chama</option>
-          <option value="sacco">Sacco</option>
-          <option value="investor">Investor</option>
+          <option value="chama" className="font-body">
+            Chama
+          </option>
+          <option value="sacco" className="font-body">
+            Sacco
+          </option>
+          <option value="investor" className="font-body">
+            Investor
+          </option>
         </datalist>
       </div>
     </div>

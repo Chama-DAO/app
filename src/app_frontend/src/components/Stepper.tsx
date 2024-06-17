@@ -1,5 +1,6 @@
 import React from "react";
 import { OnboardingData, TOnboarding } from "../utils/types/onboarding";
+import { IoMdInformationCircleOutline } from "react-icons/io";
 
 function Stepper({ stepData }: { stepData: OnboardingData }) {
   return (
@@ -33,11 +34,12 @@ function Stepper({ stepData }: { stepData: OnboardingData }) {
           {stepData.title}
         </h1>
         <div>{stepData.content}</div>
-        <p className="text-gray-500 leading-relaxed font-body font-light text-sm w-3/4">
+        <p className="text-gray-500 leading-relaxed font-body font-light text-sm md:w-3/4 my-4">
+          <IoMdInformationCircleOutline className="inline mr-2" size={24} />
           {stepData.alt}
         </p>
       </div>
-      <div className="w-1/4 h-full hidden lg:flex">
+      <div className="w-1/4 h-full hidden">
         <div>{stepData.sideImage}</div>
       </div>
     </div>

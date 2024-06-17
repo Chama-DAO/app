@@ -4,6 +4,7 @@ import Onboarding from "./pages/Onboarding";
 import { initSatellite } from "@junobuild/core";
 import { BrowserRouter, Route, Routes, Router } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const [greeting, setGreeting] = useState("");
@@ -31,6 +32,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
+      <ToastContainer />
     </main>
   );
 }
