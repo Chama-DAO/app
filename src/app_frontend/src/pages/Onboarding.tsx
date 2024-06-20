@@ -19,6 +19,7 @@ import finish from "../assets/onb3.png";
 import { financeTypes } from "../utils/financeTypes";
 import toast, { Toaster } from "react-hot-toast";
 import { TUser } from "../utils/user";
+import Loader from "../components/Loader";
 
 export type TAvatar = {
   id: number;
@@ -334,12 +335,9 @@ function Onboarding() {
 
   if (savingData || checkUser) {
     return (
-      <Skeleton
-        count={5}
-        baseColor="#d3d3d3"
-        height={30}
-        style={{ padding: 10, margin: 10 }}
-      />
+      <div className="flex items-center justify-center h-screen">
+        <Loader size="lg" />
+      </div>
     );
   }
   return (
