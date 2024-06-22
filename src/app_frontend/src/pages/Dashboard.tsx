@@ -20,7 +20,7 @@ function Dashboard() {
   }
   return (
     <div className={`${darkMode ? "dark" : ""}`}>
-      <div className="h-screen dark:bg-black">
+      <div className="h-screen dark:bg-bgDark">
         <h1 className="dark:text-white">Dashboard</h1>
         <button
           onClick={leave}

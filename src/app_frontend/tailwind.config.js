@@ -30,6 +30,7 @@ module.exports = {
         text: "#050315",
         background: "#fbfbfe",
         black: "#0b0b0b",
+        bgDark: "#0b0b0b",
       },
     },
   },
