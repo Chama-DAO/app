@@ -51,7 +51,7 @@ function Sidebar({ activeTab, setActiveTab, leave }: SidebarItemProps) {
   };
   return (
     <aside className="h-screen md:py-4 py-2 px-1 md:px-4">
-      <nav className="h-full flex flex-col bg-primary border-r shadow-lg my-2 mx-1 rounded-lg items-center">
+      <nav className="h-full flex flex-col bg-primary shadow-lg my-2 mx-1 rounded-lg items-center">
         <div className="p-4 pb-2 flex flex-col justify-between items-center my-4">
           <img src={logo} alt="logo" className="h-8 w-8" />
           <h1 className="text-white text-[0.7rem] font-bold hidden">

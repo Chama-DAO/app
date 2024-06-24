@@ -3,11 +3,12 @@ import { signOut } from "@junobuild/core";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 import Sidebar from "../components/Sidebar";
+import Home from "../components/Home";
 
 function Dashboard() {
   const navigate = useNavigate();
   const [leaving, setLeaving] = React.useState(false);
-  const [darkMode, setDarkMode] = React.useState(false);
+  const [darkMode, setDarkMode] = React.useState(true);
   const [activeTab, setActiveTab] = React.useState(1);
 
   const leave = async () => {
@@ -32,8 +33,13 @@ function Dashboard() {
         </div>
         <div className="flex-1">
           <div className="p-4">
-            <h1 className="text-2xl font-bold">Dashboard</h1>
-            <p>Welcome to your dashboard</p>
+            <button
+              onClick={() => setDarkMode(!darkMode)}
+              className="py-4 px-2 bg-primary text-neutral font-body"
+            >
+              Toggle Theme
+            </button>
+            <Home />
           </div>
         </div>
       </div>
