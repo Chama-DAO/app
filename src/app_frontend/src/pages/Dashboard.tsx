@@ -32,13 +32,13 @@ function Dashboard() {
           />
         </div>
         <div className="flex-1">
-          <div className="p-4">
-            <button
+          <div className="py-4">
+            {/* <button
               onClick={() => setDarkMode(!darkMode)}
-              className="py-4 px-2 bg-primary text-neutral font-body"
+              className="py-4 px-1 bg-primary text-neutral font-body"
             >
               Toggle Theme
-            </button>
+            </button> */}
             <Home />
           </div>
         </div>

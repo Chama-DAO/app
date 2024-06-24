@@ -2,42 +2,89 @@ import { IoWalletOutline } from "react-icons/io5";
 import { GrGroup } from "react-icons/gr";
 import { TbPigMoney } from "react-icons/tb";
 import { MdOutlineGeneratingTokens } from "react-icons/md";
+import { FaBook, FaPlus } from "react-icons/fa";
+import { MdOutlineJoinRight } from "react-icons/md";
+import { CgDetailsMore } from "react-icons/cg";
 
 export const items = [
   {
     name: "Wallet",
     icon: IoWalletOutline,
     content: (
-      <div>
-        <h1>Wallet features</h1>
-      </div>
+      <ul className="menu dropdown-content bg-base-100 rounded-box w-36 p-2">
+        <li className="font-body text-sm cursor-pointer">
+          <CgDetailsMore />
+          Account details
+        </li>
+        <li className="font-body text-sm cursor-pointer">
+          <IoWalletOutline />
+          Connect Wallet
+        </li>
+        <li className="font-body text-sm cursor-pointer">
+          <MdOutlineGeneratingTokens />
+          Buy Tokens
+        </li>
+      </ul>
     ),
   },
   {
     name: "My Chama",
     icon: GrGroup,
     content: (
-      <div>
-        <h1>My Chama features</h1>
-      </div>
+      <ul className="menu dropdown-content bg-base-100 rounded-box w-36 p-2">
+        <li className="font-body text-sm cursor-pointer">
+          <FaPlus />
+          Create a Chama
+        </li>
+        <li className="font-body text-sm cursor-pointer">
+          <MdOutlineJoinRight />
+          Join a Chama
+        </li>
+        <li className="font-body text-sm cursor-pointer">
+          <FaBook />
+          Learn
+        </li>
+      </ul>
     ),
   },
   {
-    name: "Loans & Savings",
+    name: "Investment",
     icon: TbPigMoney,
     content: (
-      <div>
-        <h1>Loans & Savings features</h1>
-      </div>
+      <ul className="menu dropdown-content bg-base-100 rounded-box w-36 p-2 ">
+        <li className="font-body text-sm cursor-pointer">
+          <CgDetailsMore />
+          View Summary
+        </li>
+        <li className="font-body text-sm cursor-pointer">
+          <MdOutlineJoinRight />
+          Invest
+        </li>
+        <li className="font-body text-sm cursor-pointer">
+          <FaBook />
+          Learn
+        </li>
+      </ul>
     ),
   },
   {
     name: "Stake",
     icon: MdOutlineGeneratingTokens,
     content: (
-      <div>
-        <h1>Staking Report</h1>
-      </div>
+      <ul className="menu dropdown-content bg-base-100 rounded-box w-36">
+        <li className="font-body text-sm cursor-pointer">
+          <CgDetailsMore />
+          View Summary
+        </li>
+        <li className="font-body text-sm cursor-pointer">
+          <MdOutlineGeneratingTokens />
+          Stake Tokens
+        </li>
+        <li className="font-body text-sm cursor-pointer">
+          <FaBook />
+          Learn
+        </li>
+      </ul>
     ),
   },
 ];
