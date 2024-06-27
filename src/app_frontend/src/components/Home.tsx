@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "./home/header";
+import InfoSection from "./home/info-section";
 
 function Home() {
   return (
@@ -7,8 +8,8 @@ function Home() {
       <div className="md:w-[65%]">
         <Header />
       </div>
-      <div className="md:w-[35%] bg-neutral">
-        <h2>Info section</h2>
+      <div className="md:w-[35%]">
+        <InfoSection />
       </div>
     </div>
   );

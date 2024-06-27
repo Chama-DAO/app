@@ -22,7 +22,7 @@ function Header() {
 
   return (
     <div className="md:grid flex flex-col items-center md:grid-cols-2 xl:grid-cols-4">
-      <div className="shadow rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative">
+      <div className="shadow-lg rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative h-48 bg-[#F9F8FB]">
         <div className="flex items-center justify-between px-4 my-4">
           <IoWalletOutline className="text-2xl" />
           <BsThreeDotsVertical
@@ -34,7 +34,7 @@ function Header() {
           <h1 className="font-heading md:text-xl px-2 font-bold">Ksh. 0</h1>
           <h2 className="font-body text-sm px-2">0 ChamCoins</h2>
         </div>
-        <p className="font-body text-sm text-gray-300 mt-4 w-3/4 p-2">
+        <p className="font-body text-sm text-gray-500 mt-4 w-3/4 p-2">
           Your account balance
         </p>
         {showModal && currentModal === "wallet" && (
@@ -48,7 +48,7 @@ function Header() {
           </div>
         )}
       </div>
-      <div className="shadow rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative">
+      <div className="shadow-lg rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative h-48 bg-[#F9F8FB]">
         <div className="flex items-center justify-between px-4 my-4">
           <GrGroup className="text-2xl" />
           <BsThreeDotsVertical
@@ -60,7 +60,7 @@ function Header() {
           <h1 className="font-heading md:text-xl px-2 font-bold">My Chama</h1>
           <h2 className="font-body text-sm px-2">Create or Join one!</h2>
         </div>
-        <p className="font-body text-sm text-gray-300 mt-4 w-3/4 p-2">
+        <p className="font-body text-sm text-gray-500 mt-4 w-3/4 p-2">
           Manage your Chama on chain.
         </p>
         {showModal && currentModal === "chama" && (
@@ -74,7 +74,7 @@ function Header() {
           </div>
         )}
       </div>
-      <div className="shadow rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative">
+      <div className="shadow-lg rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative h-48 bg-[#F9F8FB]">
         <div className="flex items-center justify-between px-4 my-4">
           <TbPigMoney className="text-2xl" />
           <BsThreeDotsVertical
@@ -86,7 +86,7 @@ function Header() {
           <h1 className="font-heading md:text-xl px-2 font-bold">Investment</h1>
           <h2 className="font-body text-sm px-2">Start an investment today</h2>
         </div>
-        <p className="font-body text-sm text-gray-300 mt-4 w-3/4 p-2">
+        <p className="font-body text-sm text-gray-500 mt-4 w-3/4 p-2">
           Provide liquidity and earn.
         </p>
         {showModal && currentModal === "investment" && (
@@ -100,7 +100,7 @@ function Header() {
           </div>
         )}
       </div>
-      <div className="shadow rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative">
+      <div className="shadow-lg rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative h-48 bg-[#F9F8FB]">
         <div className="flex items-center justify-between px-4 my-4">
           <MdOutlineGeneratingTokens className="text-2xl" />
           <div onClick={() => showModals("staking")}>
@@ -112,7 +112,7 @@ function Header() {
           <h1 className="font-heading text-xl px-2 font-bold">Ksh. 0</h1>
           <h2 className="font-body text-sm text-primary px-2">0 ChamCoins</h2>
         </div>
-        <p className="font-body text-sm text-gray-300 mt-4 w-1/2 p-2">
+        <p className="font-body text-sm text-gray-500 mt-4 w-3/4 p-2">
           Staked balance
         </p>
         {showModal && currentModal === "staking" && (
