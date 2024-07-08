@@ -15,6 +15,7 @@
     "@dfinity/candid": "^0.15.7",
     "@dfinity/principal": "^0.15.7",
     "@junobuild/core": "^0.0.52",
+    "@radix-ui/react-progress": "^1.1.0",
     "@radix-ui/react-select": "^2.0.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -28,10 +29,11 @@
     "react-router-dom": "^6.23.1",
     "react-toastify": "^10.0.5",
     "react-use": "^17.5.0",
-    "tailwind-merge": "^2.3.0",
+    "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@types/node": "^20.14.10",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
     "@vitejs/plugin-react": "^4.0.1",

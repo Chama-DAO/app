@@ -6,11 +6,10 @@ import { IoIosArrowDown } from "react-icons/io";
 import avatar from "../../assets/gamer.png";
 import { notifications } from "../../utils/notifications";
 import { FaGear } from "react-icons/fa6";
-<FaGear />;
 
 function InfoSection() {
   return (
-    <div className="mx-2 mt-8 md:mt-0 bg-[#F9F8FB] rounded-xl p-1 md:p-2">
+    <div className="mx-2 mt-8 md:mt-0 bg-[#F9F8FB] dark:bg-[#0b0b0b] rounded-xl p-1 md:p-2">
       <div className="flex items-center md:justify-center px-4 my-4 justify-between md:gap-4 lg:gap-8">
         <ThemeController theme="light" />
 
@@ -19,7 +18,7 @@ function InfoSection() {
           <IoIosArrowDown />
         </div>
       </div>
-      <div className="bg-white rounded-md p-2 md:p-4 mx-2">
+      <div className="bg-white dark:bg-[#1D232A] rounded-md p-2 md:p-4 mx-2">
         <h1 className="font-heading font-bold ld:text-xl">Voting Power</h1>
         <p className="font-body text-sm text-gray-500">Current: 0 VP</p>
         <div className="md:my-4 my-2">
@@ -53,11 +52,11 @@ function InfoSection() {
           {notifications.map((notifications) => (
             <div key={notifications.id} className="rounded-md p-2 md:p-4">
               <div className="flex items-center gap-2 rounded-md">
-                <div className="flex items-center w-16 h-16 rounded-full bg-[#e3e5f5] justify-center">
+                <div className="flex items-center w-14 h-14 rounded-full bg-[#e3e5f5] dark:bg-[#1D232A] justify-center">
                   {notifications.type === "system" ? (
-                    <FaGear className="text-primary text-2xl" />
+                    <FaGear className="text-primary text-xl" />
                   ) : (
-                    <FaBell className="text-primary text-2xl" />
+                    <FaBell className="text-primary text-xl" />
                   )}
                 </div>
                 <div className="w-[80%]">
@@ -67,13 +66,22 @@ function InfoSection() {
                   <h1 className="font-body text-gray-500 text-xs">
                     {notifications.description.substring(0, 50)}
                   </h1>
-                  <p className="font-body text-sm text-gray-500 py-2">
+                  <p className="font-body text-xs text-gray-500 py-2">
                     {notifications.time.substring(0, 10)}
                   </p>
                 </div>
               </div>
             </div>
           ))}
+        </div>
+      </div>
+      <div className="bg-[#F9F8FB] dark:bg-[#1D232A] my-2 rounded-xl h-24">
+        <div className="flex items-center justify-between p-4 bg-[#F9F8FB] dark:bg-[#1D232A] rounded-xl">
+          <input
+            placeholder="Type a message"
+            className="w-3/4 p-2 font-body text-sm rounded-lg bg-[#F9F8FB] dark:bg-[#1D232A] dark:text-white focus:outline-none border-none"
+          />
+          <IoChatboxEllipses className="text-2xl dark:text-[#F9F8FB] text-black " />
         </div>
       </div>
     </div>

@@ -3,7 +3,6 @@ import logo from "../assets/logo.png";
 import {
   FaBell,
   FaBook,
-  FaChevronRight,
   FaCog,
   FaFileAlt,
   FaHome,

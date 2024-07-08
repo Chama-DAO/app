@@ -22,7 +22,7 @@ function Header() {
 
   return (
     <div className="md:grid flex flex-col items-center md:grid-cols-2 xl:grid-cols-4">
-      <div className="shadow-lg rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative h-48 bg-[#F9F8FB]">
+      <div className=" rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative h-48 bg-[#fff] dark:bg-[#1D232A]">
         <div className="flex items-center justify-between px-4 my-4">
           <IoWalletOutline className="text-2xl" />
           <BsThreeDotsVertical
@@ -39,7 +39,7 @@ function Header() {
         </p>
         {showModal && currentModal === "wallet" && (
           <div className="absolute top-0 right-0">
-            <div className="absolute top-0 right-0 bg-white shadow rounded-md mx-1">
+            <div className="absolute top-0 right-0 bg-white dark:bg-[#1D232A] shadow rounded-md mx-1">
               <div className="p-2">
                 <IoCloseSharp onClick={() => setShowModal(false)} />
               </div>
@@ -48,7 +48,7 @@ function Header() {
           </div>
         )}
       </div>
-      <div className="shadow-lg rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative h-48 bg-[#F9F8FB]">
+      <div className="rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative h-48 bg-[#F9F8FB]  dark:bg-[#1D232A]">
         <div className="flex items-center justify-between px-4 my-4">
           <GrGroup className="text-2xl" />
           <BsThreeDotsVertical
@@ -65,7 +65,7 @@ function Header() {
         </p>
         {showModal && currentModal === "chama" && (
           <div className="absolute top-0 right-0">
-            <div className="absolute top-0 right-0 bg-white shadow rounded-md mx-1">
+            <div className="absolute top-0 right-0 bg-white dark:bg-[#1D232A] shadow rounded-md mx-1">
               <div className="p-2">
                 <IoCloseSharp onClick={() => setShowModal(false)} />
               </div>
@@ -74,7 +74,7 @@ function Header() {
           </div>
         )}
       </div>
-      <div className="shadow-lg rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative h-48 bg-[#F9F8FB]">
+      <div className="rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative h-48 bg-[#F9F8FB] dark:bg-[#1D232A]">
         <div className="flex items-center justify-between px-4 my-4">
           <TbPigMoney className="text-2xl" />
           <BsThreeDotsVertical
@@ -91,7 +91,7 @@ function Header() {
         </p>
         {showModal && currentModal === "investment" && (
           <div className="absolute top-0 right-0">
-            <div className="absolute top-0 right-0 bg-white shadow rounded-md mx-1">
+            <div className="absolute top-0 right-0 bg-white dark:bg-[#1D232A] shadow rounded-md mx-1">
               <div className="p-2">
                 <IoCloseSharp onClick={() => setShowModal(false)} />
               </div>
@@ -100,7 +100,7 @@ function Header() {
           </div>
         )}
       </div>
-      <div className="shadow-lg rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative h-48 bg-[#F9F8FB]">
+      <div className="rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative h-48 bg-[#F9F8FB] dark:bg-[#1D232A]">
         <div className="flex items-center justify-between px-4 my-4">
           <MdOutlineGeneratingTokens className="text-2xl" />
           <div onClick={() => showModals("staking")}>
@@ -116,7 +116,7 @@ function Header() {
           Staked balance
         </p>
         {showModal && currentModal === "staking" && (
-          <div className="absolute top-0 right-0 bg-white shadow rounded-md mx-1">
+          <div className="absolute top-0 right-0 bg-white dark:bg-[#1D232A] shadow rounded-md mx-1">
             <div className="p-2">
               <IoCloseSharp onClick={() => setShowModal(false)} />
             </div>
