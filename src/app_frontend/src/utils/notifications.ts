@@ -25,4 +25,13 @@ export const notifications = [
     read: false,
     time: "2021-09-01T12:00:00Z",
   },
+  {
+    id: 4,
+    title: "Invitaton to join a chama",
+    type: "chama",
+    description:
+      "You have been invited to join a chama. Click here to accept the invitation.",
+    read: false,
+    time: "2024-10-11T12:00:00Z",
+  },
 ];
