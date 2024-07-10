@@ -11,11 +11,11 @@ function LearnCard({ learningModule }: { learningModule: TLearningModule }) {
       ? 0
       : (learningModule.completed / learningModule.slides) * 100;
   return (
-    <div className="shadow-xl mx-2 rounded-lg relative my-2 hover:scale-95 cursor-pointer duration-300 transition-all">
+    <div className="shadow-xl mx-2 rounded-lg relative my-2 hover:scale-95 cursor-pointer duration-300 transition-all md:h-80">
       <img
         src={learningModule.image}
         alt={learningModule.title}
-        className="rounded-lg h-1/2 w-full object-cover"
+        className="rounded-lg h-[45%] w-full object-cover"
       />
       <div>
         <h1 className="font-heading font-bold text-xl p-2">
@@ -69,7 +69,7 @@ function LearnCard({ learningModule }: { learningModule: TLearningModule }) {
 function Learn() {
   return (
     <section className="">
-      <div className="mx-auto max-w-[1340px] px-4 py-4 sm:px-6 lg:me-0 lg:py-4 lg:pe-0 lg:ps-8 xl:py-12">
+      <div className="mx-auto max-w-[1340px] px-4 py-4 sm:px-6">
         <h1 className="text-3xl font-heading font-bold">Your Courses</h1>
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:items-center">
           <div className="max-w-xl text-center w-3/4">
@@ -87,8 +87,8 @@ function Learn() {
             </div>
           </div>
 
-          <div className="-mx-6 lg:col-span-2 lg:mx-0">
-            <div id="keen-slider" className="grid md:grid-cols-3">
+          <div className="lg:col-span-2 lg:mx-0">
+            <div id="" className="grid md:grid-cols-2">
               {learningModules.map((module) => (
                 <LearnCard key={module.id} learningModule={module} />
               ))}

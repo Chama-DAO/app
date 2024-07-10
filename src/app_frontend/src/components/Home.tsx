@@ -14,12 +14,12 @@ function Home({
 }) {
   return (
     <div className="md:flex justify-between">
-      <div className="md:w-[75%]">
+      <div className="md:w-[65%] lg:w-[75%]">
         <Header theme={theme} />
         <Learn />
         <Proposals />
       </div>
-      <div className="md:w-[25%]">
+      <div className="md:w-[35%] lg:w-[25%]">
         <InfoSection setTheme={setTheme} theme={theme} />
       </div>
     </div>

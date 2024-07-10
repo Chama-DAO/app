@@ -2,6 +2,7 @@ import module1 from "../assets/module1.jpg";
 import module2 from "../assets/module2.jpg";
 import module3 from "../assets/module3.png";
 import admin from "../assets/sns-image.webp";
+import module4 from "../assets/onb4.jpeg";
 
 export type TLearningModule = {
   id: number;
@@ -27,7 +28,7 @@ const learningModules: TLearningModule[] = [
     image: module1,
     ownerImage: admin,
     price: "Free",
-    points: 250,
+    points: 1250,
   },
   {
     id: 2,
@@ -52,6 +53,18 @@ const learningModules: TLearningModule[] = [
     ownerImage: admin,
     price: "Free",
     points: 350,
+  },
+  {
+    id: 4,
+    owner: "admin",
+    title: "Introduction to DeFi",
+    slides: 4,
+    completed: 0,
+    enrolled: 0,
+    image: module4,
+    ownerImage: admin,
+    price: "Free",
+    points: 150,
   },
 ];
 
