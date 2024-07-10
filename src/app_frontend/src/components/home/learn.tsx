@@ -81,7 +81,7 @@ function Learn() {
                 </div>
                 <div>
                   <h1 className="text-5xl font-heading font-bold">0</h1>
-                  <p className="text-xl font-body p-2">Points Earned</p>
+                  <p className="text-xl font-body p-2">XP Earned</p>
                 </div>
               </div>
             </div>
