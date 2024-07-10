@@ -2,9 +2,17 @@ import React from "react";
 
 type ThemeControllerProps = {
   theme: "dark" | "light";
+  setTheme: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-function ThemeController({ theme }: ThemeControllerProps) {
+function ThemeController({ theme, setTheme }: ThemeControllerProps) {
+  function toggleTheme() {
+    if (theme === "dark") {
+      setTheme(false);
+    } else {
+      setTheme(true);
+    }
+  }
   return (
     <label className="flex cursor-pointer gap-2">
       <svg
@@ -25,7 +33,9 @@ function ThemeController({ theme }: ThemeControllerProps) {
         type="checkbox"
         value={theme}
         className="toggle theme-controller"
+        onChange={toggleTheme}
       />
+
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="20"

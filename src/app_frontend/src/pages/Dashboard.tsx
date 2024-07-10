@@ -67,7 +67,7 @@ function Dashboard() {
             >
               Toggle Theme
             </button> */}
-            <Home />
+            <Home theme={darkMode} setTheme={setDarkMode} />
           </div>
         </div>
       </div>

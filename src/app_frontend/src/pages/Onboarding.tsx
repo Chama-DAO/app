@@ -18,7 +18,6 @@ import Confetti from "react-confetti";
 import finish from "../assets/onb3.png";
 import { financeTypes } from "../utils/financeTypes";
 import toast, { Toaster } from "react-hot-toast";
-import { TUser } from "../utils/user";
 import Loader from "../components/Loader";
 
 export type TAvatar = {
@@ -308,7 +307,9 @@ function Onboarding() {
 
   const createUser = async () => {
     setAuthUser(true);
-    await signIn();
+    await signIn({
+      allowPin: true,
+    });
     setAuthUser(false);
   };
   useEffect(() => {
@@ -333,10 +334,10 @@ function Onboarding() {
     });
   }, [authUser, userAvailable]);
 
-  if (savingData || checkUser) {
+  if (savingData) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <Loader size="lg" />
+        <Loader size="sm" />
       </div>
     );
   }

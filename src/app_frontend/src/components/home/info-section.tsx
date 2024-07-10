@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { IoChatboxEllipses } from "react-icons/io5";
 import ThemeController from "../reusables/themecontroller";
 import { FaBell } from "react-icons/fa";
@@ -7,11 +7,27 @@ import avatar from "../../assets/gamer.png";
 import { notifications } from "../../utils/notifications";
 import { FaGear } from "react-icons/fa6";
 
-function InfoSection() {
+function InfoSection({
+  theme,
+  setTheme,
+}: {
+  theme: boolean;
+  setTheme: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
+  const [currentTheme, setCurrentTheme] = React.useState<"light" | "dark">(
+    "light"
+  );
+  useEffect(() => {
+    if (theme) {
+      setCurrentTheme("dark");
+    } else {
+      setCurrentTheme("light");
+    }
+  }, [currentTheme, theme]);
   return (
     <div className="mx-2 mt-8 md:mt-0 bg-[#F9F8FB] dark:bg-[#0b0b0b] rounded-xl p-1 md:p-2">
       <div className="flex items-center md:justify-center px-4 my-4 justify-between md:gap-4 lg:gap-8">
-        <ThemeController theme="light" />
+        <ThemeController theme={currentTheme} setTheme={setTheme} />
 
         <div className="flex items-center gap-2">
           <img src={avatar} alt="avatar" className="w-8 h-8 rounded-full" />
