@@ -27,7 +27,7 @@ export const notifications = [
   },
   {
     id: 4,
-    title: "Invitaton to join a chama",
+    title: "Invitation to join a chama",
     type: "chama",
     description:
       "You have been invited to join a chama. Click here to accept the invitation.",

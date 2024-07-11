@@ -3,7 +3,6 @@ import learningModules, { TLearningModule } from "../../utils/learningModules";
 import { LuFileSpreadsheet } from "react-icons/lu";
 import { MdOutlineLibraryAddCheck } from "react-icons/md";
 import { BsPeople } from "react-icons/bs";
-import { Progress } from "../../../@/components/ui/progress";
 
 function LearnCard({ learningModule }: { learningModule: TLearningModule }) {
   const completedPercent =
