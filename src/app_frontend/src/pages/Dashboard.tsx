@@ -6,6 +6,11 @@ import Sidebar from "../components/Sidebar";
 import Home from "../components/Home";
 import noUser from "../assets/onb1.svg";
 import logo from "../assets/logo.png";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import { IoMdMenu } from "react-icons/io";
+import { IoClose } from "react-icons/io5";
+
 function Dashboard() {
   const navigate = useNavigate();
   const [leaving, setLeaving] = React.useState(false);
@@ -53,11 +58,15 @@ function Dashboard() {
   return (
     <div className={`${darkMode ? "dark" : ""}`}>
       <div
-        className="px-8 flex items-center my-4 cursor-pointer"
+        className="px-8 flex items-center my-4 cursor-pointer transition-all ease-in duration-300"
         onClick={() => setSidebar(!sidebar)}
       >
-        <img src={logo} alt="logo" className="h-12 w-12" />
-        <h1 className="text-primary text-xl font-bold font-heading ">
+        {!sidebar ? (
+          <IoMdMenu size={44} className="text-primary mx-2" />
+        ) : (
+          <IoClose size={44} className="text-primary mx-2" />
+        )}
+        <h1 className="text-primary text-3xl font-bold font-heading ">
           ChamaDAO
         </h1>
       </div>
@@ -68,6 +77,7 @@ function Dashboard() {
               activeTab={activeTab}
               setActiveTab={setActiveTab}
               leave={leave}
+              theme={darkMode}
             />
           )}
         </div>
@@ -79,6 +89,11 @@ function Dashboard() {
             >
               Toggle Theme
             </button> */}
+            {/* <BrowserRouter>
+            <Routes>
+
+            </Routes>
+            </BrowserRouter> */}
             <Home theme={darkMode} setTheme={setDarkMode} />
           </div>
         </div>

@@ -92,6 +92,7 @@ function InfoSection({
         </div>
       </div>
       <div className="bg-[#F9F8FB] dark:bg-[#1D232A] my-2 rounded-xl h-24">
+        <h1 className="font-heading p-2">Ask AI🤖</h1>
         <div className="flex items-center justify-between p-4 bg-[#F9F8FB] dark:bg-[#1D232A] rounded-xl">
           <input
             placeholder="Type a message"
