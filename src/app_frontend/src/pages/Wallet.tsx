@@ -10,6 +10,7 @@ import { MdOutlineGeneratingTokens } from "react-icons/md";
 import { Link } from "react-router-dom";
 import Transactions from "../components/wallet/transactions";
 import { FaCircle } from "react-icons/fa6";
+import Chart from "../components/wallet/Chart";
 
 function AccountCard({ account }: { account: TAccount }) {
   let PRICE;
@@ -80,7 +81,7 @@ function Wallet() {
           <div className="md:flex justify-between">
             <div className="bg-secondaryAccent p-4 rounded-lg md:w-1/2 md:h-64 w-full m-1">
               <FaWallet className="text-white" size={24} />
-              <h1 className="text-xl font-heading mt-4 text-gray-300">
+              <h1 className="text-xl font-heading mt-8 text-gray-300">
                 Total Balance
               </h1>
               <div className="lg:flex justify-between items-center mt-4 md:mt-10">
@@ -92,7 +93,7 @@ function Wallet() {
             </div>
             <div className="bg-primary p-4 rounded-lg md:w-1/2 md:h-64 w-full m-1">
               <MdOutlineGeneratingTokens className="text-white" size={24} />
-              <h1 className="text-xl font-heading mt-4 text-gray-300">
+              <h1 className="text-xl font-heading mt-8 text-gray-300">
                 Total Spending
               </h1>
               <div className="lg:flex justify-between items-center mt-4 md:mt-10">
@@ -103,8 +104,8 @@ function Wallet() {
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-center">
-            <h1>ICP chart</h1>
+          <div className="">
+            <Chart />
           </div>
         </div>
       </div>

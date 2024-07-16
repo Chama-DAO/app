@@ -37,7 +37,7 @@ export function SidebarHeader({
       )}
       {title && (
         <h1
-          className={`${theme ? "text-black" : "text-white"} font-bold
+          className={`${theme ? "text-primary" : "text-primary"} font-bold
         }`}
         >
           {title}
