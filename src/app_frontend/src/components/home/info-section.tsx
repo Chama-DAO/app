@@ -25,7 +25,7 @@ function InfoSection({
     }
   }, [currentTheme, theme]);
   return (
-    <div className="mx-2 mt-8 md:mt-0 bg-[#F9F8FB] dark:bg-[#0b0b0b] rounded-xl p-1 md:p-2">
+    <div className="mx-2 mt-8 md:mt-0 bg-[#F9F8FB] dark:bg-[#0b0b0b] rounded-xl p-1 md:p-2 ">
       <div className="flex items-center md:justify-center px-4 my-4 justify-between md:gap-4 lg:gap-8">
         <ThemeController theme={currentTheme} setTheme={setTheme} />
 
@@ -91,7 +91,7 @@ function InfoSection({
           ))}
         </div>
       </div>
-      <div className="bg-[#F9F8FB] dark:bg-[#1D232A] my-2 rounded-xl h-24">
+      <div className="bg-[#F9F8FB] dark:bg-[#1D232A] my-2 rounded-xl h-24 mb-4">
         <h1 className="font-heading p-2">Ask AI🤖</h1>
         <div className="flex items-center justify-between p-4 bg-[#F9F8FB] dark:bg-[#1D232A] rounded-xl">
           <input

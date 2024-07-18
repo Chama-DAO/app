@@ -44,7 +44,7 @@ const chartConfig = {
 
 export default function Chart() {
   return (
-    <Card className="mt-6">
+    <Card className="mt-6 border-none">
       <CardHeader>
         <CardTitle className="font-heading">
           Income - Expenditure Chart

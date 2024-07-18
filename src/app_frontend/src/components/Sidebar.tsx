@@ -13,6 +13,7 @@ import { MdGeneratingTokens } from "react-icons/md";
 import avatar from "../assets/gamer.png";
 import { FaSignOutAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { FaMessage } from "react-icons/fa6";
 
 type SidebarItemProps = {
   activeTab: number;
@@ -78,7 +79,7 @@ function Sidebar({ activeTab, setActiveTab, leave, theme }: SidebarItemProps) {
   };
   return (
     <aside className="h-screen md:py-4 py-2 px-1 md:px-4">
-      <nav className="h-full flex flex-col bg-primary shadow-lg my-2 mx-1 rounded-lg items-center">
+      <nav className="h-full flex flex-col bg-primary shadow-lg my-2 mx-1 px-2 rounded-lg items-center">
         <SidebarHeader theme={theme} />
         <ul className="flex flex-col items-center justify-center">
           <li
@@ -180,13 +181,13 @@ function Sidebar({ activeTab, setActiveTab, leave, theme }: SidebarItemProps) {
             onClick={() => setActiveTab(8)}
           >
             <Link to="/settings">
-              <FaCog
+              <FaMessage
                 className={`${
                   activeTab === 8 ? "text-secondaryAccent" : "text-neutral"
                 }`}
                 size={24}
               />
-              <span className={`text-neutral hidden`}>Settings</span>
+              <span className={`text-neutral hidden`}>Chat</span>
             </Link>
           </li>
         </ul>
