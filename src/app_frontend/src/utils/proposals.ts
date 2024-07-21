@@ -12,6 +12,7 @@ export type TProposal = {
   votesAgainst: number;
   deadline: string;
   totalVotes: number;
+  active: boolean;
 };
 
 export const proposals: TProposal[] = [
@@ -25,12 +26,13 @@ export const proposals: TProposal[] = [
     time: "2021-09-01T12:00:00Z",
     votesFor: 0,
     votesAgainst: 0,
-    deadline: "2021-10-01T12:00:00Z",
+    deadline: "2024-08-04T12:00:00Z",
     totalVotes: 0,
+    active: true,
   },
   {
     id: 2,
-    author: "Admin",
+    author: "Ian",
     area: "E-Learning",
     areaAvatar: adminAvatar,
     title: "Points Increment",
@@ -38,20 +40,22 @@ export const proposals: TProposal[] = [
     time: "2021-09-01T12:00:00Z",
     votesFor: 0,
     votesAgainst: 0,
-    deadline: "2021-10-01T12:00:00Z",
+    deadline: "2024-10-01T12:00:00Z",
     totalVotes: 0,
+    active: true,
   },
   {
     id: 3,
-    author: "Admin",
+    author: "Sylus",
     area: "ChamaDAO",
     areaAvatar: adminAvatar,
     title: "Dashboard UI Revamp",
     desc: "Proposal to update ChamaDAO dashboard UI design and associated areas",
-    time: "2021-09-01T12:00:00Z",
+    time: "2024-08-01T12:00:00Z",
     votesFor: 0,
     votesAgainst: 0,
-    deadline: "2021-10-01T12:00:00Z",
+    deadline: "2024-08-01T12:00:00Z",
     totalVotes: 0,
+    active: true,
   },
 ];

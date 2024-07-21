@@ -15,63 +15,52 @@ export function None() {
   );
 }
 
-function ChamaTab() {
-  const [activeTab, setActiveTab] = React.useState("projects");
+function ProposalTab() {
+  const [activeTab, setActiveTab] = React.useState("all");
   return (
     <Tabs defaultValue="account" className="md:w-[400px] lg:w-[900px]">
       <TabsList className="flex justify-between">
         <TabsTrigger
           value="projects"
           className={`${
-            activeTab === "projects"
-              ? "bg-secondaryAccent text-white"
+            activeTab === "all"
+              ? "border-secondaryAccent text-secondaryAccent"
               : "bg-transparent"
           } font-heading font-bold px-4 py-2 border-none rounded-md`}
           onClick={() => setActiveTab("projects")}
         >
-          Projects
+          All
         </TabsTrigger>
         <TabsTrigger
           value="members"
           className={`${
             activeTab === "members"
-              ? "bg-secondaryAccent text-white"
+              ? "border-secondaryAccent text-secondaryAccent"
               : "bg-transparent"
           } font-heading font-bold px-4 py-2 border-none rounded-md`}
           onClick={() => setActiveTab("members")}
         >
-          Members
+          Treasury
         </TabsTrigger>
         <TabsTrigger
           value="details"
           className={`${
-            activeTab === "details"
-              ? "bg-secondaryAccent text-white"
+            activeTab === "treasury"
+              ? "border-secondaryAccent text-secondaryAccent"
               : "bg-transparent"
           } font-heading font-bold px-4 py-2 border-none rounded-md`}
           onClick={() => setActiveTab("details")}
         >
-          Details
+          Members
         </TabsTrigger>
-        {/* <TabsTrigger
-          value="settings"
-          className={`${
-            activeTab === "settings"
-              ? "bg-secondaryAccent text-white"
-              : "bg-transparent"
-          } font-heading font-bold px-4 py-2 border-none rounded-md`}
-          onClick={() => setActiveTab("settings")}
-        >
-          Settings
-        </TabsTrigger> */}
       </TabsList>
-      <TabsContent value="projects">
+      <TabsContent value="all">
+        <None />
+      </TabsContent>
+      <TabsContent value="treasury">
         <None />
       </TabsContent>
       <TabsContent value="members">
-        <None />
-      </TabsContent>
-      <TabsContent value="details">
         <None />
       </TabsContent>
       {/* <TabsContent value="settings">Settings Details here</TabsContent> */}
@@ -79,4 +68,4 @@ function ChamaTab() {
   );
 }
 
-export default ChamaTab;
+export default ProposalTab;
