@@ -69,6 +69,9 @@ function Proposals() {
                 </div>
                 <div className="h-[.2px] bg-gray-700 w-1/4 my-4"></div>
                 <div className="my-2 mx-2">
+                  <h1 className="font-heading font-bold text-gray-400 py-2">
+                    {proposal.title}
+                  </h1>
                   <p className="font-body text-sm md:text-base text-gray-400 lg:w-3/4">
                     {proposal.desc}
                   </p>

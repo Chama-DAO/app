@@ -30,7 +30,7 @@ export function SidebarHeader({
   theme?: boolean;
 }) {
   return (
-    <div className="p-4 pb-2 flex justify-center items-center my-4">
+    <div className="p-1 pb-2 flex justify-center items-center my-4">
       {title !== "no" ? (
         <img src={logo} alt="logo" className="h-8 w-8" />
       ) : (
@@ -38,7 +38,7 @@ export function SidebarHeader({
       )}
       {title && (
         <h1
-          className={`${theme ? "text-primary" : "text-primary"} font-bold
+          className={`${theme ? "" : ""} font-bold
         }`}
         >
           {title}

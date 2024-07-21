@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 import Sidebar from "../components/Sidebar";
 import Home from "../components/Home";
-import noUser from "../assets/onb1.svg";
+import noUser from "../assets/nouser.png";
 import logo from "../assets/logo.png";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -58,17 +58,15 @@ function Dashboard() {
   return (
     <div className={`${darkMode ? "dark" : ""}`}>
       <div
-        className="px-8 flex items-center my-4 cursor-pointer transition-all ease-in duration-300"
+        className="px-2 flex items-center my-4 cursor-pointer transition-all ease-in duration-300"
         onClick={() => setSidebar(!sidebar)}
       >
         {!sidebar ? (
-          <IoMdMenu size={44} className="text-primary mx-2" />
+          <IoMdMenu size={44} className=" mx-2" />
         ) : (
-          <IoClose size={44} className="text-primary mx-2" />
+          <IoClose size={44} className=" mx-2" />
         )}
-        <h1 className="text-primary text-3xl font-bold font-heading ">
-          ChamaDAO
-        </h1>
+        <h1 className="text-3xl font-bold font-heading ">ChamaDAO</h1>
       </div>
       <div className="flex h-screen lg:pl-4">
         <div className="md:flex-3 flex-4 transition-all duration-150 ease-linear">

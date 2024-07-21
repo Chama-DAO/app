@@ -54,7 +54,7 @@ function Chamas() {
         </Link>
         <SidebarHeader title="My Chama" />
       </div>
-      <div className="mx-4 mb-4 rounded-md p-2 shadow-xl flex items-center justify-between bg-gradient-to-r from-primary to-primary/40 py-4">
+      <div className="md:mx-4 mb-4 rounded-md p-2 shadow-xl flex items-center justify-between bg-gradient-to-r from-primary to-primary/40 py-4">
         <div className="md:mx-8 mx:2">
           <h1 className="lg:text-5xl md:text-3xl text-xl font-bold font-heading text-white">
             Let's Build Communities
