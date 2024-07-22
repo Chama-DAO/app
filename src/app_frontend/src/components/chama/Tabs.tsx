@@ -17,9 +17,10 @@ export function None() {
 
 function ChamaTab() {
   const [activeTab, setActiveTab] = React.useState("projects");
+
   return (
-    <Tabs defaultValue="account" className="md:w-[400px] lg:w-[900px]">
-      <TabsList className="flex justify-between">
+    <Tabs defaultValue="account" className="md:w-[600px] lg:w-[900px]">
+      <TabsList className="flex justify-between px-1">
         <TabsTrigger
           value="projects"
           className={`${
@@ -53,7 +54,7 @@ function ChamaTab() {
         >
           Details
         </TabsTrigger>
-        {/* <TabsTrigger
+        <TabsTrigger
           value="settings"
           className={`${
             activeTab === "settings"
@@ -63,7 +64,18 @@ function ChamaTab() {
           onClick={() => setActiveTab("settings")}
         >
           Settings
-        </TabsTrigger> */}
+        </TabsTrigger>
+        <TabsTrigger
+          value="settings"
+          className={`${
+            activeTab === "summary"
+              ? "bg-secondaryAccent text-white"
+              : "bg-transparent"
+          } font-heading font-bold px-4 py-2 border-none rounded-md`}
+          onClick={() => setActiveTab("summary")}
+        >
+          Summary
+        </TabsTrigger>
       </TabsList>
       <TabsContent value="projects">
         <None />
@@ -74,7 +86,10 @@ function ChamaTab() {
       <TabsContent value="details">
         <None />
       </TabsContent>
-      {/* <TabsContent value="settings">Settings Details here</TabsContent> */}
+      <TabsContent value="settings">
+        <None />
+      </TabsContent>
+      <TabsContent value="summary">Settings Details here</TabsContent>
     </Tabs>
   );
 }

@@ -13,7 +13,9 @@ function Proposals() {
         <Link to="/dashboard">
           <FaChevronLeft size={24} className="md:mt-2" />
         </Link>
-        <SidebarHeader title="ChamaDAO Proposals" />
+        <div className="mt-2">
+          <SidebarHeader title="ChamaDAO Proposals" />
+        </div>
       </div>
       <div className="max-w-[900px] mx-auto my-0">
         <div className="flex justify-between items-center">
@@ -69,15 +71,15 @@ function Proposals() {
                 </div>
                 <div className="h-[.2px] bg-gray-700 w-1/4 my-4"></div>
                 <div className="my-2 mx-2">
-                  <h1 className="font-heading font-bold text-gray-400 py-2">
+                  <h1 className="font-heading font-bold py-2">
                     {proposal.title}
                   </h1>
-                  <p className="font-body text-sm md:text-base text-gray-400 lg:w-3/4">
+                  <p className="font-body text-sm md:text-basel g:w-3/4">
                     {proposal.desc}
                   </p>
                 </div>
                 <div className="flex gap-2 items-center mt-8">
-                  <h1 className="text-gray-700">{proposal.totalVotes} Votes</h1>
+                  <h1 className="text-gray-400">{proposal.totalVotes} Votes</h1>
                   <h1 className="text-gray-500 font-body font-bold text-sm">
                     {deadline.toDateString()}
                   </h1>
@@ -88,7 +90,7 @@ function Proposals() {
         </div>
       </div>
       <div className="flex justify-center items-center my-4">
-        <button className="bg-transparent text-white font-body text-sm md:text-lg rounded-md md:px-4 px-2 py-2 md:mt-8 mt-4 hover:bg-secondaryAccent hover:text-black transition-all ease-in duration-150 border-secondaryAccent border-[1px]">
+        <button className="bg-transparent font-body text-sm md:text-lg rounded-md md:px-4 px-2 py-2 md:mt-8 mt-4 hover:bg-secondaryAccent hover:text-black transition-all ease-in duration-150 border-secondaryAccent border-[1px]">
           Load More
         </button>
       </div>

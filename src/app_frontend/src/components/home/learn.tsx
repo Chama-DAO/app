@@ -4,13 +4,17 @@ import { LuFileSpreadsheet } from "react-icons/lu";
 import { MdOutlineLibraryAddCheck } from "react-icons/md";
 import { BsPeople } from "react-icons/bs";
 
-function LearnCard({ learningModule }: { learningModule: TLearningModule }) {
+export function LearnCard({
+  learningModule,
+}: {
+  learningModule: TLearningModule;
+}) {
   const completedPercent =
     learningModule.completed === 0
       ? 0
       : (learningModule.completed / learningModule.slides) * 100;
   return (
-    <div className="shadow-xl mx-2 rounded-lg relative my-2 hover:scale-95 cursor-pointer duration-300 transition-all md:h-80">
+    <div className="mx-2 lg:mx-8 rounded-lg relative my-2 lg:my-8 hover:scale-95 cursor-pointer duration-300 transition-all md:h-80 lg:h-96">
       <img
         src={learningModule.image}
         alt={learningModule.title}

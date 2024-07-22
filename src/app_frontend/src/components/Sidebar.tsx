@@ -176,7 +176,7 @@ function Sidebar({ activeTab, setActiveTab, leave, theme }: SidebarItemProps) {
               <span className={`text-neutral hidden`}>Proposals</span>
             </Link>
           </li>
-          <li
+          {/* <li
             className="flex items-center justify-center w-full py-2 my-2 transition-all duration-300 ease-in-out cursor-pointer"
             onClick={() => setActiveTab(8)}
           >
@@ -189,7 +189,7 @@ function Sidebar({ activeTab, setActiveTab, leave, theme }: SidebarItemProps) {
               />
               <span className={`text-neutral hidden`}>Chat</span>
             </Link>
-          </li>
+          </li> */}
         </ul>
         <button className="mt-8 absolute bottom-20 flex items-center">
           <img src={avatar} alt="avatar" className="h-8 w-8 rounded-full" />

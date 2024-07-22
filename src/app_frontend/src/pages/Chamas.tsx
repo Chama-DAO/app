@@ -52,7 +52,9 @@ function Chamas() {
         <Link to="/dashboard">
           <FaChevronLeft size={24} className="md:mt-2" />
         </Link>
-        <SidebarHeader title="My Chama" />
+        <div className="mt-2">
+          <SidebarHeader title="My Chama" />
+        </div>
       </div>
       <div className="md:mx-4 mb-4 rounded-md p-2 shadow-xl flex items-center justify-between bg-gradient-to-r from-primary to-primary/40 py-4">
         <div className="md:mx-8 mx:2">

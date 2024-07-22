@@ -69,7 +69,9 @@ function Wallet() {
         <Link to="/dashboard">
           <FaChevronLeft size={24} className="md:mt-2" />
         </Link>
-        <SidebarHeader title="My Wallet" />
+        <div className="mt-2">
+          <SidebarHeader title="My Wallet" />
+        </div>
       </div>
       <div className="flex md:flex-row flex-col gap-4 justify-between">
         <div className="flex flex-col md:mx-2 mx-1 md:w-[45%]">

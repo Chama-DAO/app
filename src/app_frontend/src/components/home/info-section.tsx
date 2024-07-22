@@ -26,31 +26,28 @@ function InfoSection({
   }, [currentTheme, theme]);
   return (
     <div className="mx-2 mt-8 md:mt-0 bg-[#F9F8FB] dark:bg-[#0b0b0b] rounded-xl p-1 md:p-2 ">
-      <div className="flex items-center md:justify-center px-4 my-4 justify-between md:gap-4 lg:gap-8">
+      <div className="flex items-center px-4 my-4 justify-between md:gap-4 lg:gap-8 ">
         <ThemeController theme={currentTheme} setTheme={setTheme} />
 
         <div className="flex items-center gap-2">
           <img src={avatar} alt="avatar" className="w-8 h-8 rounded-full" />
-          <IoIosArrowDown />
+          {/* <IoIosArrowDown /> */}
         </div>
       </div>
       <div className="bg-white dark:bg-[#1D232A] rounded-md p-2 md:p-4 mx-2">
         <h1 className="font-heading font-bold ld:text-xl">Voting Power</h1>
         <p className="font-body text-sm text-gray-500">Current: 0 VP</p>
         <div className="md:my-4 my-2">
-          <p className="font-heading font-bold text-sm text-gray-500">
-            Next reward
-          </p>
           <p className="font-body text-sm text-gray-500">
-            Expected VP increase:{" "}
-            <span className="text-primary font-bold">0 VP</span>
+            Maturity date{" "}
+            <span className="text-primary font-bold">11th December</span>
           </p>
           <progress
             className="progress progress-primary"
             value="0"
             max="100"
           ></progress>
-          <p className="font-body text-xs md:text-sm text-gray-300 text-center">
+          <p className="font-body text-xs md:text-sm text-gray-500 text-center">
             Approximately 0 days remaining
           </p>
         </div>
