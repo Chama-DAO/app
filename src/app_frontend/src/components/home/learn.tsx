@@ -73,7 +73,7 @@ function Learn() {
   return (
     <section className="">
       <div className="mx-auto max-w-[1340px] px-4 py-4 sm:px-6">
-        <h1 className="text-3xl font-heading font-bold">Your Courses</h1>
+        <h1 className="text-3xl font-heading font-bold">Recommended Courses</h1>
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:items-center">
           <div className="max-w-xl text-center w-3/4">
             <div className="">

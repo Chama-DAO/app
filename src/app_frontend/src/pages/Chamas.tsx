@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaChevronLeft } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SidebarHeader } from "../components/Sidebar";
 import headerImage from "../assets/sns-image.webp";
-import ChamaTab from "../components/chama/Tabs";
+import ChamaTab, { None } from "../components/chama/Tabs";
 import chamaAvatar from "../assets/saccoo.png";
 import Transactions from "../components/wallet/transactions";
+import { authSubscribe, signOut, User } from "@junobuild/core";
+import noUser from "../assets/nouser.png";
+import CreateChama from "../components/chama/create-chama";
 
 function ChamaSummary() {
   return (
@@ -46,6 +49,38 @@ function ChamaSummary() {
 }
 
 function Chamas() {
+  const navigate = useNavigate();
+  const [user, setUser] = useState<User | null>(null);
+  const [leaving, setLeaving] = React.useState(false);
+  const leave = async () => {
+    setLeaving(true);
+    await signOut();
+    navigate("/");
+    setLeaving(false);
+  };
+
+  useEffect(() => {
+    authSubscribe((user: User | null) => {
+      user ? setUser(user) : null;
+    });
+  }, []);
+
+  if (!user) {
+    return (
+      <div className="flex-col flex items-center justify-center p-4 h-screen">
+        <img src={noUser} alt="No user" className="w-1/2 md:w-1/3" />
+        <p className="text-gray-500 font-body text-center text-lg">
+          You're not logged in😞
+        </p>
+        <button
+          className="bg-primary py-2 px-8 font-body text-white rounded-lg my-4"
+          onClick={leave}
+        >
+          Login
+        </button>
+      </div>
+    );
+  }
   return (
     <div className="px-2 md:px-10">
       <div className="flex items-center md:justify-normal justify-between">
@@ -71,7 +106,7 @@ function Chamas() {
           className="object-contain md:h-44 h-32"
         />
       </div>
-      <div>
+      {/* <div>
         <div className="flex flex-col md:flex-row justify-between mt-10">
           <ChamaSummary />
           <ChamaTab />
@@ -115,6 +150,31 @@ function Chamas() {
           </div>
         </div>
         <Transactions />
+      </div> */}
+      <div className="mt-12">
+        <None />
+        <div className="flex flex-col items-center justify-center mx-2">
+          <h1 className="text-lg font-heading">
+            You're not part of a chama yet
+          </h1>
+          <button
+            className="font-body bg-primary text-white py-3 px-4 rounded-lg my-12 shadow-md"
+            onClick={() => document?.getElementById("my_modal_3")?.showModal()}
+          >
+            Create one!
+          </button>
+
+          <dialog id="my_modal_3" className="modal">
+            <div className="modal-box">
+              <form method="dialog">
+                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                  ✕
+                </button>
+              </form>
+              <CreateChama />
+            </div>
+          </dialog>
+        </div>
       </div>
     </div>
   );

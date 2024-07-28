@@ -39,6 +39,27 @@ export type TFinanceType = {
 };
 
 export type Theme = "dark" | "light";
+export type UserType = {
+  id: string;
+  username: string;
+  financeType: string;
+  theme: string;
+  avatar: string;
+  role: string;
+  isOnboarded: boolean;
+  userBalance: number;
+  transactions: any[];
+  monthlySpend: any[];
+  chamas: any[];
+  hasCreatedChama: boolean;
+  stakingInformation: any;
+  notifications: any[];
+  courses: any[];
+  hasCreatedProposal: boolean;
+  proposals: any[];
+  votedOnProposal: any[];
+  adminChama: any[];
+};
 
 function Onboarding() {
   const navigate = useNavigate();
@@ -68,6 +89,28 @@ function Onboarding() {
     }
   }
 
+  const userBalances = [
+    {
+      account: "Main",
+      balance: 0,
+    },
+    {
+      account: "Staking",
+      balance: 0,
+    },
+    {
+      account: "Investment",
+      balance: 0,
+    },
+  ];
+
+  const stakingInformation = {
+    amount: 0,
+    dateStaked: "",
+    votingPower: 0,
+    maturityDate: "",
+  };
+
   async function nextStep() {
     if (step === 3) {
       if (userAvailable) {
@@ -79,6 +122,18 @@ function Onboarding() {
           avatar: selectedAvatar,
           role: selectedRole,
           isOnboarded: true,
+          userBalance: userBalances,
+          transactions: [],
+          monthlySpend: [],
+          chamas: [],
+          hasCreatedChama: false,
+          stakingInformation: stakingInformation,
+          notifications: [],
+          courses: [],
+          hasCreatedProposal: false,
+          proposals: [],
+          votedOnProposal: [],
+          adminChama: [],
         };
         try {
           setSavingData(true);
@@ -91,7 +146,6 @@ function Onboarding() {
           });
           setSavingData(false);
           toast.success("Profile saved successfully");
-          //  console.log("User:", currUser);
           navigate("/dashboard");
         } catch (error) {
           toast.error("An error occurred!");

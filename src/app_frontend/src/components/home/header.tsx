@@ -38,7 +38,7 @@ function Header({ theme: darkMode }: { theme: boolean }) {
         </div>
         <div className="flex flex-col">
           <h1 className="font-heading md:text-xl px-2 font-bold">Ksh. 0</h1>
-          <h2 className="font-body text-sm px-2">0 ChamCoins</h2>
+          <h2 className="font-body text-sm px-2">0 ckUSDC</h2>
         </div>
         <p className="font-body text-sm text-gray-500 mt-4 w-3/4 p-2">
           Your account balance
@@ -120,7 +120,7 @@ function Header({ theme: darkMode }: { theme: boolean }) {
         </div>
         <div className="flex flex-col">
           <h1 className="font-heading text-xl px-2 font-bold">Ksh. 0</h1>
-          <h2 className="font-body text-sm text-primary px-2">0 ChamCoins</h2>
+          <h2 className="font-body text-sm text-primary px-2">0 ckUSDC</h2>
         </div>
         <p className="font-body text-sm text-gray-500 mt-4 w-3/4 p-2">
           Staked balance

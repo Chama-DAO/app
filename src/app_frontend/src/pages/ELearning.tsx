@@ -27,10 +27,10 @@ function ELearning() {
         }}
       >
         <div className="md:mx-8 mx:2">
-          <h1 className="lg:text-5xl md:text-3xl text-xl font-bold font-heading">
+          <h1 className="lg:text-5xl md:text-3xl text-xl font-bold font-heading text-gray-700 ">
             E-Learn. Build your Skills.
           </h1>
-          <p className="font-body leading-relaxed py-2 text-lg md:w-1/2">
+          <p className="font-body text-gray-600 leading-relaxed py-2 text-lg md:w-1/2">
             Get access to numerous curated electronic courses and materials to
             help you grow you skills and business as well.
           </p>
@@ -45,12 +45,12 @@ function ELearning() {
           </div>
         </div>
       </div>
-      <div className="md:hidden p-2 flex items-center justify-between py-4 h-[350px] bg-[#E8E6DF] max-w-[1140px]">
+      <div className="md:hidden p-2 flex items-center justify-between py-4 h-[350px] text-gray-700 bg-[#E8E6DF] max-w-[1140px]">
         <div className="md:mx-8 mx:2">
           <h1 className="lg:text-5xl md:text-3xl text-xl font-bold font-heading">
             E-Learn. Build your Skills.
           </h1>
-          <p className="font-body text-base leading-relaxed py-2">
+          <p className="font-body text-base leading-relaxed py-2 text-gray-600">
             Get access to numerous curated electronic courses and materials to
             help you grow you skills and business as well.
           </p>
