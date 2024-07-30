@@ -9,6 +9,7 @@ import Transactions from "../components/wallet/transactions";
 import { authSubscribe, signOut, User } from "@junobuild/core";
 import noUser from "../assets/nouser.png";
 import CreateChama from "../components/chama/create-chama";
+import { useUserStore } from "../store/userStore";
 
 function ChamaSummary() {
   return (
@@ -49,8 +50,12 @@ function ChamaSummary() {
 }
 
 function Chamas() {
+  const { user, getUser } = useUserStore((state: any) => ({
+    user: state.user,
+    getUser: state.getUser,
+  }));
   const navigate = useNavigate();
-  const [user, setUser] = useState<User | null>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [leaving, setLeaving] = React.useState(false);
   const leave = async () => {
     setLeaving(true);
@@ -61,9 +66,16 @@ function Chamas() {
 
   useEffect(() => {
     authSubscribe((user: User | null) => {
-      user ? setUser(user) : null;
+      user ? setCurrentUser(user) : null;
     });
   }, []);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      await getUser(currentUser?.key);
+    };
+    fetchUser();
+  }, [getUser, currentUser?.key]);
 
   if (!user) {
     return (
@@ -106,51 +118,57 @@ function Chamas() {
           className="object-contain md:h-44 h-32"
         />
       </div>
-      {/* <div>
-        <div className="flex flex-col md:flex-row justify-between mt-10">
-          <ChamaSummary />
-          <ChamaTab />
-          <div className="hidden md:flex flex-col my-8 w-[40%]">
-            <div className="flex gap-10 w-full">
-              <div className="flex flex-col items-center">
-                <img
-                  src={chamaAvatar}
-                  alt="chama-avatar"
-                  className="h-36 md:h-28 rounded-full"
-                />
+      {user?.data?.chamas?.length !== 0 ? (
+        <div>
+          <div className="flex flex-col md:flex-row justify-between mt-10">
+            <ChamaSummary />
+            <ChamaTab />
+            <div className="hidden md:flex flex-col my-8 w-[40%]">
+              <div className="flex gap-10 w-full">
+                <div className="flex flex-col items-center">
+                  <img
+                    src={chamaAvatar}
+                    alt="chama-avatar"
+                    className="h-36 md:h-28 rounded-full"
+                  />
+                </div>
+                <div>
+                  <h1 className="font-bold font-heading">
+                    {user?.data?.chamas[0]?.name}
+                  </h1>
+                  <h1 className="font-body py-2">
+                    Active Members:{" "}
+                    <span className="font-body text-primary font-bold">
+                      {user?.data?.chamas[0]?.members?.length}
+                    </span>
+                  </h1>
+                  <h1 className="font-body py-2">
+                    Active Projects:{" "}
+                    <span className="font-body text-primary font-bold">
+                      {user?.data?.chamas[0]?.projects?.length}
+                    </span>
+                  </h1>
+                  <h1 className="font-body py-2">
+                    Next Meeting:{" "}
+                    <span className="font-heading text-primary font-bold">
+                      user?.data?.chamas[0].nextMeeting
+                    </span>
+                  </h1>
+                </div>
               </div>
-              <div>
-                <h1 className="font-bold font-heading">Chama Name</h1>
-                <h1 className="font-body py-2">
-                  Active Members:{" "}
-                  <span className="font-body text-primary font-bold">0</span>
+              <div className="my-4">
+                <h1 className="font-bold font-heading px-2 mt-4 text-xl">
+                  About
                 </h1>
-                <h1 className="font-body py-2">
-                  Active Projects:{" "}
-                  <span className="font-body text-primary font-bold">0</span>
-                </h1>
-                <h1 className="font-body py-2">
-                  Next Meeting:{" "}
-                  <span className="font-heading text-primary font-bold">-</span>
-                </h1>
+                <p className="font-body p-2 leading-relaxed text-sm">
+                  {user?.data?.chamas[0].description}
+                </p>
               </div>
-            </div>
-            <div className="my-4">
-              <h1 className="font-bold font-heading px-2 mt-4 text-xl">
-                About
-              </h1>
-              <p className="font-body p-2 leading-relaxed text-sm">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam,
-                at aliquid. Explicabo quidem qui, aperiam illum eum itaque culpa
-                quisquam cum esse voluptatibus aliquid neque impedit harum
-                reiciendis similique quas. Molestias inventore quaerat esse
-                nulla iusto vitae omnis magni iste possimus?
-              </p>
             </div>
           </div>
+          <Transactions />
         </div>
-        <Transactions />
-      </div> */}
+      ) : null}
       <div className="mt-12">
         <None />
         <div className="flex flex-col items-center justify-center mx-2">
@@ -159,7 +177,11 @@ function Chamas() {
           </h1>
           <button
             className="font-body bg-primary text-white py-3 px-4 rounded-lg my-12 shadow-md"
-            onClick={() => document?.getElementById("my_modal_3")?.showModal()}
+            onClick={() =>
+              (
+                document?.getElementById("my_modal_3") as HTMLDialogElement
+              )?.showModal()
+            }
           >
             Create one!
           </button>

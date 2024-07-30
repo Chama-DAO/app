@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { items } from "../../utils/HeaderItems";
 import { IoWalletOutline } from "react-icons/io5";
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -6,17 +6,44 @@ import { GrGroup } from "react-icons/gr";
 import { TbPigMoney } from "react-icons/tb";
 import { MdOutlineGeneratingTokens } from "react-icons/md";
 import { IoCloseSharp } from "react-icons/io5";
+import { authSubscribe, User } from "@junobuild/core";
+import { useUserStore } from "../../store/userStore";
 
 type TModalType = "wallet" | "chama" | "investment" | "staking" | null;
 
 function Header({ theme: darkMode }: { theme: boolean }) {
+  const { user, getUser } = useUserStore((state: any) => ({
+    user: state.user,
+    getUser: state.getUser,
+  }));
   const [currentModal, setCurrentModal] = React.useState<TModalType>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [showModal, setShowModal] = React.useState<boolean>(false);
+
+  useEffect(() => {
+    authSubscribe((user: User | null) => {
+      if (user) {
+        setCurrentUser(user);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      await getUser(currentUser?.key);
+    };
+    fetchUser();
+  }, [getUser, currentUser?.key]);
+  // console.log(user);
 
   const showModals = (modal: TModalType) => {
     setShowModal(true);
     setCurrentModal(modal);
   };
+  const totalBalance =
+    user?.data?.userBalance[0]?.balance +
+    user?.data?.userBalance[1]?.balance +
+    user?.data?.userBalance[2]?.balance;
 
   return (
     <div
@@ -37,8 +64,12 @@ function Header({ theme: darkMode }: { theme: boolean }) {
           />
         </div>
         <div className="flex flex-col">
-          <h1 className="font-heading md:text-xl px-2 font-bold">Ksh. 0</h1>
-          <h2 className="font-body text-sm px-2">0 ckUSDC</h2>
+          <h1 className="font-heading md:text-xl px-2 font-bold">
+            Ksh. {totalBalance}
+          </h1>
+          <h2 className="font-body text-sm px-2">
+            {(totalBalance * 0.0078)?.toPrecision(3)} ckUSDC
+          </h2>
         </div>
         <p className="font-body text-sm text-gray-500 mt-4 w-3/4 p-2">
           Your account balance
@@ -119,8 +150,12 @@ function Header({ theme: darkMode }: { theme: boolean }) {
           </div>
         </div>
         <div className="flex flex-col">
-          <h1 className="font-heading text-xl px-2 font-bold">Ksh. 0</h1>
-          <h2 className="font-body text-sm text-primary px-2">0 ckUSDC</h2>
+          <h1 className="font-heading text-xl px-2 font-bold">
+            Ksh. {user?.data?.userBalance[1]?.balance}
+          </h1>
+          <h2 className="font-body text-sm text-primary px-2">
+            {user?.data?.userBalance[2]?.balance?.toPrecision(3)} ckUSDC
+          </h2>
         </div>
         <p className="font-body text-sm text-gray-500 mt-4 w-3/4 p-2">
           Staked balance

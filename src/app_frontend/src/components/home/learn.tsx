@@ -79,7 +79,7 @@ function Learn() {
             <div className="">
               <div className="p-2">
                 <div className="my-4">
-                  <h1 className="text-5xl font-heading font-bold">3</h1>
+                  <h1 className="text-5xl font-heading font-bold">4</h1>
                   <p className="text-xl font-body p-2">Learning Paths</p>
                 </div>
                 <div>

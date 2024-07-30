@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import * as zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -21,6 +21,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../../@/components/ui/select";
+import { useUserStore } from "../../store/userStore";
+import { avatars } from "../../utils/avatars";
+import { authSubscribe, setDoc, User } from "@junobuild/core";
+import Loader from "../Loader";
 
 const formSchema = zod
   .object({
@@ -43,11 +47,58 @@ const formSchema = zod
     }
   );
 
-const handleSubmit = (values: zod.infer<typeof formSchema>) => {
-  console.log(values);
-};
-
 function CreateChama() {
+  const { user, setUser } = useUserStore((state: any) => ({
+    user: state.user,
+    setUser: state.getUser,
+  }));
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    authSubscribe((user: User | null) => {
+      user ? setCurrentUser(user) : null;
+    });
+  }, []);
+  const handleSubmit = async (values: zod.infer<typeof formSchema>) => {
+    const chamas = {
+      ...values,
+      type: "hybrid",
+      accountBalance: 0,
+      members: [],
+      meetings: [],
+      nextMeeting: "",
+      projects: [],
+      transactions: [],
+      avatar: avatars[Math.floor(Math.random() * avatars.length)].image,
+      fundingCycle: "Monthly",
+      settings: [],
+    };
+    const newUser = {
+      ...user,
+      data: {
+        ...user.data,
+        chamas: [...user.data.chamas, chamas],
+      },
+    };
+    try {
+      setLoading(true);
+      if (currentUser) {
+        await setDoc({
+          collection: "users",
+          doc: {
+            key: currentUser.key,
+            data: newUser,
+          },
+        });
+      }
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
+
   const form = useForm<zod.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -58,6 +109,14 @@ function CreateChama() {
       customContributionCycle: "",
     },
   });
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center">
+        <Loader size="sm" />
+      </div>
+    );
+  }
   return (
     <Form {...form}>
       <form
