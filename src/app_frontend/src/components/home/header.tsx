@@ -10,15 +10,21 @@ import { authSubscribe, User } from "@junobuild/core";
 import { useUserStore } from "../../store/userStore";
 
 type TModalType = "wallet" | "chama" | "investment" | "staking" | null;
+type TBalances = {
+  account: string;
+  balance: number;
+};
 
 function Header({ theme: darkMode }: { theme: boolean }) {
   const { user, getUser } = useUserStore((state: any) => ({
     user: state.user,
     getUser: state.getUser,
   }));
+  // console.log(user);
   const [currentModal, setCurrentModal] = React.useState<TModalType>(null);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [showModal, setShowModal] = React.useState<boolean>(false);
+  const [balances, setBalances] = useState<TBalances[] | null>(null);
 
   useEffect(() => {
     authSubscribe((user: User | null) => {
@@ -30,20 +36,31 @@ function Header({ theme: darkMode }: { theme: boolean }) {
 
   useEffect(() => {
     const fetchUser = async () => {
-      await getUser(currentUser?.key);
+      if (currentUser && currentUser.key) {
+        try {
+          await getUser(currentUser.key);
+        } catch (error) {
+          console.error("Error fetching user:", error);
+        }
+      } else {
+        console.warn("currentUser or currentUser.key is undefined");
+      }
     };
     fetchUser();
-  }, [getUser, currentUser?.key]);
+  }, [currentUser, getUser]);
   // console.log(user);
+  // console.log(user.data.chamas);
+
+  useEffect(() => {
+    if (user && user.data) {
+      setBalances(user.data.userBalance);
+    }
+  }, [user]);
 
   const showModals = (modal: TModalType) => {
     setShowModal(true);
     setCurrentModal(modal);
   };
-  const totalBalance =
-    user?.data?.userBalance[0]?.balance +
-    user?.data?.userBalance[1]?.balance +
-    user?.data?.userBalance[2]?.balance;
 
   return (
     <div
@@ -65,10 +82,11 @@ function Header({ theme: darkMode }: { theme: boolean }) {
         </div>
         <div className="flex flex-col">
           <h1 className="font-heading md:text-xl px-2 font-bold">
-            Ksh. {totalBalance}
+            Ksh. {balances ? balances[0].balance : 0}
           </h1>
           <h2 className="font-body text-sm px-2">
-            {(totalBalance * 0.0078)?.toPrecision(3)} ckUSDC
+            {" "}
+            {balances ? balances[0].balance * 130 : 0} ckUSDC
           </h2>
         </div>
         <p className="font-body text-sm text-gray-500 mt-4 w-3/4 p-2">
@@ -151,10 +169,10 @@ function Header({ theme: darkMode }: { theme: boolean }) {
         </div>
         <div className="flex flex-col">
           <h1 className="font-heading text-xl px-2 font-bold">
-            Ksh. {user?.data?.userBalance[1]?.balance}
+            Ksh. {balances ? balances[1].balance : 0}
           </h1>
           <h2 className="font-body text-sm text-primary px-2">
-            {user?.data?.userBalance[2]?.balance?.toPrecision(3)} ckUSDC
+            {balances ? balances[0].balance * 130 : 0} ckUSDC
           </h2>
         </div>
         <p className="font-body text-sm text-gray-500 mt-4 w-3/4 p-2">

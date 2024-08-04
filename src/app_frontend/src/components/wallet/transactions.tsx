@@ -11,7 +11,6 @@ import {
 export default function Transactions() {
   return (
     <div className="mt-4">
-      <h1 className="font-heading text-3xl text-center">Transactions</h1>
       <Table>
         <TableCaption>A list of your recent transactions.</TableCaption>
         <TableHeader>

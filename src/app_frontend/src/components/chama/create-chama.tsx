@@ -23,8 +23,10 @@ import {
 } from "../../../@/components/ui/select";
 import { useUserStore } from "../../store/userStore";
 import { avatars } from "../../utils/avatars";
-import { authSubscribe, setDoc, User } from "@junobuild/core";
+import { authSubscribe, getDoc, setDoc, User } from "@junobuild/core";
 import Loader from "../Loader";
+import { Link } from "react-router-dom";
+import { notifications } from "../../utils/notifications";
 
 const formSchema = zod
   .object({
@@ -54,6 +56,8 @@ function CreateChama() {
   }));
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false);
+  const [chamaCreatedSuccessfully, setChamaCreatedSuccessfully] =
+    useState(false);
 
   useEffect(() => {
     authSubscribe((user: User | null) => {
@@ -74,24 +78,44 @@ function CreateChama() {
       fundingCycle: "Monthly",
       settings: [],
     };
-    const newUser = {
-      ...user,
-      data: {
-        ...user.data,
-        chamas: [...user.data.chamas, chamas],
-      },
+    const chamaCreationNotification = {
+      id: Math.random().toString(),
+      title: "Chama created successfully",
+      type: "chama",
+      description: `${values.name} has been created successfully. You can now invite your friends to join.`,
+      read: false,
+      time: Date.now().toString(),
     };
     try {
       setLoading(true);
       if (currentUser) {
-        await setDoc({
+        const userDoc = await getDoc({
           collection: "users",
-          doc: {
-            key: currentUser.key,
-            data: newUser,
-          },
+          key: currentUser.key,
         });
+        const userData = userDoc!.data;
+        const newChamas = [...userData!.chamas, chamas];
+        const newData = {
+          ...userData,
+          chamas: newChamas,
+          hasCreatedChama: true,
+          adminChama: [...userData!.adminChama, chamas],
+          notifications: [
+            ...userData!.notifications,
+            chamaCreationNotification,
+          ],
+        };
+        if (userDoc) {
+          await setDoc({
+            collection: "users",
+            doc: {
+              ...userDoc,
+              data: newData,
+            },
+          });
+        }
       }
+      setChamaCreatedSuccessfully(true);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -114,6 +138,21 @@ function CreateChama() {
     return (
       <div className="flex items-center justify-center">
         <Loader size="sm" />
+      </div>
+    );
+  }
+  if (chamaCreatedSuccessfully) {
+    return (
+      <div className="flex flex-col items-center justify-center">
+        <h1 className="font-heading text-lg text-center my-4">
+          Chama created successfully🎉
+        </h1>
+        <Link
+          to="/dashboard"
+          className="bg-primary rounded-md font-body font-semibold px-4 py-2"
+        >
+          Home
+        </Link>
       </div>
     );
   }

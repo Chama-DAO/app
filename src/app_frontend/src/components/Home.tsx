@@ -19,7 +19,7 @@ function Home({
         <Learn />
         {/* <Proposals /> */}
       </div>
-      <div className="md:w-[35%] lg:w-[25%]">
+      <div className="md:w-[35%] lg:w-[35%]">
         <InfoSection setTheme={setTheme} theme={theme} />
       </div>
     </div>

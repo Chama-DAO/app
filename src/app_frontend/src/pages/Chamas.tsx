@@ -6,10 +6,10 @@ import headerImage from "../assets/sns-image.webp";
 import ChamaTab, { None } from "../components/chama/Tabs";
 import chamaAvatar from "../assets/saccoo.png";
 import Transactions from "../components/wallet/transactions";
-import { authSubscribe, signOut, User } from "@junobuild/core";
+import { authSubscribe, getDoc, signOut, User } from "@junobuild/core";
 import noUser from "../assets/nouser.png";
 import CreateChama from "../components/chama/create-chama";
-import { useUserStore } from "../store/userStore";
+import Loader from "../components/Loader";
 
 function ChamaSummary() {
   return (
@@ -50,13 +50,12 @@ function ChamaSummary() {
 }
 
 function Chamas() {
-  const { user, getUser } = useUserStore((state: any) => ({
-    user: state.user,
-    getUser: state.getUser,
-  }));
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [leaving, setLeaving] = React.useState(false);
+  const [chamaDetails, setChamaDetails] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+
   const leave = async () => {
     setLeaving(true);
     await signOut();
@@ -65,19 +64,35 @@ function Chamas() {
   };
 
   useEffect(() => {
-    authSubscribe((user: User | null) => {
-      user ? setCurrentUser(user) : null;
+    authSubscribe((u: User | null) => {
+      if (u) {
+        const fetchUserData = async (id: string) => {
+          setLoading(true);
+          try {
+            const userDoc = await getDoc({
+              collection: "users",
+              key: id,
+            });
+            if (userDoc && userDoc.data) {
+              console.log("User data:", userDoc);
+              const userData = userDoc.data;
+              setChamaDetails(userData.chamas);
+            }
+          } catch (error) {
+            console.error("Error fetching user data:", error);
+          } finally {
+            setLoading(false);
+          }
+        };
+        fetchUserData(u.key);
+        setCurrentUser(u);
+      } else {
+        setCurrentUser(null);
+      }
     });
   }, []);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      await getUser(currentUser?.key);
-    };
-    fetchUser();
-  }, [getUser, currentUser?.key]);
-
-  if (!user) {
+  if (!currentUser) {
     return (
       <div className="flex-col flex items-center justify-center p-4 h-screen">
         <img src={noUser} alt="No user" className="w-1/2 md:w-1/3" />
@@ -90,6 +105,14 @@ function Chamas() {
         >
           Login
         </button>
+      </div>
+    );
+  }
+
+  if (loading || currentUser === null) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Loader size="lg" />
       </div>
     );
   }
@@ -118,10 +141,54 @@ function Chamas() {
           className="object-contain md:h-44 h-32"
         />
       </div>
-      {user?.data?.chamas?.length !== 0 ? (
+      {chamaDetails.length > 0 ? (
         <div>
           <div className="flex flex-col md:flex-row justify-between mt-10">
-            <ChamaSummary />
+            <div className="md:hidden flex flex-col my-8">
+              <div className="flex gap-10">
+                <div className="flex flex-col items-center">
+                  <img
+                    src={chamaAvatar}
+                    alt="chama-avatar"
+                    className="h-36 rounded-full"
+                  />
+                </div>
+                <div>
+                  <h1 className="font-bold font-heading">
+                    {" "}
+                    {chamaDetails[0]?.name}
+                  </h1>
+                  <h1 className="font-body py-2">
+                    Active Members:{" "}
+                    <span className="font-body">
+                      {" "}
+                      {chamaDetails[0]?.members?.length}
+                    </span>
+                  </h1>
+                  <h1 className="font-body py-2">
+                    Active Projects:{" "}
+                    <span className="font-body text-primary">
+                      {" "}
+                      {chamaDetails[0]?.projects?.length}
+                    </span>
+                  </h1>
+                  <h1 className="font-body py-2">
+                    Funding Cycle:{" "}
+                    <span className="font-body">
+                      {chamaDetails[0]?.fundingCycle}
+                    </span>
+                  </h1>
+                </div>
+              </div>
+              <div className="my-4">
+                <h1 className="font-bold font-heading px-2 mt-4 text-xl">
+                  About
+                </h1>
+                <p className="font-body p-2 leading-relaxed text-sm">
+                  {chamaDetails[0]?.description}
+                </p>
+              </div>
+            </div>
             <ChamaTab />
             <div className="hidden md:flex flex-col my-8 w-[40%]">
               <div className="flex gap-10 w-full">
@@ -134,24 +201,24 @@ function Chamas() {
                 </div>
                 <div>
                   <h1 className="font-bold font-heading">
-                    {user?.data?.chamas[0]?.name}
+                    {chamaDetails[0]?.name}
                   </h1>
                   <h1 className="font-body py-2">
                     Active Members:{" "}
                     <span className="font-body text-primary font-bold">
-                      {user?.data?.chamas[0]?.members?.length}
+                      {chamaDetails[0]?.members?.length}
                     </span>
                   </h1>
                   <h1 className="font-body py-2">
                     Active Projects:{" "}
                     <span className="font-body text-primary font-bold">
-                      {user?.data?.chamas[0]?.projects?.length}
+                      {chamaDetails[0]?.projects?.length}
                     </span>
                   </h1>
                   <h1 className="font-body py-2">
-                    Next Meeting:{" "}
+                    Funding Cycle:{" "}
                     <span className="font-heading text-primary font-bold">
-                      user?.data?.chamas[0].nextMeeting
+                      {chamaDetails[0]?.fundingCycle}
                     </span>
                   </h1>
                 </div>
@@ -161,43 +228,51 @@ function Chamas() {
                   About
                 </h1>
                 <p className="font-body p-2 leading-relaxed text-sm">
-                  {user?.data?.chamas[0].description}
+                  {chamaDetails[0]?.description}
                 </p>
               </div>
             </div>
           </div>
-          <Transactions />
-        </div>
-      ) : null}
-      <div className="mt-12">
-        <None />
-        <div className="flex flex-col items-center justify-center mx-2">
-          <h1 className="text-lg font-heading">
-            You're not part of a chama yet
+          <h1 className="font-heading text-3xl text-center mt-6 mb-4">
+            Transactions
           </h1>
-          <button
-            className="font-body bg-primary text-white py-3 px-4 rounded-lg my-12 shadow-md"
-            onClick={() =>
-              (
-                document?.getElementById("my_modal_3") as HTMLDialogElement
-              )?.showModal()
-            }
-          >
-            Create one!
-          </button>
-
-          <dialog id="my_modal_3" className="modal">
-            <div className="modal-box">
-              <form method="dialog">
-                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                  ✕
-                </button>
-              </form>
-              <CreateChama />
-            </div>
-          </dialog>
+          {chamaDetails[0].transactions?.length > 1 ? (
+            <Transactions />
+          ) : (
+            <None />
+          )}
         </div>
-      </div>
+      ) : (
+        <div className="mt-12">
+          <None />
+          <div className="flex flex-col items-center justify-center mx-2">
+            <h1 className="text-lg font-heading">
+              You're not part of a chama yet
+            </h1>
+            <button
+              className="font-body bg-primary text-white py-3 px-4 rounded-lg my-12 shadow-md"
+              onClick={() =>
+                (
+                  document?.getElementById("my_modal_3") as HTMLDialogElement
+                )?.showModal()
+              }
+            >
+              Create one!
+            </button>
+
+            <dialog id="my_modal_3" className="modal">
+              <div className="modal-box">
+                <form method="dialog">
+                  <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                    ✕
+                  </button>
+                </form>
+                <CreateChama />
+              </div>
+            </dialog>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

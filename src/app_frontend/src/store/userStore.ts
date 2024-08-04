@@ -9,17 +9,12 @@ export const useUserStore = create((set) => ({
       key: id,
     });
     set((state: any) => ({
-      user: {
-        ...currentUser,
-      },
+      user: currentUser,
     }));
   },
   setUser: (newUser: any) => {
     set((state: any) => ({
-      user: {
-        ...state,
-        newUser,
-      },
+      user: newUser,
     }));
   },
 }));

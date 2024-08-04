@@ -14,7 +14,7 @@ export function LearnCard({
       ? 0
       : (learningModule.completed / learningModule.slides) * 100;
   return (
-    <div className="mx-2 lg:mx-8 rounded-lg relative my-2 lg:my-8 hover:scale-95 cursor-pointer duration-300 transition-all md:h-80 lg:h-96">
+    <div className="hover:shadow-sm md:px-4 hover:shadow-primary lg:mx-8 rounded-lg relative my-2 lg:my-8 hover:scale-95 cursor-pointer duration-300 transition-all md:h-80 lg:h-96">
       <img
         src={learningModule.image}
         alt={learningModule.title}
@@ -57,7 +57,7 @@ export function LearnCard({
           ></span>
         </span>
       </div>
-      <div className="absolute bottom-5 flex justify-between w-full">
+      <div className="absolute bottom-5 flex justify-between w-[90%]">
         <p className="font-body text-sm text-gray-500 p-2">
           {learningModule.completed}% complete.
         </p>

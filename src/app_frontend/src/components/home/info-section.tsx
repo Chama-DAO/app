@@ -6,6 +6,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import avatar from "../../assets/gamer.png";
 import { notifications } from "../../utils/notifications";
 import { FaGear } from "react-icons/fa6";
+import { format } from "date-fns";
 
 function InfoSection({
   theme,
@@ -24,9 +25,13 @@ function InfoSection({
       setCurrentTheme("light");
     }
   }, [currentTheme, theme]);
+  const formattedNotifications = notifications.map((notification) => ({
+    ...notification,
+    time: format(new Date(notification.time), "HH:mm a MM-dd"),
+  }));
   return (
-    <div className="mx-2 mt-8 md:mt-0 bg-[#F9F8FB] dark:bg-[#0b0b0b] rounded-xl p-1 md:p-2 ">
-      <div className="flex items-center px-4 my-4 justify-between md:gap-4 lg:gap-8 ">
+    <div className="mx-2 mt-8 md:mt-0 bg-[#F9F8FB] dark:bg-[#0b0b0b] rounded-xl p-1 md:p-2 md:h-screen">
+      <div className="flex items-center px-4 my-4 justify-between md:gap-4 lg:gap-8">
         <ThemeController theme={currentTheme} setTheme={setTheme} />
 
         <div className="flex items-center gap-2">
@@ -62,7 +67,7 @@ function InfoSection({
           Notifications
         </h1>
         <div className="flex-col">
-          {notifications.map((notifications) => (
+          {formattedNotifications.map((notifications) => (
             <div key={notifications.id} className="rounded-md p-2 md:p-4">
               <div className="flex items-center gap-2 rounded-md">
                 <div className="flex items-center w-14 h-14 rounded-full bg-[#e3e5f5] dark:bg-[#1D232A] justify-center">
@@ -80,7 +85,7 @@ function InfoSection({
                     {notifications.description.substring(0, 50)}
                   </h1>
                   <p className="font-body text-xs text-gray-500 py-2">
-                    {notifications.time.substring(0, 10)}
+                    {notifications.time}
                   </p>
                 </div>
               </div>

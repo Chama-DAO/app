@@ -32,11 +32,11 @@ function ELearning() {
           </h1>
           <p className="font-body text-gray-600 leading-relaxed py-2 text-lg md:w-1/2">
             Get access to numerous curated electronic courses and materials to
-            help you grow you skills and business as well.
+            help you learn blockchain technology.
           </p>
           <div className="flex items-center gap-4 mt-4">
             <input
-              className="bg-white w-[70%] h-12 px-4 rounded-lg"
+              className="bg-white w-[70%] h-12 px-4 rounded-lg text-black font-body"
               placeholder="Search for topics"
             />
             <button className="md:text-lg bg-primary px-4 py-2 rounded-md text-white w-1/4">
@@ -65,7 +65,9 @@ function ELearning() {
           </div>
         </div>
       </div>
-      <h1 className="font-heading text-3xl my-4 px-4">Trending Picks</h1>
+      <h1 className="font-heading text-3xl lg:mt-16 mt-12 my-4 px-4">
+        Trending Picks
+      </h1>
       <div className="px-2 lg:mx-12 mt-4 grid md:grid-cols-3">
         {learningModules.map((module) => (
           <LearnCard key={module.id} learningModule={module} />
