@@ -28,6 +28,76 @@ import Loader from "../Loader";
 import { Link } from "react-router-dom";
 import { notifications } from "../../utils/notifications";
 
+interface FinanceType {
+  id: number;
+  name: string;
+  image: string;
+}
+
+interface Avatar {
+  id: number;
+  name: string;
+  image: string;
+}
+
+interface Role {
+  id: number;
+  name: string;
+  image: string;
+}
+
+interface UserBalance {
+  account: string;
+  balance: number;
+}
+
+interface Chama {
+  name: string;
+  description: string;
+  contributionAmount: string;
+  contributionCycle: string;
+  customContributionCycle: string;
+  type: string;
+  accountBalance: number;
+  members: any[];
+  meetings: any[];
+  nextMeeting: string;
+  projects: any[];
+  transactions: any[];
+  avatar: string;
+  fundingCycle: string;
+  settings: any[];
+}
+
+interface StakingInformation {
+  amount: number;
+  dateStaked: string;
+  votingPower: number;
+  maturityDate: string;
+}
+
+interface UserData {
+  id: string;
+  username: string;
+  financeType: FinanceType;
+  theme: string;
+  avatar: Avatar;
+  role: Role;
+  isOnboarded: boolean;
+  userBalance: UserBalance[];
+  transactions: any[];
+  monthlySpend: any[];
+  chamas: Chama[];
+  hasCreatedChama: boolean;
+  stakingInformation: StakingInformation;
+  notifications: any[];
+  courses: any[];
+  hasCreatedProposal: boolean;
+  proposals: any[];
+  votedOnProposal: any[];
+  adminChama: any[];
+}
+
 const formSchema = zod
   .object({
     name: zod.string().min(5).max(50),
@@ -93,8 +163,8 @@ function CreateChama() {
           collection: "users",
           key: currentUser.key,
         });
-        const userData = userDoc!.data;
-        const newChamas = [...userData!.chamas, chamas];
+        const userData = userDoc?.data as UserData | undefined;
+        const newChamas = [...(userData?.chamas ?? []), chamas];
         const newData = {
           ...userData,
           chamas: newChamas,
