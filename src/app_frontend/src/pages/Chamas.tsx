@@ -10,6 +10,7 @@ import { authSubscribe, getDoc, signOut, User } from "@junobuild/core";
 import noUser from "../assets/nouser.png";
 import CreateChama from "../components/chama/create-chama";
 import Loader from "../components/Loader";
+import { UserData } from "../components/chama/create-chama";
 
 function ChamaSummary() {
   return (
@@ -75,8 +76,8 @@ function Chamas() {
             });
             if (userDoc && userDoc.data) {
               console.log("User data:", userDoc);
-              const userData = userDoc.data;
-              setChamaDetails(userData.chamas);
+              const userData = userDoc.data as UserData | undefined;
+              setChamaDetails(userData?.chamas);
             }
           } catch (error) {
             console.error("Error fetching user data:", error);

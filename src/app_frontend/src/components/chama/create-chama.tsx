@@ -76,7 +76,7 @@ interface StakingInformation {
   maturityDate: string;
 }
 
-interface UserData {
+export interface UserData {
   id: string;
   username: string;
   financeType: FinanceType;

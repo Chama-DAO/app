@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export const notifications = [
   {
     id: 1,
@@ -5,7 +7,7 @@ export const notifications = [
     type: "system",
     description: "You have successfully joined the ChamaDAO community.",
     read: false,
-    time: new Date(Date.now()).toLocaleString(),
+    time: format(new Date(), "EEEE do yyyy h a"),
   },
   {
     id: 2,
@@ -14,7 +16,7 @@ export const notifications = [
     description:
       "Explore the platform and start learning about ChamaDAO and blockchain.",
     read: false,
-    time: new Date(Date.now()).toLocaleString(),
+    time: format(new Date(), "EEEE do yyyy h a"),
   },
   {
     id: 3,
@@ -23,6 +25,6 @@ export const notifications = [
     description:
       "Create a chama and invite your friends to join. Or join an existing chama.",
     read: false,
-    time: new Date(Date.now()).toLocaleString(),
+    time: format(new Date(), "EEEE do yyyy h a"),
   },
 ];

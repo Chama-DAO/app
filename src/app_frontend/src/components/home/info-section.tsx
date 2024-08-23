@@ -27,7 +27,7 @@ function InfoSection({
   }, [currentTheme, theme]);
   const formattedNotifications = notifications.map((notification) => ({
     ...notification,
-    time: format(new Date(notification.time), "HH:mm a MM-dd"),
+    // time: format(new Date(notification.time), "HH:mm a MM-dd"),
   }));
   return (
     <div className="mx-2 mt-8 md:mt-0 bg-[#F9F8FB] dark:bg-[#0b0b0b] rounded-xl p-1 md:p-2 md:h-screen">
