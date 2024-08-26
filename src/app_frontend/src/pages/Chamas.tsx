@@ -75,7 +75,6 @@ function Chamas() {
               key: id,
             });
             if (userDoc && userDoc.data) {
-              console.log("User data:", userDoc);
               const userData = userDoc.data as UserData | undefined;
               setChamaDetails(userData?.chamas);
             }
@@ -118,7 +117,7 @@ function Chamas() {
     );
   }
   return (
-    <div className="px-2 md:px-10">
+    <div className="px-1 md:px-10">
       <div className="flex items-center md:justify-normal justify-between">
         <Link to="/dashboard">
           <FaChevronLeft size={24} className="md:mt-2" />
@@ -143,8 +142,8 @@ function Chamas() {
         />
       </div>
       {chamaDetails.length > 0 ? (
-        <div>
-          <div className="flex flex-col md:flex-row justify-between mt-10">
+        <div className="">
+          <div className="flex flex-col md:flex-row justify-between mt-10 ">
             <div className="md:hidden flex flex-col my-8">
               <div className="flex gap-10">
                 <div className="flex flex-col items-center">
@@ -234,7 +233,7 @@ function Chamas() {
               </div>
             </div>
           </div>
-          <h1 className="font-heading text-3xl text-center mt-6 mb-4">
+          <h1 className="font-heading text-3xl text-center mt-12 mb-4">
             Transactions
           </h1>
           {chamaDetails[0].transactions?.length > 1 ? (

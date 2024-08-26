@@ -30,7 +30,7 @@ function App() {
   }
 
   return (
-    <main>
+    <main className="">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Onboarding />} />

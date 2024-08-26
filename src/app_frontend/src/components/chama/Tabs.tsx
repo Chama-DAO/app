@@ -1,3 +1,4 @@
+import { authSubscribe, getDoc, User } from "@junobuild/core";
 import {
   Tabs,
   TabsContent,
@@ -5,11 +6,14 @@ import {
   TabsTrigger,
 } from "../../../@/components/ui/tabs";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Members from "./members";
+import { UserData } from "./create-chama";
+import Projects from "../chama/Projects";
 
 export function None() {
   return (
-    <div className="flex items-center justify-center w-full h-[100px]">
+    <div className="flex items-center justify-center w-full">
       <h1 className=" font-heading py-2">Nothing here yet</h1>
     </div>
   );
@@ -17,10 +21,37 @@ export function None() {
 
 function ChamaTab() {
   const [activeTab, setActiveTab] = React.useState("projects");
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [userData, setUserData] = useState<UserData | undefined>();
+  const [loading, setLoading] = useState(false);
+
+  const fetchUserInfo = async (key: string) => {
+    const userDoc = await getDoc({
+      collection: "users",
+      key: key,
+    });
+    const userData = userDoc?.data as UserData | undefined;
+    return userData;
+  };
+
+  useEffect(() => {
+    authSubscribe((user: User | null) => {
+      user ? setCurrentUser(user) : null;
+    });
+    const fetchAndSetUserData = async () => {
+      if (currentUser) {
+        const user = await fetchUserInfo(currentUser.key);
+        if (user) {
+          setUserData(user);
+        }
+      }
+    };
+    fetchAndSetUserData();
+  }, [currentUser]);
 
   return (
-    <Tabs defaultValue="account" className="md:w-[600px] lg:w-[900px]">
-      <TabsList className="flex justify-between px-1">
+    <Tabs defaultValue="projects" className="md:w-[600px] lg:w-[900px]">
+      <TabsList className="flex justify-between ">
         <TabsTrigger
           value="projects"
           className={`${
@@ -78,10 +109,10 @@ function ChamaTab() {
         </TabsTrigger>
       </TabsList>
       <TabsContent value="projects">
-        <None />
+        {currentUser ? <Projects chamas={userData?.chamas[0]} /> : <None />}
       </TabsContent>
       <TabsContent value="members">
-        <None />
+        {currentUser ? <Members chamas={userData?.chamas[0]} /> : <None />}
       </TabsContent>
       <TabsContent value="details">
         <None />

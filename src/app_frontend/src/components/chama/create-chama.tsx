@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -21,12 +20,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../../@/components/ui/select";
-import { useUserStore } from "../../store/userStore";
 import { avatars } from "../../utils/avatars";
 import { authSubscribe, getDoc, setDoc, User } from "@junobuild/core";
 import Loader from "../Loader";
 import { Link } from "react-router-dom";
-import { notifications } from "../../utils/notifications";
+import { v4 as uuidv4 } from "uuid";
 
 interface FinanceType {
   id: number;
@@ -51,7 +49,7 @@ interface UserBalance {
   balance: number;
 }
 
-interface Chama {
+export interface Chama {
   name: string;
   description: string;
   contributionAmount: string;
@@ -120,10 +118,6 @@ const formSchema = zod
   );
 
 function CreateChama() {
-  const { user, setUser } = useUserStore((state: any) => ({
-    user: state.user,
-    setUser: state.getUser,
-  }));
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false);
   const [chamaCreatedSuccessfully, setChamaCreatedSuccessfully] =
@@ -136,6 +130,7 @@ function CreateChama() {
   }, []);
   const handleSubmit = async (values: zod.infer<typeof formSchema>) => {
     const chamas = {
+      id: uuidv4(),
       ...values,
       type: "hybrid",
       accountBalance: 0,
@@ -147,6 +142,7 @@ function CreateChama() {
       avatar: avatars[Math.floor(Math.random() * avatars.length)].image,
       fundingCycle: "Monthly",
       settings: [],
+      created: Date.now().toString(),
     };
     const chamaCreationNotification = {
       id: Math.random().toString(),
@@ -169,6 +165,13 @@ function CreateChama() {
           members: [userData],
         };
         const newChamas = [...(userData?.chamas ?? []), chama];
+        await setDoc({
+          collection: "chama",
+          doc: {
+            key: chamas.id,
+            data: chama,
+          },
+        });
         const newData = {
           ...userData,
           chamas: newChamas,
@@ -255,7 +258,6 @@ function CreateChama() {
             );
           }}
         />
-
         <FormField
           control={form.control}
           name="description"
