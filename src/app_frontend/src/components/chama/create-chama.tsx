@@ -164,14 +164,18 @@ function CreateChama() {
           key: currentUser.key,
         });
         const userData = userDoc?.data as UserData | undefined;
-        const newChamas = [...(userData?.chamas ?? []), chamas];
+        const chama = {
+          ...chamas,
+          members: [userData],
+        };
+        const newChamas = [...(userData?.chamas ?? []), chama];
         const newData = {
           ...userData,
           chamas: newChamas,
           hasCreatedChama: true,
-          adminChama: [...userData!.adminChama, chamas],
+          adminChama: [...(userData?.adminChama ?? []), chama],
           notifications: [
-            ...userData!.notifications,
+            ...(userData?.notifications ?? []),
             chamaCreationNotification,
           ],
         };
@@ -219,7 +223,7 @@ function CreateChama() {
         </h1>
         <Link
           to="/dashboard"
-          className="bg-primary rounded-md font-body font-semibold px-4 py-2"
+          className="bg-primary rounded-md font-body font-semibold px-4 py-2 text-white"
         >
           Home
         </Link>
