@@ -44,6 +44,7 @@ export function ProjectModal({
     };
     getApprovals();
     if (approvals.length > 0 && user) {
+      //@ts-ignore
       const checkApproval = approvals?.includes(user.key);
       console.log(checkApproval);
       setHasApproved(checkApproval);

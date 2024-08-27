@@ -77,7 +77,6 @@ function Projects({ chamas }: any) {
       </div>
     );
   }
-  console.log(currentChama?.projects);
 
   return (
     <div className="flex flex-col items-center justify-center mx-2">
