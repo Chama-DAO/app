@@ -35,16 +35,15 @@ function CreateProject({ id }: any) {
         (Number(values.fundsCollected) / Number(values.fundsAllocated)) * 100,
       approvals: 1,
       approved: false,
+      approvedBy: [],
     };
     try {
       setLoading(true);
-      console.log(id);
       const chamaDoc = await getDoc({
         collection: "chama",
         key: id,
       });
       const chamaData = chamaDoc?.data as Chama;
-      console.log(chamaData);
       const newChamaData = {
         ...chamaData,
         projects: [...chamaData.projects, project],
