@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import avatar from "../../assets/man2.png";
+import avatar from "../../assets/man.png";
+
 import { FaPlus } from "react-icons/fa";
 import { listDocs } from "@junobuild/core";
 import Loader from "../Loader";
@@ -45,13 +46,13 @@ function Members({ chamas }: any) {
       {currentChama?.members.map((member: any) => {
         let originalPath = member?.avatar?.image;
         let modifiedPath = originalPath ? originalPath.substring(4) : "";
-        let pic = `../..${modifiedPath}`;
+        let pic = `/src${modifiedPath}`;
         return (
           <div key={member.id} className="">
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-2 py-4">
                 <img
-                  src={avatar}
+                  src={pic || avatar}
                   alt="avatar"
                   className="w-10 h-10 rounded-full"
                 />
