@@ -25,6 +25,7 @@ import { authSubscribe, getDoc, setDoc, User } from "@junobuild/core";
 import Loader from "../Loader";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import { format } from "date-fns";
 
 interface FinanceType {
   id: number;
@@ -143,6 +144,15 @@ function CreateChama() {
       fundingCycle: "Monthly",
       settings: [],
       created: Date.now().toString(),
+      notifications: [
+        {
+          id: Math.floor(Math.random()).toString(),
+          title: "Welcome to your new chama",
+          type: "chama",
+          description: `${values.name} has been created successfully. You can now invite your friends to join.`,
+          time: format(new Date(), "EEEE do yyyy ha"),
+        },
+      ],
     };
     const chamaCreationNotification = {
       id: Math.random().toString(),
@@ -150,7 +160,7 @@ function CreateChama() {
       type: "chama",
       description: `${values.name} has been created successfully. You can now invite your friends to join.`,
       read: false,
-      time: Date.now().toString(),
+      time: format(new Date(), "EEEE do yyyy h a"),
     };
     try {
       setLoading(true);

@@ -105,7 +105,7 @@ function ChamaTab() {
           } font-heading font-bold px-4 py-2 border-none rounded-md`}
           onClick={() => setActiveTab("summary")}
         >
-          Summary
+          Notifications
         </TabsTrigger>
       </TabsList>
       <TabsContent value="projects">
@@ -120,7 +120,7 @@ function ChamaTab() {
       <TabsContent value="settings">
         <None />
       </TabsContent>
-      <TabsContent value="summary">Settings Details here</TabsContent>
+      <TabsContent value="summary">Notifications here</TabsContent>
     </Tabs>
   );
 }
