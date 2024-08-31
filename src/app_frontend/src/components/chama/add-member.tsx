@@ -46,8 +46,8 @@ function AddMemberModal({ currentChama }: { currentChama: any }) {
     try {
       setLoading(true);
       const userDoc = await getDoc({
-        collection: "users",
-        key: data.key,
+        collection: "app",
+        key: "allUsers",
       });
       console.log(userDoc);
     } catch (error) {

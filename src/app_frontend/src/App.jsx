@@ -10,6 +10,7 @@ import Chamas from "./pages/Chamas";
 import ELearning from "./pages/ELearning";
 import Proposals from "./pages/Proposals";
 import Settings from "./pages/Settings";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const [greeting, setGreeting] = useState("");
@@ -42,7 +43,7 @@ function App() {
           <Route path="/settings" element={<Settings />} />
         </Routes>
       </BrowserRouter>
-      <ToastContainer />
+      <Toaster />
     </main>
   );
 }

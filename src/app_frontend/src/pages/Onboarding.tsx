@@ -144,6 +144,7 @@ function Onboarding() {
         };
         try {
           setSavingData(true);
+          localStorage.setItem("user", JSON.stringify(currUser));
           await setDoc({
             collection: "users",
             doc: {
