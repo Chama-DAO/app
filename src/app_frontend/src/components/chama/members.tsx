@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import avatar from "../../assets/man.png";
-
-import { FaPlus } from "react-icons/fa";
 import { listDocs } from "@junobuild/core";
 import Loader from "../Loader";
+import AddMemberModal from "./add-member";
+import { FaPlus } from "react-icons/fa";
 
 function Members({ chamas }: any) {
   const chamaID = chamas?.id;
@@ -68,11 +68,21 @@ function Members({ chamas }: any) {
       })}
 
       <div className="flex justify-center items-center w-full py-4">
-        <button className="bg-primary text-white font-body font-semibold px-4 py-2 rounded-md mt-4 flex items-center justify-between gap-4">
+        {/* @ts-ignore */}
+        <button
+          className="bg-primary btn text-white font-body font-semibold px-4 py-2 rounded-md mt-4 flex items-center justify-between gap-4"
+          onClick={() => {
+            const dialog = document.getElementById(
+              "add_member"
+            ) as HTMLDialogElement;
+            dialog?.showModal();
+          }}
+        >
           <h1>Add Members</h1>
-          <FaPlus className="inline-block" />
+          <FaPlus />
         </button>
       </div>
+      <AddMemberModal currentChama={currentChama} />
     </div>
   );
 }

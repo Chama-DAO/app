@@ -28,6 +28,7 @@ function InfoSection({
     authSubscribe((user: User | null) => {
       if (user) {
         setUser(user);
+        console.log(user.description);
         const getNotifications = async () => {
           try {
             const userDoc = await getDoc({

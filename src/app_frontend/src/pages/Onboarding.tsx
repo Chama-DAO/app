@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 import backgroundImage from "../assets/onboarding.gif";
 import Auth from "../components/Auth";
-import { signIn, authSubscribe, User, setDoc, getDoc } from "@junobuild/core";
+import {
+  signIn,
+  authSubscribe,
+  User,
+  setDoc,
+  getDoc,
+  setManyDocs,
+} from "@junobuild/core";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import logo from "../assets/logo.png";
@@ -142,6 +149,7 @@ function Onboarding() {
             doc: {
               key: userAvailable.key,
               data: currUser,
+              description: currUser.username,
             },
           });
           setSavingData(false);

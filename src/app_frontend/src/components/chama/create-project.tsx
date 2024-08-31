@@ -1,4 +1,6 @@
 import React from "react";
+import { v4 as uuid, v4 } from "uuid";
+import { format } from "date-fns";
 import * as zod from "zod";
 import { useForm } from "react-hook-form";
 import {
@@ -47,6 +49,15 @@ function CreateProject({ id }: any) {
       const newChamaData = {
         ...chamaData,
         projects: [...chamaData.projects, project],
+        notifications: [
+          {
+            id: v4(),
+            title: "New Project",
+            type: "project",
+            description: `New project ${values.title} has been created`,
+            time: format(new Date(), "EEEE do yyyy ha"),
+          },
+        ],
       };
       if (chamaDoc) {
         await setDoc({
