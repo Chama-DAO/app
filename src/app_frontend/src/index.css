@@ -26,3 +26,19 @@
 * {
   @apply transition-colors duration-100;
 }
+
+@keyframes pulseColor {
+  0% {
+    color: "#0052cc";
+  }
+  50% {
+    color: "#D3D3D3";
+  }
+  100% {
+    color: "#0052cc";
+  }
+}
+
+.pulse {
+  animation: pulseColor 5s infinite;
+}

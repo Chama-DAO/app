@@ -153,6 +153,7 @@ function CreateChama() {
           time: format(new Date(), "EEEE do yyyy ha"),
         },
       ],
+      invites: [],
     };
     const chamaCreationNotification = {
       id: Math.random().toString(),
@@ -160,7 +161,7 @@ function CreateChama() {
       type: "chama",
       description: `${values.name} has been created successfully. You can now invite your friends to join.`,
       read: false,
-      time: format(new Date(), "EEEE do yyyy h a"),
+      time: format(new Date(), "EEEE do yyyy ha"),
     };
     try {
       setLoading(true);
@@ -180,6 +181,7 @@ function CreateChama() {
           doc: {
             key: chamas.id,
             data: chama,
+            description: chama.id,
           },
         });
         const newData = {

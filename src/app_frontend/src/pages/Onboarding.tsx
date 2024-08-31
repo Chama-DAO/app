@@ -316,7 +316,7 @@ function Onboarding() {
         </div>
       ),
       content: (
-        <div className="flex gap-2 my-4 py-2 md:w-1/2 w-3/4">
+        <div className="flex gap-2 my-4 py-2 w-3/4">
           <CustomDropdown
             avatars={roles}
             selectedAvatar={selectedRole}

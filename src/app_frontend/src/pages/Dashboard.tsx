@@ -148,12 +148,12 @@ function Dashboard() {
           )}
           <h1 className="text-3xl font-bold font-heading ">ChamaDAO</h1>
         </div>
-        <button
+        {/* <button
           className="font-body text-xs md:text-sm lg:text-base bg-primary rounded-md text-white py-2 px-2"
           onClick={() => addUserToGeneralAppData()}
         >
           Join the community🥳
-        </button>
+        </button> */}
       </div>
       <div className="flex h-screen lg:pl-4">
         <div className="md:flex-3 flex-4 transition-all duration-150 ease-linear">

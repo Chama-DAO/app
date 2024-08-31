@@ -1,8 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { toast } from "../../../@/hooks/use-toast";
+import toast from "react-hot-toast";
 import { Button } from "../../../@/components/ui/button";
+import done from "../../../public/done.gif";
+
 import {
   Form,
   FormControl,
@@ -13,7 +15,9 @@ import {
 } from "../../../@/components/ui/form";
 import { Input } from "../../../@/components/ui/input";
 import React from "react";
-import { getDoc, listDocs } from "@junobuild/core";
+import { getDoc, listDocs, setDoc } from "@junobuild/core";
+import Loader from "../Loader";
+import { format, set } from "date-fns";
 
 const FormSchema = z.object({
   username: z.string().min(2, {
@@ -34,6 +38,7 @@ function AddMemberModal({ currentChama }: { currentChama: any }) {
   });
   const [loading, setLoading] = React.useState(false);
   const [memberAdded, setMemberAdded] = React.useState(false);
+  const [memberToAdd, setMemberToAdd] = React.useState<any>();
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     //setLoading to true
@@ -45,12 +50,106 @@ function AddMemberModal({ currentChama }: { currentChama: any }) {
 
     try {
       setLoading(true);
-      const userDoc = await getDoc({
-        collection: "app",
-        key: "allUsers",
+      const userExists = currentChama?.members?.some(
+        (existingUser: { id: any }) => existingUser.id === data.key
+      );
+      const isInvited = currentChama?.invites?.some(
+        (invite: string) => invite === data.key
+      );
+
+      if (userExists || isInvited) {
+        setLoading(false);
+        toast.error("User already in Chama or Invited already", {
+          duration: 4000,
+          icon: "🤔",
+          position: "top-center",
+          style: {
+            fontFamily: "inherit",
+            zIndex: 10,
+          },
+        });
+        return;
+      }
+      const userDoc: any = await listDocs({
+        collection: "users",
+        filter: {
+          matcher: {
+            key: data.key,
+          },
+        },
       });
-      console.log(userDoc);
+      if (userDoc.items.length === 0) {
+        setLoading(false);
+        toast.error("User not found", {
+          duration: 4000,
+          icon: "😬",
+          position: "top-center",
+          style: {
+            fontFamily: "inherit",
+            zIndex: 10,
+          },
+        });
+        return;
+      }
+
+      const chamaDoc: any = await listDocs({
+        collection: "chama",
+        filter: {
+          matcher: {
+            key: currentChama.id,
+          },
+        },
+      });
+
+      const updatedChama = {
+        ...chamaDoc.items[0].data,
+        invites: [...chamaDoc.items[0].data.invites, data.key],
+      };
+      await setDoc({
+        collection: "chama",
+        doc: {
+          ...chamaDoc.items[0],
+          data: updatedChama,
+        },
+      });
+
+      const memberToAddNotifications = userDoc.items[0].data.notifications;
+      const updatedNotifications = [
+        ...memberToAddNotifications,
+        {
+          id: "1",
+          title: "Chama Invite",
+          type: "invite",
+          description: `You have been invited to join ${currentChama.name}`,
+          read: false,
+          time: format(new Date(), "EEEE do yyyy ha"),
+          chamaID: currentChama.id,
+        },
+      ];
+      const updatedMemberToAdd = {
+        ...userDoc.items[0].data,
+        notifications: updatedNotifications,
+      };
+      await setDoc({
+        collection: "users",
+        doc: {
+          ...userDoc.items[0],
+          data: updatedMemberToAdd,
+        },
+      });
+      setMemberAdded(true);
+      toast.success("Invite sent successfully", {
+        duration: 4000,
+        icon: "🚀",
+        position: "top-center",
+        style: {
+          fontFamily: "inherit",
+          zIndex: 10,
+        },
+      });
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   };
@@ -68,48 +167,67 @@ function AddMemberModal({ currentChama }: { currentChama: any }) {
           <div className="h-[0.2px] w-full bg-slate-300 my-4"></div>
 
           <div className="modal-action">
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="w-[95%]">
-                <FormField
-                  control={form.control}
-                  name="username"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="font-heading">Username</FormLabel>
-                      <FormControl className="mt-1">
-                        <Input
-                          placeholder="Member username"
-                          className="font-body px-2 outline-none"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage className="text-xs text-red-500 font-body" />
-                    </FormItem>
-                  )}
-                />
-                <p className="my-2"></p>
-                <FormField
-                  control={form.control}
-                  name="key"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="font-heading">User ID</FormLabel>
-                      <FormControl className="mt-1">
-                        <Input
-                          placeholder="Member ID"
-                          className="font-body px-2 outline-none"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage className="text-xs text-red-500 font-body" />
-                    </FormItem>
-                  )}
-                />
-                <Button type="submit" className="text-white font-body mt-4">
-                  Send Invite
-                </Button>
-              </form>
-            </Form>
+            {loading ? (
+              <div className="flex flex-col items-center justify-center w-full">
+                <Loader size="sm" />
+                <h1 className="font-heading text-lg ml-2 animate-pulseColor">
+                  Sending invite...
+                </h1>
+              </div>
+            ) : memberAdded ? (
+              <div className="flex flex-col items-center justify-center w-full">
+                <h1 className="font-body text-center ml-2">
+                  Invite sent successfully! Refresh page to add more members.
+                </h1>
+                <img src={done} alt="done" className="w-1/2" />
+              </div>
+            ) : (
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="w-[95%]"
+                >
+                  <FormField
+                    control={form.control}
+                    name="username"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-heading">Username</FormLabel>
+                        <FormControl className="mt-1">
+                          <Input
+                            placeholder="Member username"
+                            className="font-body px-2 outline-none"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-xs text-red-500 font-body" />
+                      </FormItem>
+                    )}
+                  />
+                  <p className="my-2"></p>
+                  <FormField
+                    control={form.control}
+                    name="key"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-heading">User ID</FormLabel>
+                        <FormControl className="mt-1">
+                          <Input
+                            placeholder="Member ID"
+                            className="font-body px-2 outline-none"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-xs text-red-500 font-body" />
+                      </FormItem>
+                    )}
+                  />
+                  <Button type="submit" className="text-white font-body mt-4">
+                    Send Invite
+                  </Button>
+                </form>
+              </Form>
+            )}
           </div>
           <div className="flex items-center justify-center mt-10">
             <button
