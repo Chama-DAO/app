@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import ThemeController from "../reusables/themecontroller";
 import { FaBell } from "react-icons/fa";
-import avatar from "../../assets/gamer.png";
 import { TNotifications, notifications } from "../../utils/notifications";
 import { FaGear } from "react-icons/fa6";
 import { User, authSubscribe, getDoc } from "@junobuild/core";
@@ -19,6 +18,7 @@ function InfoSection({
     "light"
   );
   const [user, setUser] = React.useState<User | null>(null);
+  const [avatar, setAvatar] = React.useState<string>("/gamer.png");
   // const [userNotifications, setUserNotifications] = React.useState<
   //   TNotifications[] | []
   // >([]);
@@ -38,6 +38,11 @@ function InfoSection({
             });
             //@ts-ignore
             setCurrentUser(userDoc?.data);
+            //@ts-ignore
+            let originalPath = userDoc?.data?.avatar?.image;
+            let modifiedPath = originalPath ? originalPath.substring(4) : "";
+            let pic = `/src${modifiedPath}`;
+            setAvatar(pic);
             // setUserNotifications(userDoc?.data.notifications);
           } catch (error) {
             console.log(error);

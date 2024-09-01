@@ -3,7 +3,8 @@ import avatar from "../../assets/man.png";
 import { listDocs } from "@junobuild/core";
 import Loader from "../Loader";
 import AddMemberModal from "./add-member";
-import { FaPlus } from "react-icons/fa";
+import { FaCircle, FaPlus } from "react-icons/fa";
+import { None } from "./Tabs";
 
 function Members({ chamas }: any) {
   const chamaID = chamas?.id;
@@ -82,6 +83,25 @@ function Members({ chamas }: any) {
           <FaPlus />
         </button>
       </div>
+      <div className="bg-gray-400 w-full h-[0.5px]"></div>
+      <h1 className="font-heading text-lg mt-4 text-center">Invitees</h1>
+      {currentChama?.invites?.length > 0 ? (
+        currentChama?.invites.map((id: string) => (
+          <div key={id} className="">
+            <div className="flex gap-2 items-center my-2">
+              <FaCircle className="text-gray-400" size={11} />
+              <div>
+                <p className="font-body text-sm text-gray-400">
+                  {id.substring(0, 25)}..
+                </p>
+              </div>
+            </div>
+            <div className="h-[0.5px] w-full bg-slate-300"></div>
+          </div>
+        ))
+      ) : (
+        <None />
+      )}
       <AddMemberModal currentChama={currentChama} />
     </div>
   );

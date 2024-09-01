@@ -128,6 +128,7 @@ function AddMemberModal({ currentChama }: { currentChama: any }) {
       ];
       const updatedMemberToAdd = {
         ...userDoc.items[0].data,
+        invitedChama: currentChama.id,
         notifications: updatedNotifications,
       };
       await setDoc({

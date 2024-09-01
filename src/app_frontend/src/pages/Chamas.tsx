@@ -6,62 +6,114 @@ import headerImage from "../assets/sns-image.webp";
 import ChamaTab, { None } from "../components/chama/Tabs";
 import chamaAvatar from "../assets/saccoo.png";
 import Transactions from "../components/wallet/transactions";
-import { authSubscribe, getDoc, signOut, User } from "@junobuild/core";
+import {
+  authSubscribe,
+  getDoc,
+  listDocs,
+  setManyDocs,
+  signOut,
+  User,
+} from "@junobuild/core";
 import noUser from "../assets/nouser.png";
 import CreateChama from "../components/chama/create-chama";
 import Loader from "../components/Loader";
 import { UserData } from "../components/chama/create-chama";
-
-function ChamaSummary() {
-  return (
-    <div className="md:hidden flex flex-col my-8">
-      <div className="flex gap-10">
-        <div className="flex flex-col items-center">
-          <img
-            src={chamaAvatar}
-            alt="chama-avatar"
-            className="h-36 rounded-full"
-          />
-        </div>
-        <div>
-          <h1 className="font-bold font-heading">Chama Name</h1>
-          <h1 className="font-body py-2">
-            Active Members: <span className="font-body">0</span>
-          </h1>
-          <h1 className="font-body py-2">
-            Active Projects: <span className="font-body text-primary">0</span>
-          </h1>
-          <h1 className="font-body py-2">
-            Next Meeting: <span className="font-body">27/06/2024</span>
-          </h1>
-        </div>
-      </div>
-      <div className="my-4">
-        <h1 className="font-bold font-heading px-2 mt-4 text-xl">About</h1>
-        <p className="font-body p-2 leading-relaxed text-sm">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, at
-          aliquid. Explicabo quidem qui, aperiam illum eum itaque culpa quisquam
-          cum esse voluptatibus aliquid neque impedit harum reiciendis similique
-          quas. Molestias inventore quaerat esse nulla iusto vitae omnis magni
-          iste possimus?
-        </p>
-      </div>
-    </div>
-  );
-}
+import invite from "../../public/invite.gif";
+import { format, set } from "date-fns";
+import toast from "react-hot-toast";
 
 function Chamas() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [userData, setUserData] = useState<UserData | undefined>(undefined);
+  const [userDoc, setUserDoc] = useState<any>(undefined);
   const [leaving, setLeaving] = React.useState(false);
   const [chamaDetails, setChamaDetails] = useState<any>(null);
   const [loading, setLoading] = useState(false);
+  const [isInvited, setIsInvited] = useState(false);
+  const [invitedChama, setInvitedChama] = useState<any>(null);
 
   const leave = async () => {
     setLeaving(true);
     await signOut();
     navigate("/");
     setLeaving(false);
+  };
+
+  const goHome = async () => {
+    setLeaving(true);
+    await signOut();
+    navigate("/dashboard");
+    setLeaving(false);
+  };
+
+  const joinChama = async () => {
+    setLoading(true);
+    //check if users is already part of a chama
+    try {
+      const isInChama = userData?.chamas?.length === 0 ? false : true;
+      // const isInvited = userData?.invitedChama === "" ? false : true;
+      if (isInChama) {
+        setLoading(false);
+        toast.error("You're already part of a chama or have an invite");
+        return;
+      }
+      if (invitedChama && userDoc) {
+        const chamaID = invitedChama.key;
+        const userID = userDoc.key;
+
+        //add user to the members property of that chama,
+        const updatedChama = {
+          ...invitedChama.data,
+          members: [...invitedChama.data.members, userDoc.data],
+          invites: invitedChama.data.invites.filter(
+            (id: string) => id !== userID
+          ),
+        };
+        //update users chama property
+        const updatedUser = {
+          ...userDoc.data,
+          notifications: [
+            ...userDoc.data.notifications,
+            {
+              id: 1,
+              title: "Welcome to the chama",
+              type: "invite",
+              description: `You have successfully joined ${invitedChama.data.name}.`,
+              read: false,
+              time: format(new Date(), "EEEE do yyyy ha"),
+            },
+          ],
+          chamas: [...userDoc.data.chamas, invitedChama.data],
+        };
+
+        const chamaUpdate = {
+          collection: "chama",
+          doc: {
+            ...invitedChama,
+            data: updatedChama,
+          },
+        };
+
+        const userUpdate = {
+          collection: "users",
+          doc: {
+            ...userDoc,
+            data: updatedUser,
+          },
+        };
+
+        const docs = await setManyDocs({ docs: [chamaUpdate, userUpdate] });
+        if (docs) {
+          toast.success("You have successfully joined the chama");
+          window.location.reload();
+        }
+      }
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -74,9 +126,27 @@ function Chamas() {
               collection: "users",
               key: id,
             });
+            setUserDoc(userDoc);
             if (userDoc && userDoc.data) {
               const userData = userDoc.data as UserData | undefined;
+              setUserData(userData);
+              //@ts-ignore
+              const userInvited = userData?.invitedChama === "" ? false : true;
+              setIsInvited(userInvited);
               setChamaDetails(userData?.chamas);
+              if (true) {
+                const chamaList = await listDocs({
+                  collection: "chama",
+                  filter: {
+                    matcher: {
+                      //@ts-ignore
+                      key: userData?.invitedChama,
+                    },
+                  },
+                });
+
+                setInvitedChama(chamaList.items[0]);
+              }
             }
           } catch (error) {
             console.error("Error fetching user data:", error);
@@ -156,26 +226,26 @@ function Chamas() {
                 <div>
                   <h1 className="font-bold font-heading">
                     {" "}
-                    {chamaDetails[0]?.name}
+                    {invitedChama?.data?.name}
                   </h1>
                   <h1 className="font-body py-2">
                     Active Members:{" "}
                     <span className="font-body">
                       {" "}
-                      {chamaDetails[0]?.members?.length}
+                      {invitedChama?.data?.members?.length}
                     </span>
                   </h1>
                   <h1 className="font-body py-2">
                     Active Projects:{" "}
                     <span className="font-body text-primary">
                       {" "}
-                      {chamaDetails[0]?.projects?.length}
+                      {invitedChama?.data?.projects?.length}
                     </span>
                   </h1>
                   <h1 className="font-body py-2">
                     Funding Cycle:{" "}
                     <span className="font-body">
-                      {chamaDetails[0]?.fundingCycle}
+                      {invitedChama?.data?.fundingCycle}
                     </span>
                   </h1>
                 </div>
@@ -241,6 +311,37 @@ function Chamas() {
           ) : (
             <None />
           )}
+        </div>
+      ) : isInvited ? (
+        <div className="flex flex-col items-center mx-2">
+          <div className="flex flex-col items-center mt-4 shadow-lg lg:w-1/2 rounded-md">
+            <img src={invite} alt="invite" className="w-1/2" />
+            <h1 className="text-lg font-heading flex items-center">
+              <span className="font-heading text-lg">
+                You have a chama invite
+              </span>
+            </h1>
+            <div>
+              <p className="font-body text-center">
+                You have been invited to join the {invitedChama?.data?.name}{" "}
+                chama.
+              </p>
+            </div>
+            <div className="flex lg:w-1/2 items-center gap-2 lg:gap-0 lg:justify-between">
+              <button
+                className="font-body bg-primary text-white py-3 px-4 rounded-lg my-12 shadow-md"
+                onClick={() => joinChama()}
+              >
+                Accept Invite
+              </button>
+              <button
+                className="font-body bg-gray-300 text-primary py-3 px-4 rounded-lg my-12 shadow-md"
+                onClick={() => goHome()}
+              >
+                Maybe Later
+              </button>
+            </div>
+          </div>
         </div>
       ) : (
         <div className="mt-12">

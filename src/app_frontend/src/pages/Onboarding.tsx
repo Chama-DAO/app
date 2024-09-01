@@ -141,6 +141,7 @@ function Onboarding() {
           proposals: [],
           votedOnProposal: [],
           adminChama: [],
+          invitedChama: "",
         };
         try {
           setSavingData(true);
@@ -388,6 +389,7 @@ function Onboarding() {
               key: userAvailable?.key,
             });
             currUser ? navigate("/dashboard") : null;
+            setCheckingUser(false);
           } catch (error) {
             console.error("Error getting document:", error);
           }

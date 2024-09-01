@@ -95,6 +95,7 @@ export interface UserData {
   proposals: any[];
   votedOnProposal: any[];
   adminChama: any[];
+  invitedChama: string;
 }
 
 const formSchema = zod
