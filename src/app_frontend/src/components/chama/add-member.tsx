@@ -177,7 +177,7 @@ function AddMemberModal({ currentChama }: { currentChama: any }) {
             ) : memberAdded ? (
               <div className="flex flex-col items-center justify-center w-full">
                 <h1 className="font-body text-center ml-2">
-                  Invite sent successfully! Refresh page to add more members.
+                  Invite sent successfully! Refresh page to invite more members.
                 </h1>
                 <img src={done} alt="done" className="w-1/2" />
               </div>

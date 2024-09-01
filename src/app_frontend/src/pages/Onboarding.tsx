@@ -397,7 +397,7 @@ function Onboarding() {
     });
   }, [authUser, userAvailable]);
 
-  if (savingData) {
+  if (savingData || checkUser) {
     return (
       <div className="flex items-center justify-center h-screen">
         <Loader size="sm" />
