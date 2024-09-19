@@ -10,6 +10,7 @@ import React, { useEffect, useState } from "react";
 import Members from "./members";
 import { UserData } from "./create-chama";
 import Projects from "../chama/Projects";
+import Details from "./details";
 
 export function None() {
   return (
@@ -115,7 +116,7 @@ function ChamaTab() {
         {currentUser ? <Members chamas={userData?.chamas[0]} /> : <None />}
       </TabsContent>
       <TabsContent value="details">
-        <None />
+        {currentUser ? <Details /> : <None />}
       </TabsContent>
       <TabsContent value="settings">
         <None />
