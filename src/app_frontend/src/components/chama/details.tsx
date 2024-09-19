@@ -74,7 +74,7 @@ function Details({ chamas }: any) {
           </div>
           <div className="flex gap-1 items-center justify-center">
             <h1 className="font-body font-light">KES 0</h1>
-            <FiInfo />
+            <FiInfo className="cursor-pointer" />
           </div>
         </div>
         <div className="h-[1px] bg-slate-400 w-full max-w-[750px] my-2"></div>
@@ -85,7 +85,7 @@ function Details({ chamas }: any) {
           </div>
           <div className="flex gap-1 items-center justify-center">
             <h1 className="font-body font-light">KES 0</h1>
-            <FiInfo />
+            <FiInfo className="cursor-pointer" />
           </div>
         </div>
         <div className="h-[1px] bg-slate-400 w-full max-w-[750px] my-2"></div>
@@ -96,7 +96,7 @@ function Details({ chamas }: any) {
           </div>
           <div className="flex gap-1 items-center justify-center">
             <h1 className="font-body font-light">KES 0</h1>
-            <FiInfo />
+            <FiInfo className="cursor-pointer" />
           </div>
         </div>
         <div className="h-[1px] bg-slate-400 w-full max-w-[750px] my-2"></div>
@@ -106,7 +106,7 @@ function Details({ chamas }: any) {
             <h1 className="font-body text-lg">Banker</h1>
           </div>
           <div className="flex gap-1 items-center justify-center">
-            <img src={equity} className="w-15 h-8" />
+            <img src={equity} className="w-15 h-8" alt="banker image" />
           </div>
         </div>
         <div className="h-[1px] bg-slate-400 w-full max-w-[750px] my-2"></div>
@@ -117,7 +117,7 @@ function Details({ chamas }: any) {
           </div>
           <div className="flex gap-1 items-center justify-center">
             <h1 className="font-body font-light">KES 0</h1>
-            <FiInfo />
+            <FiInfo className="cursor-pointer" />
           </div>
         </div>
         <div className="h-[1px] bg-slate-400 w-full max-w-[750px] my-2"></div>
@@ -128,7 +128,7 @@ function Details({ chamas }: any) {
           </div>
           <div className="flex gap-1 items-center justify-center">
             <h1 className="font-body font-light">0</h1>
-            <FiInfo />
+            <FiInfo className="cursor-pointer" />
           </div>
         </div>
         <div className="h-[1px] bg-slate-400 w-full max-w-[750px] my-2"></div>
