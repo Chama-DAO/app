@@ -260,48 +260,50 @@ function Chamas() {
               </div>
             </div>
             <ChamaTab />
-            <div className="hidden md:flex flex-col my-8 w-[40%]">
-              <div className="flex gap-10 w-full">
-                <div className="flex flex-col items-center">
-                  <img
-                    src={chamaAvatar}
-                    alt="chama-avatar"
-                    className="h-36 md:h-28 rounded-full"
-                  />
+            {invitedChama && (
+              <div className="hidden md:flex flex-col my-8 w-[40%]">
+                <div className="flex gap-10 w-full">
+                  <div className="flex flex-col items-center">
+                    <img
+                      src={chamaAvatar}
+                      alt="chama-avatar"
+                      className="h-36 md:h-28 rounded-full"
+                    />
+                  </div>
+                  <div>
+                    <h1 className="font-bold font-heading">
+                      {invitedChama?.data?.name}
+                    </h1>
+                    <h1 className="font-body py-2">
+                      Active Members:{" "}
+                      <span className="font-body text-primary font-bold">
+                        {invitedChama?.data?.members?.length}
+                      </span>
+                    </h1>
+                    <h1 className="font-body py-2">
+                      Active Projects:{" "}
+                      <span className="font-body text-primary font-bold">
+                        {invitedChama?.data?.projects?.length}
+                      </span>
+                    </h1>
+                    <h1 className="font-body py-2">
+                      Funding Cycle:{" "}
+                      <span className="font-heading text-primary font-bold">
+                        {invitedChama?.data?.fundingCycle}
+                      </span>
+                    </h1>
+                  </div>
                 </div>
-                <div>
-                  <h1 className="font-bold font-heading">
-                    {invitedChama[0]?.name}
+                <div className="my-4">
+                  <h1 className="font-bold font-heading px-2 mt-4 text-xl">
+                    About
                   </h1>
-                  <h1 className="font-body py-2">
-                    Active Members:{" "}
-                    <span className="font-body text-primary font-bold">
-                      {invitedChama[0]?.members?.length}
-                    </span>
-                  </h1>
-                  <h1 className="font-body py-2">
-                    Active Projects:{" "}
-                    <span className="font-body text-primary font-bold">
-                      {invitedChama[0]?.projects?.length}
-                    </span>
-                  </h1>
-                  <h1 className="font-body py-2">
-                    Funding Cycle:{" "}
-                    <span className="font-heading text-primary font-bold">
-                      {invitedChama[0]?.fundingCycle}
-                    </span>
-                  </h1>
+                  <p className="font-body p-2 leading-relaxed text-sm">
+                    {chamaDetails[0]?.description}
+                  </p>
                 </div>
               </div>
-              <div className="my-4">
-                <h1 className="font-bold font-heading px-2 mt-4 text-xl">
-                  About
-                </h1>
-                <p className="font-body p-2 leading-relaxed text-sm">
-                  {invitedChama[0]?.description}
-                </p>
-              </div>
-            </div>
+            )}
           </div>
           <h1 className="font-heading text-3xl text-center mt-12 mb-4">
             Transactions
