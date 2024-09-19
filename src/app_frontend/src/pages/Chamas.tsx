@@ -271,24 +271,24 @@ function Chamas() {
                 </div>
                 <div>
                   <h1 className="font-bold font-heading">
-                    {chamaDetails[0]?.name}
+                    {invitedChama[0]?.name}
                   </h1>
                   <h1 className="font-body py-2">
                     Active Members:{" "}
                     <span className="font-body text-primary font-bold">
-                      {chamaDetails[0]?.members?.length}
+                      {invitedChama[0]?.members?.length}
                     </span>
                   </h1>
                   <h1 className="font-body py-2">
                     Active Projects:{" "}
                     <span className="font-body text-primary font-bold">
-                      {chamaDetails[0]?.projects?.length}
+                      {invitedChama[0]?.projects?.length}
                     </span>
                   </h1>
                   <h1 className="font-body py-2">
                     Funding Cycle:{" "}
                     <span className="font-heading text-primary font-bold">
-                      {chamaDetails[0]?.fundingCycle}
+                      {invitedChama[0]?.fundingCycle}
                     </span>
                   </h1>
                 </div>
@@ -298,7 +298,7 @@ function Chamas() {
                   About
                 </h1>
                 <p className="font-body p-2 leading-relaxed text-sm">
-                  {chamaDetails[0]?.description}
+                  {invitedChama[0]?.description}
                 </p>
               </div>
             </div>
