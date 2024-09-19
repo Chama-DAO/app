@@ -71,7 +71,7 @@ function Members({ chamas }: any) {
       <div className="flex justify-center items-center w-full py-4">
         {/* @ts-ignore */}
         <button
-          className="bg-primary btn text-white font-body font-semibold px-4 py-2 rounded-md mt-4 flex items-center justify-between gap-4"
+          className="bg-primary btn text-white font-body font-semibold px-4 py-2 rounded-md mt-4 flex items-center justify-between gap-4 hover:text-black"
           onClick={() => {
             const dialog = document.getElementById(
               "add_member"
