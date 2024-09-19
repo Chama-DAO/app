@@ -1,16 +1,69 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { IoIosCash } from "react-icons/io";
 import { FiInfo } from "react-icons/fi";
 import equity from "../../../public/equity.png";
+import { listDocs } from "@junobuild/core";
+import Loader from "../Loader";
+import { formatDistanceToNow } from "date-fns";
 
-function Details() {
+function Details({ chamas }: any) {
+  const chamaID = chamas?.id;
+  const [currentChama, setCurrentChama] = React.useState<any>();
+  const [loading, setLoading] = React.useState(false);
+
+  useEffect(() => {
+    const fetchCurrentChama = async () => {
+      setLoading(true);
+      try {
+        const chamaList = await listDocs({
+          collection: "chama",
+          filter: {
+            matcher: {
+              key: chamaID,
+            },
+          },
+        });
+        setCurrentChama(chamaList?.items[0]?.data);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchCurrentChama();
+  }, []);
+  let timeDifference = "";
+
+  const createdTimestamp = currentChama?.created;
+
+  if (createdTimestamp) {
+    const createdDate = new Date(Number(createdTimestamp));
+
+    if (!isNaN(createdDate.getTime())) {
+      timeDifference = formatDistanceToNow(createdDate, { addSuffix: false });
+    } else {
+      console.error("Invalid created date");
+    }
+  } else {
+    console.error("Created timestamp is undefined or null");
+  }
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center mt-12">
+        <Loader size="sm" />
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-2 my-4 mx-2">
       <div className="flex justify-between items-center w-full">
-        <h1 className="text-xl font-heading font-bold py-2">ChamaName</h1>
+        <h1 className="text-xl font-heading font-bold py-2">
+          {currentChama?.name}
+        </h1>
         <div className="flex flex-col text-xs">
-          <p>chama age</p>
-          <p>chama type</p>
+          <p>{timeDifference} old</p>
+          <p>{currentChama?.type}</p>
         </div>
       </div>
       <div className="flex flex-col gap-2 items-center md:mt-4">

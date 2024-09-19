@@ -116,7 +116,7 @@ function ChamaTab() {
         {currentUser ? <Members chamas={userData?.chamas[0]} /> : <None />}
       </TabsContent>
       <TabsContent value="details">
-        {currentUser ? <Details /> : <None />}
+        {currentUser ? <Details hamas={userData?.chamas[0]} /> : <None />}
       </TabsContent>
       <TabsContent value="settings">
         <None />
