@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import { FaChevronLeft, FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
-import { proposals } from "../../utils/proposals";
+import { proposals, TProposal } from "../../utils/proposals";
 import { listDocs } from "@junobuild/core";
 import Loader from "../Loader";
+import ProposalView from "./proposal-view";
 
 function Proposals({ chama }: any) {
   const chamaID = chama?.id;
@@ -34,7 +35,7 @@ function Proposals({ chama }: any) {
     fetchCurrentChama();
   }, []);
 
-  const handleProposalClick = ({ clickedProposal }: any) => {
+  const handleProposalClick = (clickedProposal: TProposal) => {
     setProposalClicked(clickedProposal);
     const dialog = document.getElementById(
       "show_proposal"
@@ -141,12 +142,9 @@ function Proposals({ chama }: any) {
       <dialog id="show_proposal" className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Modal for a Proposal!</h3>
-          <p className="py-4">
-            Press ESC key or click the button below to close
-          </p>
+          <ProposalView proposal={proposalClicked} />
           <div className="modal-action">
             <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
               <button className="btn">Close</button>
             </form>
           </div>
