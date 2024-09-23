@@ -155,6 +155,8 @@ function CreateChama() {
         },
       ],
       invites: [],
+      proposals: [],
+      fees: [],
     };
     const chamaCreationNotification = {
       id: Math.random().toString(),

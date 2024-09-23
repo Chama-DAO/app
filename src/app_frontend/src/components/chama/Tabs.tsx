@@ -11,6 +11,7 @@ import Members from "./members";
 import { UserData } from "./create-chama";
 import Projects from "../chama/Projects";
 import Details from "./details";
+import Proposals from "./proposals";
 
 export function None() {
   return (
@@ -86,7 +87,7 @@ function ChamaTab() {
         >
           Details
         </TabsTrigger>
-        <TabsTrigger
+        {/* <TabsTrigger
           value="settings"
           className={`${
             activeTab === "settings"
@@ -96,17 +97,17 @@ function ChamaTab() {
           onClick={() => setActiveTab("settings")}
         >
           Settings
-        </TabsTrigger>
+        </TabsTrigger> */}
         <TabsTrigger
-          value="settings"
+          value="proposals"
           className={`${
-            activeTab === "summary"
+            activeTab === "proposals"
               ? "bg-secondaryAccent text-white"
               : "bg-transparent"
           } font-heading font-bold px-4 py-2 border-none rounded-md`}
-          onClick={() => setActiveTab("summary")}
+          onClick={() => setActiveTab("proposals")}
         >
-          Notifications
+          Proposals
         </TabsTrigger>
       </TabsList>
       <TabsContent value="projects">
@@ -118,10 +119,12 @@ function ChamaTab() {
       <TabsContent value="details">
         {currentUser ? <Details hamas={userData?.chamas[0]} /> : <None />}
       </TabsContent>
-      <TabsContent value="settings">
+      {/* <TabsContent value="settings">
         <None />
+      </TabsContent> */}
+      <TabsContent value="proposals">
+        {currentUser ? <Proposals chamas={userData?.chamas[0]} /> : <None />}
       </TabsContent>
-      <TabsContent value="summary">Notifications here</TabsContent>
     </Tabs>
   );
 }

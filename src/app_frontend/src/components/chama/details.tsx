@@ -5,6 +5,10 @@ import equity from "../../../public/equity.png";
 import { listDocs } from "@junobuild/core";
 import Loader from "../Loader";
 import { formatDistanceToNow } from "date-fns";
+import { FaDiagramProject } from "react-icons/fa6";
+import { MdPayment } from "react-icons/md";
+import { BsBank2 } from "react-icons/bs";
+import { FaVoteYea } from "react-icons/fa";
 
 function Details({ chamas }: any) {
   const chamaID = chamas?.id;
@@ -80,7 +84,7 @@ function Details({ chamas }: any) {
         <div className="h-[1px] bg-slate-400 w-full max-w-[750px] my-2"></div>
         <div className="flex items-center justify-between w-full max-w-[750px]">
           <div className="flex items-center gap-2">
-            <IoIosCash className="text-lg" />
+            <FaDiagramProject className="text-lg" />
             <h1 className="font-body text-lg">Project Allocations</h1>
           </div>
           <div className="flex gap-1 items-center justify-center">
@@ -91,7 +95,7 @@ function Details({ chamas }: any) {
         <div className="h-[1px] bg-slate-400 w-full max-w-[750px] my-2"></div>
         <div className="flex items-center justify-between w-full max-w-[750px]">
           <div className="flex items-center gap-2">
-            <IoIosCash className="text-lg" />
+            <MdPayment className="text-lg" />
             <h1 className="font-body text-lg">Total Payouts</h1>
           </div>
           <div className="flex gap-1 items-center justify-center">
@@ -102,7 +106,7 @@ function Details({ chamas }: any) {
         <div className="h-[1px] bg-slate-400 w-full max-w-[750px] my-2"></div>
         <div className="flex items-center justify-between w-full max-w-[750px]">
           <div className="flex items-center gap-2">
-            <IoIosCash className="text-lg" />
+            <BsBank2 className="text-lg" />
             <h1 className="font-body text-lg">Banker</h1>
           </div>
           <div className="flex gap-1 items-center justify-center">
@@ -123,7 +127,7 @@ function Details({ chamas }: any) {
         <div className="h-[1px] bg-slate-400 w-full max-w-[750px] my-2"></div>
         <div className="flex items-center justify-between w-full max-w-[750px]">
           <div className="flex items-center gap-2">
-            <IoIosCash className="text-lg" />
+            <FaVoteYea className="text-lg" />
             <h1 className="font-body text-lg">Proposals Made</h1>
           </div>
           <div className="flex gap-1 items-center justify-center">
