@@ -144,8 +144,10 @@ function Proposals({ chama }: any) {
       </dialog>
       <dialog id="show_proposal" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Modal for a Proposal!</h3>
-          <ProposalView proposal={proposalClicked} />
+          <ProposalView
+            proposal={proposalClicked}
+            members={currentChama?.members}
+          />
           <div className="modal-action">
             <form method="dialog">
               <button className="btn">Close</button>

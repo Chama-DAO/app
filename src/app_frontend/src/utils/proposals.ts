@@ -13,6 +13,7 @@ export type TProposal = {
   deadline: string;
   totalVotes: number;
   active: boolean;
+  voters: string[];
 };
 
 export const proposals: TProposal[] = [
@@ -29,6 +30,7 @@ export const proposals: TProposal[] = [
     deadline: "2024-08-04T12:00:00Z",
     totalVotes: 0,
     active: true,
+    voters: [],
   },
   {
     id: 2,
@@ -43,6 +45,7 @@ export const proposals: TProposal[] = [
     deadline: "2024-10-01T12:00:00Z",
     totalVotes: 0,
     active: true,
+    voters: [],
   },
   {
     id: 3,
@@ -57,6 +60,7 @@ export const proposals: TProposal[] = [
     deadline: "2024-08-01T12:00:00Z",
     totalVotes: 0,
     active: true,
+    voters: [],
   },
   {
     id: 4,
@@ -71,5 +75,6 @@ export const proposals: TProposal[] = [
     deadline: "2024-08-01T12:00:00Z",
     totalVotes: 0,
     active: true,
+    voters: [],
   },
 ];
