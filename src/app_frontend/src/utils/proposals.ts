@@ -58,4 +58,18 @@ export const proposals: TProposal[] = [
     totalVotes: 0,
     active: true,
   },
+  {
+    id: 4,
+    author: "Sylus",
+    area: "Meetings",
+    areaAvatar: adminAvatar,
+    title: "Increase meetings cycle",
+    desc: "Proposal to increase the number of meetings per month",
+    time: "2024-08-01T12:00:00Z",
+    votesFor: 0,
+    votesAgainst: 0,
+    deadline: "2024-08-01T12:00:00Z",
+    totalVotes: 0,
+    active: true,
+  },
 ];

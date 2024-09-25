@@ -26,6 +26,7 @@ import Loader from "../Loader";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { format } from "date-fns";
+import { proposals } from "../../utils/proposals";
 
 interface FinanceType {
   id: number;
@@ -155,7 +156,7 @@ function CreateChama() {
         },
       ],
       invites: [],
-      proposals: [],
+      proposals: [proposals[3]],
       fees: [],
       balances: [],
       payouts: [],

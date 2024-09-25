@@ -1,7 +1,4 @@
 import React, { useEffect } from "react";
-import { FaChevronLeft, FaPlus } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import logo from "../assets/logo.png";
 import { proposals, TProposal } from "../../utils/proposals";
 import { listDocs } from "@junobuild/core";
 import Loader from "../Loader";
@@ -71,7 +68,7 @@ function Proposals({ chama }: any) {
                       className="w-8 h-8 rounded-full object-contain"
                     />
                     <h1 className="font-body text-sm text-gray-500 px-2">
-                      ChamaDAO by{" "}
+                      {proposal.area} by{" "}
                       <span className="font-body text-sm font-bold text-gray-700">
                         {proposal.author}
                       </span>
