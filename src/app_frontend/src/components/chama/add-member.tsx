@@ -232,7 +232,7 @@ function AddMemberModal({ currentChama }: { currentChama: any }) {
           </div>
           <div className="flex items-center justify-center mt-10">
             <button
-              className="btn w-1/2 bg-gray-200 text-primary"
+              className="btn w-1/2 "
               onClick={() => {
                 const dialog = document.getElementById(
                   "add_member"

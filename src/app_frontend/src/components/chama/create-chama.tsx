@@ -134,7 +134,7 @@ function CreateChama() {
     const chamas = {
       id: uuidv4(),
       ...values,
-      type: "hybrid",
+      type: "⭐️basic",
       accountBalance: 0,
       members: [],
       meetings: [],
@@ -157,6 +157,8 @@ function CreateChama() {
       invites: [],
       proposals: [],
       fees: [],
+      balances: [],
+      payouts: [],
     };
     const chamaCreationNotification = {
       id: Math.random().toString(),

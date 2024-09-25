@@ -54,7 +54,6 @@ export type UserType = {
   avatar: string;
   role: string;
   isOnboarded: boolean;
-  userBalance: number;
   transactions: any[];
   monthlySpend: any[];
   chamas: any[];
@@ -96,20 +95,20 @@ function Onboarding() {
     }
   }
 
-  const userBalances = [
-    {
-      account: "Main",
-      balance: 0,
-    },
-    {
-      account: "Staking",
-      balance: 0,
-    },
-    {
-      account: "Investment",
-      balance: 0,
-    },
-  ];
+  // const userBalances = [
+  //   {
+  //     account: "Main",
+  //     balance: 0,
+  //   },
+  //   {
+  //     account: "Staking",
+  //     balance: 0,
+  //   },
+  //   {
+  //     account: "Investment",
+  //     balance: 0,
+  //   },
+  // ];
 
   const stakingInformation = {
     amount: 0,
@@ -129,7 +128,6 @@ function Onboarding() {
           avatar: selectedAvatar,
           role: selectedRole,
           isOnboarded: true,
-          userBalance: userBalances,
           transactions: [],
           monthlySpend: [],
           chamas: [],

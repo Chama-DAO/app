@@ -60,7 +60,7 @@ function Proposals({ chama }: any) {
             return (
               <div
                 key={proposal.id}
-                className="hover:shadow-sm hover:shadow-secondaryAccent rounded-md mb-4 px-4 py-10 scale-105 transition-all ease-in-out duration-150 mx-2 cursor-pointer"
+                className="hover:shadow-sm hover:shadow-primary rounded-md mb-4 px-4 py-10 scale-105 transition-all ease-in-out duration-150 mx-2 cursor-pointer"
                 onClick={() => handleProposalClick(proposal)}
               >
                 <div className="flex items-center justify-between">
@@ -80,7 +80,7 @@ function Proposals({ chama }: any) {
                   <button
                     className={`rounded ${
                       proposal.active
-                        ? "bg-secondaryAccent/20 text-secondaryAccent border-secondaryAccent"
+                        ? "bg-secondaryAccent/20 text-secondaryAccent border-primary"
                         : "bg-red-400 text-black border-red-300"
                     } px-2 py-1.5 text-xs font-body ml-12 border-[1px] `}
                   >
@@ -111,7 +111,7 @@ function Proposals({ chama }: any) {
       </div>
       <div className="flex justify-between items-center my-4">
         <button
-          className="bg-transparent hover:text-white font-body text-sm md:text-lg rounded-md md:px-4 px-2 py-2 md:mt-8 mt-4 hover:bg-secondaryAccent transition-all ease-in duration-150 border-secondaryAccent border-[1px]"
+          className="bg-transparent hover:text-white font-body text-sm md:text-lg rounded-md md:px-4 px-2 py-2 md:mt-8 mt-4 hover:bg-primary transition-all ease-in duration-150 border-primary border-[1px]"
           onClick={() => {
             const dialog = document.getElementById(
               "add_proposal"
@@ -121,7 +121,7 @@ function Proposals({ chama }: any) {
         >
           Add Proposal
         </button>
-        <button className="bg-transparent hover:text-white font-body text-sm md:text-lg rounded-md md:px-4 px-2 py-2 md:mt-8 mt-4 hover:bg-secondaryAccent transition-all ease-in duration-150 border-secondaryAccent border-[1px]">
+        <button className="bg-transparent hover:text-white font-body text-sm md:text-lg rounded-md md:px-4 px-2 py-2 md:mt-8 mt-4 hover:bg-primary transition-all ease-in duration-150 border-primary border-[1px]">
           Load More
         </button>
       </div>
