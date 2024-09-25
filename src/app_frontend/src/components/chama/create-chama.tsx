@@ -135,7 +135,7 @@ function CreateChama() {
     const chamas = {
       id: uuidv4(),
       ...values,
-      type: "⭐️basic",
+      type: "⭐️",
       accountBalance: 0,
       members: [],
       meetings: [],

@@ -211,7 +211,7 @@ function Chamas() {
           className="object-contain md:h-44 h-32"
         />
       </div>
-      {chamaDetails.length > 0 ? (
+      {chamaDetails?.length > 0 ? (
         <div className="">
           <div className="flex flex-col md:flex-row justify-between mt-10 ">
             <div className="md:hidden flex flex-col my-8">

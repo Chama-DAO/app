@@ -24,6 +24,7 @@ function Proposals({ chama }: any) {
           },
         });
         setCurrentChama(chamaList?.items[0]?.data);
+        setFetchedProposals(currentChama?.proposals);
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -51,59 +52,60 @@ function Proposals({ chama }: any) {
   return (
     <div className="px-2 md:px-10">
       <div className="max-w-[900px] mx-auto my-0">
-        <div>
-          {proposals.map((proposal) => {
-            const deadline = new Date(proposal.deadline);
-            return (
-              <div
-                key={proposal.id}
-                className="hover:shadow-sm hover:shadow-primary rounded-md mb-4 px-4 py-10 scale-105 transition-all ease-in-out duration-150 mx-2 cursor-pointer"
-                onClick={() => handleProposalClick(proposal)}
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <img
-                      src={proposal.areaAvatar}
-                      alt="proposal"
-                      className="w-8 h-8 rounded-full object-contain"
-                    />
-                    <h1 className="font-body text-sm text-gray-500 px-2">
-                      {proposal.area} by{" "}
-                      <span className="font-body text-sm font-bold text-gray-700">
-                        {proposal.author}
-                      </span>
+        <div className="mb-4">
+          {fetchedProposals &&
+            fetchedProposals?.map((proposal) => {
+              const deadline = new Date(proposal.deadline);
+              return (
+                <div
+                  key={proposal.id}
+                  className="hover:shadow-sm hover:shadow-primary rounded-md mb-4 px-4 py-10 scale-105 transition-all ease-in-out duration-150 mx-2 cursor-pointer"
+                  onClick={() => handleProposalClick(proposal)}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center">
+                      <img
+                        src={proposal.areaAvatar}
+                        alt="proposal"
+                        className="w-8 h-8 rounded-full object-contain"
+                      />
+                      <h1 className="font-body text-sm text-gray-500 px-2">
+                        {proposal.area} by{" "}
+                        <span className="font-body text-sm font-bold text-gray-700">
+                          {proposal.author}
+                        </span>
+                      </h1>
+                    </div>
+                    <button
+                      className={`rounded ${
+                        proposal.active
+                          ? "bg-secondaryAccent/20 text-secondaryAccent border-primary"
+                          : "bg-red-400 text-black border-red-300"
+                      } px-2 py-1.5 text-xs font-body ml-12 border-[1px] `}
+                    >
+                      {proposal.active ? "Active" : "Closed"}
+                    </button>
+                  </div>
+                  <div className="h-[.2px] bg-gray-700 w-1/4 my-1"></div>
+                  <div className="mx-2">
+                    <h1 className="font-heading font-bold py-2">
+                      {proposal.title}
+                    </h1>
+                    <p className="font-body text-sm md:text-basel g:w-3/4">
+                      {proposal.desc}
+                    </p>
+                  </div>
+                  <div className="flex gap-2 items-center mt-4 px-2">
+                    <h1 className="text-gray-400 text-sm">
+                      {proposal.totalVotes} Votes
+                    </h1>
+                    <h1 className="text-gray-500 font-body font-bold text-xs">
+                      {deadline.toDateString()}
                     </h1>
                   </div>
-                  <button
-                    className={`rounded ${
-                      proposal.active
-                        ? "bg-secondaryAccent/20 text-secondaryAccent border-primary"
-                        : "bg-red-400 text-black border-red-300"
-                    } px-2 py-1.5 text-xs font-body ml-12 border-[1px] `}
-                  >
-                    {proposal.active ? "Active" : "Closed"}
-                  </button>
                 </div>
-                <div className="h-[.2px] bg-gray-700 w-1/4 my-1"></div>
-                <div className="mx-2">
-                  <h1 className="font-heading font-bold py-2">
-                    {proposal.title}
-                  </h1>
-                  <p className="font-body text-sm md:text-basel g:w-3/4">
-                    {proposal.desc}
-                  </p>
-                </div>
-                <div className="flex gap-2 items-center mt-4">
-                  <h1 className="text-gray-400 text-sm">
-                    {proposal.totalVotes} Votes
-                  </h1>
-                  <h1 className="text-gray-500 font-body font-bold text-xs">
-                    {deadline.toDateString()}
-                  </h1>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </div>
       <div className="flex justify-between items-center my-4">

@@ -69,9 +69,7 @@ function Header({ theme: darkMode }: { theme: boolean }) {
       }`}
     >
       <div
-        className={`rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative h-48 ${
-          darkMode ? "dark:bg-[#1D232A]" : "bg-[#fff]"
-        }`}
+        className={`rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative h-48`}
       >
         <div className="flex items-center justify-between px-4 my-4">
           <IoWalletOutline className="text-2xl" />
@@ -94,11 +92,7 @@ function Header({ theme: darkMode }: { theme: boolean }) {
         </p>
         {showModal && currentModal === "wallet" && (
           <div className="absolute top-0 right-0">
-            <div
-              className={`absolute top-0 right-0  shadow rounded-md mx-1 ${
-                darkMode ? "dark:bg-[#1D232A]" : "bg-[#fff]"
-              }`}
-            >
+            <div className={`absolute top-0 right-0  shadow rounded-md mx-1`}>
               <div className="p-2">
                 <IoCloseSharp onClick={() => setShowModal(false)} />
               </div>
@@ -107,7 +101,7 @@ function Header({ theme: darkMode }: { theme: boolean }) {
           </div>
         )}
       </div>
-      <div className="rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative h-48 bg-[#fff]  dark:bg-[#1D232A]">
+      <div className="rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative h-48">
         <div className="flex items-center justify-between px-4 my-4">
           <GrGroup className="text-2xl" />
           <BsThreeDotsVertical
@@ -124,7 +118,7 @@ function Header({ theme: darkMode }: { theme: boolean }) {
         </p>
         {showModal && currentModal === "chama" && (
           <div className="absolute top-0 right-0">
-            <div className="absolute top-0 right-0 bg-white dark:bg-[#1D232A] shadow rounded-md mx-1">
+            <div className="absolute top-0 right-0 shadow rounded-md mx-1">
               <div className="p-2">
                 <IoCloseSharp onClick={() => setShowModal(false)} />
               </div>
@@ -133,7 +127,7 @@ function Header({ theme: darkMode }: { theme: boolean }) {
           </div>
         )}
       </div>
-      <div className="rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative h-48 bg-[#fff] dark:bg-[#1D232A]">
+      <div className="rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative h-48">
         <div className="flex items-center justify-between px-4 my-4">
           <TbPigMoney className="text-2xl" />
           <BsThreeDotsVertical
@@ -150,7 +144,7 @@ function Header({ theme: darkMode }: { theme: boolean }) {
         </p>
         {showModal && currentModal === "investment" && (
           <div className="absolute top-0 right-0">
-            <div className="absolute top-0 right-0 bg-white dark:bg-[#1D232A] shadow rounded-md mx-1">
+            <div className="absolute top-0 right-0 shadow rounded-md mx-1">
               <div className="p-2">
                 <IoCloseSharp onClick={() => setShowModal(false)} />
               </div>
@@ -159,7 +153,7 @@ function Header({ theme: darkMode }: { theme: boolean }) {
           </div>
         )}
       </div>
-      <div className="rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative h-48 bg-[#fff] dark:bg-[#1D232A]">
+      <div className="rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative h-48">
         <div className="flex items-center justify-between px-4 my-4">
           <MdOutlineGeneratingTokens className="text-2xl" />
           <div onClick={() => showModals("staking")}>

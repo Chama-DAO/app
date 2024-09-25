@@ -29,7 +29,6 @@ function InfoSection({
     authSubscribe((user: User | null) => {
       if (user) {
         setUser(user);
-        console.log(user.description);
         const getNotifications = async () => {
           try {
             const userDoc = await getDoc({
@@ -69,16 +68,18 @@ function InfoSection({
     );
   }
   return (
-    <div className="mx-2 mt-8 md:mt-0 bg-[#F9F8FB] dark:bg-[#0b0b0b] rounded-xl p-1 md:p-2 md:h-screen">
+    <div className="mx-2 mt-8 md:mt-0 rounded-xl p-1 md:p-2 md:h-screen shadow-xl">
       <div className="flex items-center px-4 my-4 justify-between md:gap-4 lg:gap-8">
-        <ThemeController theme={currentTheme} setTheme={setTheme} />
+        <p className="font-body text-sm text-gray-500 cursor-pointer hover:underline hover:text-primary">
+          {currentUser?.username || "User"}
+        </p>
 
         <div className="flex items-center gap-2">
           <img src={avatar} alt="avatar" className="w-8 h-8 rounded-full" />
           {/* <IoIosArrowDown /> */}
         </div>
       </div>
-      <div className="bg-white dark:bg-[#1D232A] rounded-md p-2 md:p-4 mx-2">
+      <div className=" rounded-md p-2 md:p-4 mx-2">
         <h1 className="font-heading font-bold ld:text-xl">Voting Power</h1>
         <p className="font-body text-sm text-gray-500">Current: 0 VP</p>
         <div className="md:my-4 my-2">
@@ -139,10 +140,10 @@ function InfoSection({
                 }) => (
                   <div
                     key={notifications.id}
-                    className="rounded-md p-2 md:p-4 shadow-lg my-2 md:my-4 bg-white dark:bg-[#1D232A] hover:scale-95 transition-all duration-100 ease-in cursor-pointer"
+                    className="rounded-md p-2 md:p-4 shadow my-2 md:my-4 hover:scale-95 transition-all duration-100 ease-in cursor-pointer"
                   >
                     <div className="flex items-center gap-2 rounded-md">
-                      <div className="flex items-center w-14 h-14 rounded-full bg-[#e3e5f5]  dark:bg-[#232b34] justify-center relative">
+                      <div className="flex items-center w-14 h-14 rounded-full justify-center relative">
                         <div
                           className={`w-2 h-2 rounded-full bg-primary top-1 ${
                             notifications.read ? "hidden" : "absolute"
@@ -172,10 +173,10 @@ function InfoSection({
             : notifications?.map((notifications) => (
                 <div
                   key={notifications.id}
-                  className="rounded-md p-2 md:p-4 shadow-lg my-2 md:my-4 bg-white dark:bg-[#1D232A] hover:scale-95 transition-all duration-100 ease-in cursor-pointer"
+                  className="rounded-md p-2 md:p-4 shadow-lg my-2 md:my-4 hover:scale-95 transition-all duration-100 ease-in cursor-pointer"
                 >
                   <div className="flex items-center gap-2 rounded-md">
-                    <div className="flex items-center w-14 h-14 rounded-full bg-[#e3e5f5]  dark:bg-[#232b34] justify-center relative">
+                    <div className="flex items-center w-14 h-14 rounded-full justify-center relative">
                       <div
                         className={`w-2 h-2 rounded-full bg-primary top-1 ${
                           notifications.read ? "hidden" : "absolute"
@@ -203,14 +204,14 @@ function InfoSection({
               ))}
         </div>
       </div>
-      {/* <div className="bg-[#F9F8FB] dark:bg-[#1D232A] my-2 rounded-xl h-24 mb-4">
+      {/* <div className=" my-2 rounded-xl h-24 mb-4">
         <h1 className="font-heading p-2">Ask AI🤖</h1>
-        <div className="flex items-center justify-between p-4 bg-[#F9F8FB] dark:bg-[#1D232A] rounded-xl">
+        <div className="flex items-center justify-between p-4 rounded-xl">
           <input
             placeholder="Type a message"
-            className="w-3/4 p-2 font-body text-sm rounded-lg bg-[#F9F8FB] dark:bg-[#1D232A] dark:text-white focus:outline-none border-none"
+            className="w-3/4 p-2 font-body text-sm rounded-lg dark:text-white focus:outline-none border-none"
           />
-          <IoChatboxEllipses className="text-2xl dark:text-[#F9F8FB] text-black " />
+          <IoChatboxEllipses className="text-2xl text-black " />
         </div>
       </div> */}
     </div>
