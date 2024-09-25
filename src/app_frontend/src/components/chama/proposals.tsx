@@ -24,7 +24,7 @@ function Proposals({ chama }: any) {
           },
         });
         setCurrentChama(chamaList?.items[0]?.data);
-        setFetchedProposals(currentChama?.proposals);
+
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -32,6 +32,10 @@ function Proposals({ chama }: any) {
     };
     fetchCurrentChama();
   }, []);
+
+  useEffect(() => {
+    setFetchedProposals(currentChama?.proposals);
+  }, [currentChama]);
 
   const handleProposalClick = (clickedProposal: TProposal) => {
     setProposalClicked(clickedProposal);
