@@ -156,6 +156,7 @@ function Proposals({ chama }: any) {
           <ProposalView
             proposal={proposalClicked}
             members={currentChama?.members}
+            currentChama={currentChama}
           />
           <div className="modal-action">
             <form method="dialog">
