@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { proposals, TProposal } from "../../utils/proposals";
-import { listDocs } from "@junobuild/core";
+import { authSubscribe, listDocs, User } from "@junobuild/core";
 import Loader from "../Loader";
 import ProposalView from "./proposal-view";
 
@@ -10,6 +10,9 @@ function Proposals({ chama }: any) {
   const [loading, setLoading] = React.useState(false);
   const [fetchedProposals, setFetchedProposals] = React.useState<any[]>([]);
   const [proposalClicked, setProposalClicked] = React.useState<any>();
+  const [currentUser, setCurrentUser] = React.useState<User | undefined>(
+    undefined
+  );
 
   useEffect(() => {
     const fetchCurrentChama = async () => {
@@ -31,6 +34,12 @@ function Proposals({ chama }: any) {
       }
     };
     fetchCurrentChama();
+  }, []);
+
+  useEffect(() => {
+    authSubscribe((user: User | null) => {
+      user ? setCurrentUser(user) : null;
+    });
   }, []);
 
   useEffect(() => {
