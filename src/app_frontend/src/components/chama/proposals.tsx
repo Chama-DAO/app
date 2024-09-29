@@ -13,6 +13,8 @@ function Proposals({ chama }: any) {
   const [currentUser, setCurrentUser] = React.useState<User | undefined>(
     undefined
   );
+  const [area, setArea] = React.useState<string>("");
+  const [settings, setSettings] = React.useState<string[] | undefined>([]);
 
   useEffect(() => {
     const fetchCurrentChama = async () => {
@@ -52,6 +54,28 @@ function Proposals({ chama }: any) {
       "show_proposal"
     ) as HTMLDialogElement;
     dialog?.showModal();
+  };
+
+  const handleAreaChange = (e: any) => {
+    setArea(e.target.value);
+    switch (e.target.value) {
+      case "Finance":
+        setSettings([
+          "Contribution cycle",
+          "Contribution amount",
+          "Loan allocations",
+          "project allocations",
+          "Merry-Go-Round allocations",
+          "Premium plan",
+        ]);
+        break;
+      case "Meetings":
+        setSettings(["Meeting platform", "Meeting cycle"]);
+        break;
+      case "Other":
+        setSettings(["Chama name", "Chama logo", "Chama description"]);
+        break;
+    }
   };
 
   if (loading) {
@@ -139,15 +163,37 @@ function Proposals({ chama }: any) {
       </div>
       <dialog id="add_proposal" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Add Proposal!</h3>
-          <p className="py-4">
-            Press ESC key or click the button below to close
+          <h3 className="font-bold text-lg">Add Proposal</h3>
+          <p className="mb-2 text-xs text-gray-400">
+            This proposal will be visible to all chama members and will have to
+            be by approved by all of them to be applied to your chama.
           </p>
-          <div className="modal-action">
-            <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
-              <button className="btn">Close</button>
-            </form>
+          <div className="h-[.1px] bg-gray-300 w-full"></div>
+          <div className="modal-action flex flex-col">
+            {/* if there is a button in form, it will close the modal */}
+            <div className="w-full flex-col gap-2">
+              <select
+                className="select select-secondary max-w-xs font-body outline-none mb-4 border-[1px] md:w-[70%] w-full"
+                onChange={(e) => handleAreaChange(e)}
+              >
+                <option disabled selected>
+                  Which area do you want to change?
+                </option>
+                <option>Finance</option>
+                <option>Meetings</option>
+                <option>Other</option>
+              </select>
+              <select className="select select-secondary max-w-xs font-body outline-none mb-4 border-[1px] md:w-[70%] w-full">
+                <option disabled selected>
+                  What do you want to change?
+                </option>
+                {settings?.map((setting) => (
+                  <option>{setting}</option>
+                ))}
+              </select>
+            </div>
+
+            <button className="btn">Close</button>
           </div>
         </div>
       </dialog>

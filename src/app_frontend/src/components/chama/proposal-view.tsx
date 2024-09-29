@@ -126,7 +126,7 @@ function ProposalView({
       <div className="flex items-center justify-between">
         <div className="w-3/4">
           <h1 className="font-bold font-heading text-lg">{proposal?.title}</h1>
-          <p className="text-sm font-body text-gray-500">
+          <p className="text-xs font-body text-gray-400">
             Proposes a change to chama's {proposal?.area} section
           </p>
         </div>
@@ -139,7 +139,7 @@ function ProposalView({
           </h1>
         </div>
       </div>
-      <div className="h-[1px] bg-slate-400 w-full max-w-[750px] mt-2"></div>
+      <div className="h-[.1px] bg-slate-400 w-full max-w-[750px]"></div>
       <div>
         <h1 className="font-heading font-bold py-2">Description</h1>
         <p className="font-body text-sm text-gray-500">{proposal?.desc}</p>
