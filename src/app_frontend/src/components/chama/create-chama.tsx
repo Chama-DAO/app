@@ -144,7 +144,27 @@ function CreateChama() {
       transactions: [],
       avatar: avatars[Math.floor(Math.random() * avatars.length)].image,
       fundingCycle: "Monthly",
-      settings: [],
+      settings: [
+        {
+          id: "Finance",
+          contribution_cycle: "Monthly",
+          contribution_amount: values.contributionAmount,
+          loan_allocations: "20%",
+          project_allocations: "30%",
+          merry_go_round_allocations: "50%",
+          premium_plan: "basic",
+        },
+        {
+          id: "Meetings",
+          meeting_platform: "Zoom",
+          meeting_cycle: "Weekly",
+        },
+        {
+          id: "Other",
+          chama_name: values.name,
+          chama_description: values.description,
+        },
+      ],
       created: Date.now().toString(),
       notifications: [
         {

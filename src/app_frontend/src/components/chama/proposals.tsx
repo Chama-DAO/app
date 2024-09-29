@@ -15,6 +15,9 @@ function Proposals({ chama }: any) {
   );
   const [area, setArea] = React.useState<string>("");
   const [settings, setSettings] = React.useState<string[] | undefined>([]);
+  const [selectedSetting, setSelectedSetting] = React.useState<string>("");
+  const [proposalDescription, setProposalDescription] =
+    React.useState<string>("");
 
   useEffect(() => {
     const fetchCurrentChama = async () => {
@@ -65,7 +68,7 @@ function Proposals({ chama }: any) {
           "Contribution amount",
           "Loan allocations",
           "project allocations",
-          "Merry-Go-Round allocations",
+          "Merry go round allocations",
           "Premium plan",
         ]);
         break;
@@ -73,7 +76,7 @@ function Proposals({ chama }: any) {
         setSettings(["Meeting platform", "Meeting cycle"]);
         break;
       case "Other":
-        setSettings(["Chama name", "Chama logo", "Chama description"]);
+        setSettings(["Chama name", "Chama description"]);
         break;
     }
   };
@@ -171,19 +174,24 @@ function Proposals({ chama }: any) {
           <div className="h-[.1px] bg-gray-300 w-full"></div>
           <div className="modal-action flex flex-col">
             {/* if there is a button in form, it will close the modal */}
-            <div className="w-full flex-col gap-2">
+            <div className="w-full flex-col gap-2 mb-2">
               <select
-                className="select select-secondary max-w-xs font-body outline-none mb-4 border-[1px] md:w-[70%] w-full"
+                className="select select-secondary max-w-xs border-primary font-body outline-none mb-4 border-[.1px] md:w-[70%] w-full"
                 onChange={(e) => handleAreaChange(e)}
               >
-                <option disabled selected>
+                <option disabled selected className="">
                   Which area do you want to change?
                 </option>
                 <option>Finance</option>
                 <option>Meetings</option>
                 <option>Other</option>
               </select>
-              <select className="select select-secondary max-w-xs font-body outline-none mb-4 border-[1px] md:w-[70%] w-full">
+              <select
+                className="select select-secondary max-w-xs font-body outline-none mb-4 border-primary border-[.1px] md:w-[70%] w-full"
+                onChange={(e) => {
+                  setSelectedSetting(e.target.value);
+                }}
+              >
                 <option disabled selected>
                   What do you want to change?
                 </option>
@@ -191,9 +199,26 @@ function Proposals({ chama }: any) {
                   <option>{setting}</option>
                 ))}
               </select>
+              <input
+                type="text"
+                placeholder={`New value for ${selectedSetting}`}
+                className="input border-[.1px] input-primary w-full border-primary max-w-xs"
+              />
+              <textarea
+                className="textarea textarea-secondary border-primary border-[.1px] w-full max-w-xs mt-4"
+                placeholder="Describe your proposal"
+                onChange={(e) => setProposalDescription(e.target.value)}
+              ></textarea>
             </div>
 
-            <button className="btn">Close</button>
+            <div className="h-[.1px] bg-gray-300 w-full my-2"></div>
+            <p className="mb-2 text-[0.6rem] text-gray-400">
+              This proposal seeks to change the {selectedSetting || "..."} of
+              your chama. Please ensure that the description is clear and
+              concise before submitting.
+            </p>
+
+            <button className="btn">Submit</button>
           </div>
         </div>
       </dialog>
