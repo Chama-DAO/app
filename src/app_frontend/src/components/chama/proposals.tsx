@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { proposals, TProposal } from "../../utils/proposals";
-import { authSubscribe, listDocs, User } from "@junobuild/core";
+import { authSubscribe, listDocs, setDoc, User } from "@junobuild/core";
 import Loader from "../Loader";
 import ProposalView from "./proposal-view";
+import toast from "react-hot-toast";
+import { format } from "date-fns";
 
 function Proposals({ chama }: any) {
   const chamaID = chama?.id;
@@ -18,7 +20,8 @@ function Proposals({ chama }: any) {
   const [selectedSetting, setSelectedSetting] = React.useState<string>("");
   const [proposalDescription, setProposalDescription] =
     React.useState<string>("");
-
+  const [addingProposal, setAddingProposal] = React.useState<boolean>(false);
+  const [value, setValue] = React.useState<string>("");
   useEffect(() => {
     const fetchCurrentChama = async () => {
       setLoading(true);
@@ -67,7 +70,7 @@ function Proposals({ chama }: any) {
           "Contribution cycle",
           "Contribution amount",
           "Loan allocations",
-          "project allocations",
+          "Project allocations",
           "Merry go round allocations",
           "Premium plan",
         ]);
@@ -78,6 +81,96 @@ function Proposals({ chama }: any) {
       case "Other":
         setSettings(["Chama name", "Chama description"]);
         break;
+    }
+  };
+
+  const submitProposal = async () => {
+    //check if proposal is valid
+    if (
+      value === "" ||
+      proposalDescription === "" ||
+      selectedSetting === "" ||
+      area === ""
+    ) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+    try {
+      setAddingProposal(true);
+      //fetch username of the current user
+      const userDoc = await listDocs({
+        collection: "users",
+        filter: {
+          matcher: {
+            key: currentUser?.key,
+          },
+        },
+      });
+      //@ts-ignore
+      const user = userDoc?.items[0]?.data.username;
+
+      //create a proposal object
+      const newProposal = {
+        id: Math.floor(Math.random() * 1000),
+        author: user,
+        area: area,
+        areaAvatar:
+          area === "Finance"
+            ? "/src/assets/finance.png"
+            : area === "Meetings"
+            ? "/src/assets/meetings.webp"
+            : "/src/assets/admin.png",
+        title: `Change ${selectedSetting} in ${area} section`,
+        desc: proposalDescription,
+        time: format(new Date(), "EEEE do yyyy ha"),
+        votesFor: 1,
+        votesAgainst: 0,
+        deadline: format(
+          new Date(new Date().setDate(new Date().getDate() + 14)),
+          "EEEE do yyyy ha"
+        ),
+        totalVotes: 1,
+        active: true,
+        voters: [currentUser?.key],
+      };
+
+      //fetch the current chama and isolate the proposals array
+      const chamaList = await listDocs({
+        collection: "chama",
+        filter: {
+          matcher: {
+            key: currentChama.id,
+          },
+        },
+      });
+      //@ts-ignore
+      const chamaProposals = chamaList?.items[0]?.data.proposals;
+      //push the new proposal to the proposals array
+      const newProposals = [...chamaProposals, newProposal];
+      //update the chama with the new proposals array
+      const updatedChama = {
+        //@ts-ignore
+        ...chamaList.items[0].data,
+        proposals: newProposals,
+      };
+      //update the chama in the db
+      await setDoc({
+        collection: "chama",
+        doc: {
+          ...chamaList.items[0],
+          data: updatedChama,
+        },
+      });
+      toast.success("Proposal submitted successfully");
+
+      //close the modal
+      const dialog = document.getElementById(
+        "add_proposal"
+      ) as HTMLDialogElement;
+      setAddingProposal(false);
+    } catch (error) {
+      toast.error("An error occurred. Please try again");
+      console.log(error);
     }
   };
 
@@ -140,7 +233,7 @@ function Proposals({ chama }: any) {
                       {proposal.totalVotes} Votes
                     </h1>
                     <h1 className="text-gray-500 font-body font-bold text-xs">
-                      {deadline.toDateString()}
+                      {proposal.time}
                     </h1>
                   </div>
                 </div>
@@ -172,54 +265,75 @@ function Proposals({ chama }: any) {
             be by approved by all of them to be applied to your chama.
           </p>
           <div className="h-[.1px] bg-gray-300 w-full"></div>
-          <div className="modal-action flex flex-col">
-            {/* if there is a button in form, it will close the modal */}
-            <div className="w-full flex-col gap-2 mb-2">
-              <select
-                className="select select-secondary max-w-xs border-primary font-body outline-none mb-4 border-[.1px] md:w-[70%] w-full"
-                onChange={(e) => handleAreaChange(e)}
-              >
-                <option disabled selected className="">
-                  Which area do you want to change?
-                </option>
-                <option>Finance</option>
-                <option>Meetings</option>
-                <option>Other</option>
-              </select>
-              <select
-                className="select select-secondary max-w-xs font-body outline-none mb-4 border-primary border-[.1px] md:w-[70%] w-full"
-                onChange={(e) => {
-                  setSelectedSetting(e.target.value);
-                }}
-              >
-                <option disabled selected>
-                  What do you want to change?
-                </option>
-                {settings?.map((setting) => (
-                  <option>{setting}</option>
-                ))}
-              </select>
-              <input
-                type="text"
-                placeholder={`New value for ${selectedSetting}`}
-                className="input border-[.1px] input-primary w-full border-primary max-w-xs"
-              />
-              <textarea
-                className="textarea textarea-secondary border-primary border-[.1px] w-full max-w-xs mt-4"
-                placeholder="Describe your proposal"
-                onChange={(e) => setProposalDescription(e.target.value)}
-              ></textarea>
+          {addingProposal ? (
+            <div className="flex items-center justify-center mt-12">
+              <Loader size="sm" />
             </div>
+          ) : (
+            <div className="modal-action flex flex-col">
+              {/* if there is a button in form, it will close the modal */}
+              <div className="w-full flex-col gap-2 mb-2">
+                <select
+                  className="select select-secondary max-w-xs border-primary font-body outline-none mb-4 border-[.1px] md:w-[70%] w-full"
+                  onChange={(e) => handleAreaChange(e)}
+                >
+                  <option disabled selected className="">
+                    Which area do you want to change?
+                  </option>
+                  <option>Finance</option>
+                  <option>Meetings</option>
+                  <option>Other</option>
+                </select>
+                <select
+                  className="select select-secondary max-w-xs font-body outline-none mb-4 border-primary border-[.1px] md:w-[70%] w-full"
+                  onChange={(e) => {
+                    setSelectedSetting(e.target.value);
+                  }}
+                >
+                  <option disabled selected>
+                    What do you want to change?
+                  </option>
+                  {settings?.map((setting) => (
+                    <option>{setting}</option>
+                  ))}
+                </select>
+                <div className="flex items-center gap-2 border-[.1px] border-primary w-full max-w-xs rounded-md px-4">
+                  <span className="font-body text-sm">
+                    {selectedSetting.includes("amount")
+                      ? "KES"
+                      : selectedSetting.includes("cycle")
+                      ? "Days"
+                      : selectedSetting.includes("allocations")
+                      ? "%"
+                      : ""}
+                  </span>
+                  <input
+                    type="text"
+                    placeholder={`New value for ${selectedSetting}`}
+                    className=" w-full max-w-xs my-3 outline-none"
+                    onChange={(e) => setValue(e.target.value)}
+                  />
+                </div>
+                <textarea
+                  className="textarea textarea-secondary border-primary border-[.1px] w-full max-w-xs mt-4"
+                  placeholder="Describe your proposal. Start with Proposal to..."
+                  onChange={(e) => setProposalDescription(e.target.value)}
+                  maxLength={120}
+                ></textarea>
+              </div>
 
-            <div className="h-[.1px] bg-gray-300 w-full my-2"></div>
-            <p className="mb-2 text-[0.6rem] text-gray-400">
-              This proposal seeks to change the {selectedSetting || "..."} of
-              your chama. Please ensure that the description is clear and
-              concise before submitting.
-            </p>
+              <div className="h-[.1px] bg-gray-300 w-full my-2"></div>
+              <p className="mb-2 text-[0.6rem] text-gray-400">
+                This proposal seeks to change the {selectedSetting || "..."} of
+                your chama. Please ensure that the description is clear and
+                concise before submitting.
+              </p>
 
-            <button className="btn">Submit</button>
-          </div>
+              <button onClick={submitProposal} className="btn">
+                Submit
+              </button>
+            </div>
+          )}
         </div>
       </dialog>
       <dialog id="show_proposal" className="modal">

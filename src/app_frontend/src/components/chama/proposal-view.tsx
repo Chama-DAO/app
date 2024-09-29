@@ -72,7 +72,7 @@ function ProposalView({
           proposals: updatedProposals,
         };
 
-        // You need to implement the logic to update the chama data in the database
+        //update the chama data in the database
         await setDoc({
           collection: "chama",
           doc: {
@@ -80,8 +80,6 @@ function ProposalView({
             data: updatedChama,
           },
         });
-
-        console.log(updatedProposal);
 
         toast.success("Voted successfully");
         setLoading(false);

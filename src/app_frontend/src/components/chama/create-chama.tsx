@@ -147,7 +147,7 @@ function CreateChama() {
       settings: [
         {
           id: "Finance",
-          contribution_cycle: "Monthly",
+          contribution_cycle: "30",
           contribution_amount: values.contributionAmount,
           loan_allocations: "20%",
           project_allocations: "30%",
