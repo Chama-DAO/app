@@ -141,8 +141,11 @@ function ProposalView({
       <div>
         <h1 className="font-heading font-bold py-2">Description</h1>
         <p className="font-body text-sm text-gray-500">{proposal?.desc}</p>
+        <p className="font-body text-xs text-gray-400 mt-4">
+          Expires on {proposal?.deadline}
+        </p>
       </div>
-      <div className="flex gap-4 mt-4 w-full">
+      <div className="flex gap-4 mt-2 w-full">
         <button
           className={`bg-primary text-white font-body font-semibold px-4 py-2 rounded-md disabled:opacity-50 disabled:cursor-not-allowed`}
           disabled={
