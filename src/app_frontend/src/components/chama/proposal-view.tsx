@@ -4,6 +4,7 @@ import { UserData } from "./create-chama";
 import { proposals } from "../../utils/proposals";
 import { set } from "date-fns";
 import toast from "react-hot-toast";
+import { useNavigate, useNavigation } from "react-router-dom";
 
 function ProposalView({
   proposal,
@@ -18,6 +19,7 @@ function ProposalView({
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false);
   const [hasVote, setHasVote] = useState(true);
+  const navigate = useNavigate();
 
   const voteOnProposal = async () => {
     if (currentUser) {
@@ -82,6 +84,7 @@ function ProposalView({
         });
 
         toast.success("Voted successfully");
+        navigate(0);
         setLoading(false);
       } catch (error) {
         toast.error("An error occurred");
