@@ -180,7 +180,7 @@ function CreateChama() {
         },
       ],
       invites: [],
-      proposals: [proposals[3]],
+      proposals: [],
       fees: [],
       balances: [],
       payouts: [],

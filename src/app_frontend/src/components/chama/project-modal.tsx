@@ -51,12 +51,6 @@ export function ProjectModal({
       }
     };
     getApprovals();
-    if (approvals.length > 0 && user) {
-      //@ts-ignore
-      const checkApproval = approvals?.includes(user.key);
-
-      setHasApproved(checkApproval);
-    }
   }, []);
 
   const approveProject = async () => {
@@ -95,6 +89,8 @@ export function ProjectModal({
             },
           });
         }
+        toast.success("Project approved successfully");
+        setHasApproved(true);
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -125,7 +121,6 @@ export function ProjectModal({
       </div>
     );
   }
-  console.log(project?.approvedBy);
   return (
     <div className="flex flex-col gap-4">
       <div className="py-2 flex justify-between items-center">
@@ -194,13 +189,13 @@ export function ProjectModal({
         </button>
         <button
           className={`text-white text-sm font-body font-semibold px-4 py-2 rounded-md w-1/2 ${
-            !project.approvedBy?.includes(user?.key)
+            !project?.approvedBy?.includes(user?.key)
               ? "bg-secondaryAccent"
               : "bg-gray-300 cursor-not-allowed text-xs"
           }`}
           onClick={() => approveProject()}
         >
-          {project.approvedBy?.includes(user?.key)
+          {project?.approvedBy?.includes(user?.key)
             ? "Already approved this"
             : "Approve"}
         </button>
