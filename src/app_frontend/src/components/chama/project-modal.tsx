@@ -1,5 +1,5 @@
 import { format, set } from "date-fns";
-import { FaW, FaWhatsapp } from "react-icons/fa6";
+import { FaWhatsapp } from "react-icons/fa6";
 import { Progress } from "../../../@/components/ui/progress";
 import { FaClock } from "react-icons/fa";
 import { Chama } from "./create-chama";
@@ -7,7 +7,6 @@ import { authSubscribe, getDoc, listDocs, setDoc, User } from "@junobuild/core";
 import React, { useEffect } from "react";
 import Loader from "../Loader";
 import { Link } from "react-router-dom";
-import { get } from "react-hook-form";
 
 export function ProjectModal({
   project,
@@ -16,6 +15,12 @@ export function ProjectModal({
   project: any;
   chamaID: string;
 }) {
+  const formattedFundsCollected = project?.fundsCollected
+    ? new Intl.NumberFormat("en-US").format(project.fundsCollected)
+    : "";
+  const formattedFundsAllocated = project?.fundsAllocated
+    ? new Intl.NumberFormat("en-US").format(project.fundsAllocated)
+    : "";
   const [user, setUser] = React.useState<User | null>(null);
   const [loading, setLoading] = React.useState(false);
   const [hasApproved, setHasApproved] = React.useState<undefined | boolean>();
@@ -140,10 +145,10 @@ export function ProjectModal({
               Financial Details
             </h1>
             <p className="text-gray-600 font-body text-sm leading-relaxed my-2">
-              KES {project?.fundsAllocated} allocated.
+              KES {formattedFundsAllocated} allocated.
             </p>
             <p className="text-gray-600 font-body text-sm leading-relaxed">
-              KES {project?.fundsCollected} collected so far.
+              KES {formattedFundsCollected} collected so far.
             </p>
           </div>
           <div className="mt-10 gap-2">

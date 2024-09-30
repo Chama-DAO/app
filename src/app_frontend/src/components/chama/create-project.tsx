@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { v4 as uuid, v4 } from "uuid";
 import { format } from "date-fns";
 import * as zod from "zod";
@@ -15,7 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../../../@/components/ui/input";
 import { Button } from "../../../@/components/ui/button";
 import { Textarea } from "../../../@/components/ui/textarea";
-import { getDoc, setDoc } from "@junobuild/core";
+import { authSubscribe, getDoc, setDoc, User } from "@junobuild/core";
 import Loader from "../Loader";
 import { Chama } from "./create-chama";
 import { Link } from "react-router-dom";
@@ -29,7 +29,9 @@ const schema = zod.object({
 });
 
 function CreateProject({ id }: any) {
+  const [currentUser, seCurrentUser] = React.useState<User | null>(null);
   const handleSubmit = async (values: zod.infer<typeof schema>) => {
+    if (!currentUser) return;
     const project = {
       ...values,
       date: new Date(),
@@ -37,7 +39,7 @@ function CreateProject({ id }: any) {
         (Number(values.fundsCollected) / Number(values.fundsAllocated)) * 100,
       approvals: 1,
       approved: false,
-      approvedBy: [],
+      approvedBy: [currentUser?.key],
     };
     try {
       setLoading(true);
@@ -88,6 +90,13 @@ function CreateProject({ id }: any) {
   const [loading, setLoading] = React.useState(false);
   const [projectedCreatedSuccessfully, setProjectCreatedSuccessfully] =
     React.useState(false);
+
+  useEffect(() => {
+    authSubscribe((user: User | null) => {
+      user ? seCurrentUser(user) : null;
+    });
+    // addUserToGeneralAppData();
+  }, []);
 
   if (loading) {
     return (

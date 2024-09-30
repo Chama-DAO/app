@@ -1,13 +1,6 @@
 import { listDocs } from "@junobuild/core";
 import React, { useEffect } from "react";
 import { FaPlus, FaWhatsapp } from "react-icons/fa";
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalTrigger,
-} from "../../../@/components/ui/animated-modal";
 import CreateProject from "./create-project";
 import { format } from "date-fns";
 import Loader from "../Loader";
@@ -133,11 +126,7 @@ function Projects({ chamas }: any) {
 
       <dialog id="my_modal_3" className="modal">
         <div className="modal-box">
-          <form method="dialog">
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-              ✕
-            </button>
-          </form>
+          <form method="dialog"></form>
           {currentChama?.projects && (
             <ProjectModal
               project={currentChama?.projects[0]}
