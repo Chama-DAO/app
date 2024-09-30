@@ -6,7 +6,7 @@ import equityDark from "../../../public/eqiuity-dark.jpg";
 import { listDocs } from "@junobuild/core";
 import Loader from "../Loader";
 import { formatDistanceToNow } from "date-fns";
-import { FaDiagramProject } from "react-icons/fa6";
+import { FaDiagramProject, FaX } from "react-icons/fa6";
 import { MdPayment } from "react-icons/md";
 import { BsBank2 } from "react-icons/bs";
 import { IoIosMore } from "react-icons/io";
@@ -60,6 +60,7 @@ function Details({ chamas }: any) {
       </div>
     );
   }
+  console.log(currentChama);
 
   return (
     <div className="flex flex-col gap-2 my-4 mx-2">
@@ -143,7 +144,7 @@ function Details({ chamas }: any) {
         className="bg-primary btn text-white font-body font-semibold hover:text-white px-4 py-2 rounded-md mt-4 flex items-center justify-center gap-1 hover:scale-90 border-primary border-1"
         onClick={() => {
           const dialog = document.getElementById(
-            "add_member"
+            "more_details"
           ) as HTMLDialogElement;
           dialog?.showModal();
         }}
@@ -151,6 +152,104 @@ function Details({ chamas }: any) {
         <h1>More Details</h1>
         <IoIosMore size={22} />
       </button>
+
+      <dialog id="more_details" className="modal">
+        <div className="modal-box">
+          <div className="flex items-center justify-between">
+            <h3 className="font-bold text-lg">{currentChama?.name}</h3>
+            <FaX
+              className="cursor-pointer"
+              onClick={() => {
+                const dialog = document.getElementById(
+                  "more_details"
+                ) as HTMLDialogElement;
+                dialog?.close();
+              }}
+            />
+          </div>
+          <p className="mb-2 text-xs text-gray-400">
+            View more details about this chama
+          </p>
+          {/* <div className="h-[.1px] bg-slate-400 w-full my-2"></div> */}
+          <form method="dialog" className="modal-backdrop">
+            <div className="flex-col flex md:flex-row justify-between">
+              <div className="flex flex-col gap-2">
+                <h1 className="text-primary font-heading underline">Finance</h1>
+                <div className="flex flex-col">
+                  <span className="text-sm text-gray-500 font-heading">
+                    Contribution Cycle
+                  </span>
+                  <p className="font-semibold text-xs font-body text-gray-400">
+                    Every {30} days
+                  </p>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-sm text-gray-500 font-heading">
+                    Loan contribution allocation
+                  </span>
+                  <p className="font-semibold text-xs font-body text-gray-400">
+                    {30}%
+                  </p>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-sm text-gray-500 font-heading">
+                    Loan interest rate
+                  </span>
+                  <p className="font-semibold text-xs font-body text-gray-400">
+                    {3}% / month
+                  </p>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-sm text-gray-500 font-heading">
+                    Merry go round allocations
+                  </span>
+                  <p className="font-semibold text-xs font-body text-gray-400">
+                    {20}%
+                  </p>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-sm text-gray-500 font-heading">
+                    Premium plan
+                  </span>
+                  <p className="font-semibold text-xs font-body text-gray-400">
+                    Basic⭐️
+                  </p>
+                </div>
+              </div>
+              <div className="h-[.1px] md:h-full md:w-[.1px] bg-slate-400 w-full my-2"></div>
+              <div className="flex flex-col gap-2">
+                <h1 className="text-primary font-heading underline text-pretty ">
+                  Meetings & Others
+                </h1>
+                <div className="flex flex-col">
+                  <span className="text-sm text-gray-500 font-heading">
+                    Meeting cycle
+                  </span>
+                  <p className="font-semibold text-xs font-body text-gray-400">
+                    Every {14} days
+                  </p>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-sm text-gray-500 font-heading">
+                    Meeting platform
+                  </span>
+                  <p className="font-semibold text-xs font-body text-gray-400">
+                    Zoom
+                  </p>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-sm text-gray-500 font-heading">
+                    Maximum proposals
+                  </span>
+                  <p className="font-semibold text-xs font-body text-gray-400">
+                    {3} at a time
+                  </p>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </dialog>
     </div>
   );
 }
