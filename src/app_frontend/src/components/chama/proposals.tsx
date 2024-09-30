@@ -5,6 +5,7 @@ import Loader from "../Loader";
 import ProposalView from "./proposal-view";
 import toast from "react-hot-toast";
 import { format } from "date-fns";
+import { FaX } from "react-icons/fa6";
 
 function Proposals({ chama }: any) {
   const chamaID = chama?.id;
@@ -259,7 +260,18 @@ function Proposals({ chama }: any) {
       </div>
       <dialog id="add_proposal" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Add Proposal</h3>
+          <div className="flex items-center justify-between">
+            <h3 className="font-bold text-lg">Add Proposal</h3>
+            <FaX
+              className="cursor-pointer"
+              onClick={() => {
+                const dialog = document.getElementById(
+                  "add_proposal"
+                ) as HTMLDialogElement;
+                dialog?.close();
+              }}
+            />
+          </div>
           <p className="mb-2 text-xs text-gray-400">
             This proposal will be visible to all chama members and will have to
             be by approved by all of them to be applied to your chama.
