@@ -76,7 +76,6 @@ export function ProjectModal({
           if (proj.title === project.title) {
             return {
               ...proj,
-              approved: true,
               approvals: proj.approvals + 1,
               approvedBy: [...proj.approvedBy, user?.key],
             };
