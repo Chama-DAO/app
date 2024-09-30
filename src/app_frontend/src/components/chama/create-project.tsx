@@ -28,10 +28,15 @@ const schema = zod.object({
   groupLink: zod.string(),
 });
 
-function CreateProject({ id }: any) {
-  const [currentUser, seCurrentUser] = React.useState<User | null>(null);
+function CreateProject({
+  id,
+  currentUserKey,
+}: {
+  id: string;
+  currentUserKey: string | undefined;
+}) {
   const handleSubmit = async (values: zod.infer<typeof schema>) => {
-    if (!currentUser) return;
+    if (!currentUserKey) return;
     const project = {
       ...values,
       date: new Date(),
@@ -39,7 +44,7 @@ function CreateProject({ id }: any) {
         (Number(values.fundsCollected) / Number(values.fundsAllocated)) * 100,
       approvals: 1,
       approved: false,
-      approvedBy: [currentUser?.key],
+      approvedBy: [currentUserKey],
     };
     try {
       setLoading(true);
@@ -90,13 +95,6 @@ function CreateProject({ id }: any) {
   const [loading, setLoading] = React.useState(false);
   const [projectedCreatedSuccessfully, setProjectCreatedSuccessfully] =
     React.useState(false);
-
-  useEffect(() => {
-    authSubscribe((user: User | null) => {
-      user ? seCurrentUser(user) : null;
-    });
-    // addUserToGeneralAppData();
-  }, []);
 
   if (loading) {
     return (

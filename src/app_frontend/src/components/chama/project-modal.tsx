@@ -7,13 +7,16 @@ import { authSubscribe, getDoc, listDocs, setDoc, User } from "@junobuild/core";
 import React, { useEffect } from "react";
 import Loader from "../Loader";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export function ProjectModal({
   project,
   chamaID,
+  currentUserKey,
 }: {
   project: any;
   chamaID: string;
+  currentUserKey: string | undefined;
 }) {
   const formattedFundsCollected = project?.fundsCollected
     ? new Intl.NumberFormat("en-US").format(project.fundsCollected)
@@ -57,7 +60,11 @@ export function ProjectModal({
   }, []);
 
   const approveProject = async () => {
-    if (user && !hasApproved) {
+    if (!user?.key) {
+      toast.error("You need to be logged in to approve this project");
+      return;
+    }
+    if (user && !project.approvedBy?.includes(currentUserKey)) {
       setLoading(true);
       try {
         const chamaDoc = await getDoc({
@@ -119,15 +126,15 @@ export function ProjectModal({
       </div>
     );
   }
+  console.log(project?.approvedBy);
   return (
     <div className="flex flex-col gap-4">
       <div className="py-2 flex justify-between items-center">
         <h1 className="font-heading font-bold text-2xl">{project?.title}</h1>
         <div className="flex flex-col items-center">
           <h1 className="text-sm text-gray-400 font-body">
-            {project && format(project?.date, "EEEE do yyyy h a")}
+            {project && format(project?.date, "EEEE do yyyy")}
           </h1>
-          <h1 className="text-sm text-primary font-body">By Sylus</h1>
         </div>
       </div>
       <div className="mt-2">
@@ -168,7 +175,7 @@ export function ProjectModal({
           Project Status
         </h1>
         <p className="text-gray-600 font-body text-sm leading-relaxed">
-          {project?.approvals} / 10 members have approved this project.
+          {project?.approvals} member(s) have approved this project.
         </p>
         <p className="text-gray-600 font-body text-sm leading-relaxed flex items-center">
           {project?.approved ? "Approved" : "Pending Review"}
@@ -188,13 +195,15 @@ export function ProjectModal({
         </button>
         <button
           className={`text-white text-sm font-body font-semibold px-4 py-2 rounded-md w-1/2 ${
-            hasApproved
+            !project.approvedBy?.includes(user?.key)
               ? "bg-secondaryAccent"
-              : "bg-gray-300 cursor-not-allowed"
+              : "bg-gray-300 cursor-not-allowed text-xs"
           }`}
           onClick={() => approveProject()}
         >
-          {!hasApproved ? "Already approved this" : "Approve"}
+          {project.approvedBy?.includes(user?.key)
+            ? "Already approved this"
+            : "Approve"}
         </button>
       </div>
     </div>

@@ -5,8 +5,15 @@ import CreateProject from "./create-project";
 import { format } from "date-fns";
 import Loader from "../Loader";
 import { ProjectModal } from "./project-modal";
+import { authSubscribe, getDoc, setDoc, User } from "@junobuild/core";
 
 function NoProjects({ currentChama }: any) {
+  const [currentUser, seCurrentUser] = React.useState<User | null>(null);
+  useEffect(() => {
+    authSubscribe((user: User | null) => {
+      user ? seCurrentUser(user) : null;
+    });
+  }, []);
   return (
     <div className="flex justify-center items-center w-full py-4">
       <button
@@ -29,7 +36,12 @@ function NoProjects({ currentChama }: any) {
                   ✕
                 </button>
               </form>
-              {currentChama && <CreateProject id={currentChama?.id} />}
+              {currentChama && (
+                <CreateProject
+                  id={currentChama?.id}
+                  currentUserKey={currentUser?.key}
+                />
+              )}
             </div>
           </dialog>
         </div>
@@ -131,6 +143,7 @@ function Projects({ chamas }: any) {
             <ProjectModal
               project={currentChama?.projects[0]}
               chamaID={currentChama?.id}
+              currentUserKey={currentChama?.key}
             />
           )}
         </div>
