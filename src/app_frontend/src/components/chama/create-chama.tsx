@@ -136,7 +136,11 @@ function CreateChama() {
       id: uuidv4(),
       ...values,
       type: "basic",
-      accountBalance: 0,
+      accountBalances: {
+        merry_go_round: 0,
+        project: 0,
+        loan: 0,
+      },
       members: [],
       meetings: [],
       nextMeeting: "",
