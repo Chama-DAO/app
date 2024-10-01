@@ -127,7 +127,7 @@ export function ProjectModal({
         <h1 className="font-heading font-bold text-2xl">{project?.title}</h1>
         <div className="flex flex-col items-center">
           <h1 className="text-sm text-gray-400 font-body">
-            {project && format(project?.date, "EEEE do yyyy")}
+            {project && format(project?.date, "MMMM do yyyy")}
           </h1>
         </div>
       </div>

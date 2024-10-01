@@ -40,7 +40,7 @@ function App() {
           <Route path="/my-chama" element={<Chamas />} />
           <Route path="/learn" element={<ELearning />} />
           <Route path="/proposals" element={<Proposals />} />
-          <Route path="/settings" element={<Settings />} />
+          <Route path="/profile" element={<Settings />} />
         </Routes>
       </BrowserRouter>
       <Toaster />

@@ -4,8 +4,10 @@ import { FaBell } from "react-icons/fa";
 import { TNotifications, notifications } from "../../utils/notifications";
 import { FaGear } from "react-icons/fa6";
 import { User, authSubscribe, getDoc } from "@junobuild/core";
-
+import { FaAngleDoubleRight } from "react-icons/fa";
 import Loader from "../Loader";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function InfoSection({
   theme,
@@ -14,6 +16,7 @@ function InfoSection({
   theme: boolean;
   setTheme: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const navigate = useNavigate();
   const [currentTheme, setCurrentTheme] = React.useState<"light" | "dark">(
     "light"
   );
@@ -67,6 +70,13 @@ function InfoSection({
       </div>
     );
   }
+  const handleNotificationClick = (title: string) => {
+    if (title === "Chama Invite" || "Welcome to your new chama") {
+      navigate("my-chama");
+    } else {
+      toast.success("Hidden gem");
+    }
+  };
   return (
     <div className="mx-2 mt-8 md:mt-0 rounded-xl p-1 md:p-2 md:h-screen shadow-xl">
       <div className="flex items-center px-4 my-4 justify-between md:gap-4 lg:gap-8">
@@ -195,9 +205,18 @@ function InfoSection({
                       <h1 className="font-body text-gray-500 text-xs">
                         {notifications.description.substring(0, 200)}
                       </h1>
-                      <p className="font-body text-xs text-gray-500 py-2">
-                        {notifications.time}
-                      </p>
+                      <div className="flex items-center justify-between bg-red-700">
+                        <p className="font-body text-xs text-gray-500 py-2">
+                          {notifications.time}
+                        </p>
+                        <button
+                          onClick={() =>
+                            handleNotificationClick(notifications.title)
+                          }
+                        >
+                          <FaAngleDoubleRight className="text-primary" />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>

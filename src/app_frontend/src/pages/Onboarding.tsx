@@ -26,6 +26,7 @@ import finish from "../assets/onb3.png";
 import { financeTypes } from "../utils/financeTypes";
 import toast, { Toaster } from "react-hot-toast";
 import Loader from "../components/Loader";
+import { format } from "date-fns";
 
 export type TAvatar = {
   id: number;
@@ -140,6 +141,7 @@ function Onboarding() {
           votedOnProposal: [],
           adminChama: [],
           invitedChama: "",
+          timestamp: format(new Date(), "MMMM do yyyy"),
         };
         try {
           setSavingData(true);

@@ -191,9 +191,12 @@ function Sidebar({ activeTab, setActiveTab, leave, theme }: SidebarItemProps) {
             </Link>
           </li> */}
         </ul>
-        <button className="mt-8 absolute bottom-20 flex items-center">
+        <Link
+          to="/profile"
+          className="mt-8 absolute bottom-20 flex items-center"
+        >
           <img src={avatar} alt="avatar" className="h-8 w-8 rounded-full" />
-        </button>
+        </Link>
         <button
           className="mt-8 absolute bottom-7 flex items-center pl-1"
           onClick={() => leave()}
