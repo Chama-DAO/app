@@ -25,6 +25,8 @@ import { FaChevronLeft } from "react-icons/fa";
 import { SidebarHeader } from "../components/Sidebar";
 import { UserData } from "../components/chama/create-chama";
 import avatar from "../../src/assets/member.png";
+import { FaCopy } from "react-icons/fa6";
+import toast from "react-hot-toast";
 
 type CardProps = React.ComponentProps<typeof Card>;
 
@@ -90,6 +92,13 @@ function Settings({ className, ...props }: CardProps) {
     setLeaving(false);
   };
 
+  const handleClickId = (id: string | undefined) => {
+    if (id) {
+      navigator.clipboard.writeText(id);
+      toast.success("User ID Copied to clipboard");
+    }
+  };
+
   if (!user) {
     return (
       <div className="flex-col flex items-center justify-center p-4 h-screen">
@@ -134,13 +143,22 @@ function Settings({ className, ...props }: CardProps) {
           </CardHeader>
           <CardContent className="grid gap-4">
             <div className=" flex items-center space-x-4 rounded-md border p-4 justify-between w-full bg-secondaryAccent">
-              <img
-                src={`../..${currentUser?.avatar?.image}` || avatar}
-                alt="avatar"
-                className="h-8 w-8 rounded-full"
-              />
+              <div className="flex items-center gap-2">
+                <img
+                  src={`../..${currentUser?.avatar?.image}` || avatar}
+                  alt="avatar"
+                  className="h-8 w-8 rounded-full"
+                />
+                <p
+                  className="text-white text-xs font-body cursor-pointer flex items-center"
+                  onClick={() => handleClickId(currentUser?.id)}
+                >
+                  {currentUser?.id?.substring(0, 17)}...
+                  <FaCopy />
+                </p>
+              </div>
               <div className="flex flex-col gap-2">
-                <p className="text-sm font-medium leading-none font-body text-white underline">
+                <p className="text-sm font-medium leading-none font-body text-white underline ">
                   {currentUser?.username}
                 </p>
                 <p className="text-xs font-medium leading-none font-body text-white text-wrap w-[80px]">
