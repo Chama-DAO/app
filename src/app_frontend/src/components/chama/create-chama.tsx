@@ -52,6 +52,7 @@ interface UserBalance {
 }
 
 export interface Chama {
+  id: string;
   name: string;
   description: string;
   contributionAmount: string;
