@@ -88,7 +88,7 @@ function Header({ theme: darkMode }: { theme: boolean }) {
           </h2>
         </div>
         <p className="font-body text-sm text-gray-500 mt-4 w-3/4 p-2">
-          Your account balance
+          Total Balance
         </p>
         {showModal && currentModal === "wallet" && (
           <div className="absolute top-0 right-0">

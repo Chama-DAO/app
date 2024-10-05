@@ -72,7 +72,7 @@ function InfoSection({
   }
   const handleNotificationClick = (title: string) => {
     if (title === "Chama Invite" || "Welcome to your new chama") {
-      navigate("my-chama");
+      +navigate("my-chama");
     } else {
       toast.success("Hidden gem");
     }
@@ -205,7 +205,7 @@ function InfoSection({
                       <h1 className="font-body text-gray-500 text-xs">
                         {notifications.description.substring(0, 200)}
                       </h1>
-                      <div className="flex items-center justify-between bg-red-700">
+                      <div className="flex items-center justify-between">
                         <p className="font-body text-xs text-gray-500 py-2">
                           {notifications.time}
                         </p>
