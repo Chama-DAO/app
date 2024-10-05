@@ -18,7 +18,7 @@ import {
   signOut,
   User,
 } from "@junobuild/core";
-import { UserData } from "../components/chama/create-chama";
+import { Chama, UserData } from "../components/chama/create-chama";
 import noUser from "../assets/nouser.png";
 import Loader from "../components/Loader";
 
@@ -35,7 +35,7 @@ type TChamaBalances = {
 
 function AccountCard({ balance }: { balance: TBalances }) {
   return (
-    <div className="w-full rounded-lg my-4 px-4 pt-4 shadow-lg">
+    <div className="w-full rounded-lg my-4 px-4 pt-4 shadow-sm">
       <h1 className="font-heading font-bold text-xl py-2">{balance.title}</h1>
       <div className="flex justify-between">
         <div className="flex flex-col gap-4">
@@ -87,7 +87,7 @@ function Wallet() {
   const [loading, setLoading] = React.useState(false);
   const [userData, setUserData] = React.useState<UserData | undefined>();
   const [userDoc, setUserDoc] = React.useState<any>();
-  const [userChama, setUserChama] = React.useState<any>();
+  const [userChama, setUserChama] = React.useState<Chama | null>(null);
   const [leaving, setLeaving] = useState(false);
   const [balances, setBalances] = useState<TBalances[] | null>(null);
 
@@ -215,9 +215,15 @@ function Wallet() {
               </h1>
               <div className="lg:flex justify-between items-center mt-4 md:mt-10">
                 <h1 className="text-3xl font-bold font-body text-white">
-                  KES 0
+                  KES{" "}
+                  {balances &&
+                    balances[0].balance +
+                      balances[1].balance +
+                      balances[2].balance}
                 </h1>
-                <p className="text-gray-300 py-2">+0.0%</p>
+                <p className="text-gray-300 py-2 font-body text-sm">
+                  Total funds on {userChama?.name}
+                </p>
               </div>
             </div>
             <div className="bg-primary p-4 rounded-lg md:w-1/2 md:h-64 w-full m-1">
