@@ -47,7 +47,7 @@ export default function Chart() {
     <Card className="mt-6 border-none">
       <CardHeader>
         <CardTitle className="font-heading">
-          Income - Expenditure Chart
+          Deposits - Withdrawals Chart
         </CardTitle>
         <CardDescription className="font-body">
           January - June 2024
@@ -63,7 +63,7 @@ export default function Chart() {
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 font-medium leading-none font-body">
-          Expenses are up 5.2% this month <TrendingUp className="h-4 w-4" />
+          Deposits are up 5.2% this month <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground font-body">
           <span className="font-medium text-gray-400">
