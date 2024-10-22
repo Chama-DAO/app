@@ -57,7 +57,7 @@ export function LearnCard({
           role="progressbar"
           aria-labelledby="ProgressLabel"
           aria-valuenow={completedPercent}
-          className="block rounded-full bg-gray-200"
+          className="block rounded-full bg-gray-400"
         >
           <span
             className="block h-2 rounded-full bg-primary transition-all"
