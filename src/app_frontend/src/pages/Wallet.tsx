@@ -248,6 +248,9 @@ function Wallet() {
         </div>
       </div>
       <Transactions />
+      <p className="py-2 italic font-body text-gray-500 text-sm text-center">
+        *This page is still in development
+      </p>
     </div>
   );
 }
