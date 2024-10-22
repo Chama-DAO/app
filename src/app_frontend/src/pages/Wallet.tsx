@@ -124,6 +124,7 @@ function Wallet() {
                     },
                   },
                 });
+                //@ts-ignore
                 setUserChama(chamaList?.items[0]?.data);
                 const balances: TBalances[] = [
                   {
@@ -135,15 +136,17 @@ function Wallet() {
                   {
                     title: "Merry-Go-Round",
                     description: "Payouts Balance",
-                    //@ts-ignore
+
                     balance:
+                      //@ts-ignore
                       chamaList?.items[0]?.data?.accountBalances?.project,
                   },
                   {
                     title: "Projects Fund",
                     description: "Projects Balance",
-                    //@ts-ignore
+
                     balance:
+                      //@ts-ignore
                       chamaList?.items[0]?.data?.accountBalances?.project,
                   },
                 ];
