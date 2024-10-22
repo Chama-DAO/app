@@ -124,12 +124,12 @@ function Proposals({ chama }: any) {
             : "/src/assets/admin.png",
         title: `Change ${selectedSetting} in ${area} section`,
         desc: proposalDescription,
-        time: format(new Date(), "EEEE do yyyy ha"),
+        time: format(new Date(), "EEEE do mmmm yyyy"),
         votesFor: 1,
         votesAgainst: 0,
         deadline: format(
           new Date(new Date().setDate(new Date().getDate() + 14)),
-          "EEEE do yyyy ha"
+          "EEEE do mmmm yyyy"
         ),
         totalVotes: 1,
         active: true,

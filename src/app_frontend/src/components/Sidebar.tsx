@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "../assets/logo.png";
+import { FaUser } from "react-icons/fa6";
 import {
   FaBell,
   FaBook,
@@ -195,7 +196,7 @@ function Sidebar({ activeTab, setActiveTab, leave, theme }: SidebarItemProps) {
           to="/profile"
           className="mt-8 absolute bottom-20 flex items-center"
         >
-          <img src={avatar} alt="avatar" className="h-8 w-8 rounded-full" />
+          <FaUser className="text-neutral" size={24} />
         </Link>
         <button
           className="mt-8 absolute bottom-7 flex items-center pl-1"

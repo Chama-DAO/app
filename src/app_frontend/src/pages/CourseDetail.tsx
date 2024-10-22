@@ -46,7 +46,7 @@ function CourseDetail() {
       </div>
       <div className="flex flex-col items-center justify-center">
         <h1 className="font-heading text-center text-xl p-2 mt-12">
-          Course will be available soon
+          This course will be available soon
         </h1>
         <Button className="text-white font-body mt-4" onClick={handleNavigate}>
           Back Home

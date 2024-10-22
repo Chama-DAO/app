@@ -21,6 +21,7 @@ import {
 import { Chama, UserData } from "../components/chama/create-chama";
 import noUser from "../assets/nouser.png";
 import Loader from "../components/Loader";
+import Pay from "../components/wallet/Pay";
 
 type TBalances = {
   title: string;
@@ -199,7 +200,7 @@ function Wallet() {
           <FaChevronLeft size={24} className="md:mt-2" />
         </Link>
         <div className="mt-2">
-          <SidebarHeader title="My Wallet" />
+          <SidebarHeader title={`${userChama?.name}`} />
         </div>
       </div>
       <div className="flex md:flex-row flex-col gap-4 justify-between">
@@ -210,7 +211,7 @@ function Wallet() {
             ))}
         </div>
         <div className="flex flex-col md:w-[55%] ">
-          <div className="md:flex justify-between">
+          <div className="md:flex justify-between md:gap-8">
             <div className="bg-secondaryAccent p-4 rounded-lg md:w-1/2 md:h-64 w-full m-1">
               <FaWallet className="text-white" size={24} />
               <h1 className="text-xl font-heading mt-8 text-gray-300">
@@ -232,16 +233,19 @@ function Wallet() {
             <div className="bg-primary p-4 rounded-lg md:w-1/2 md:h-64 w-full m-1">
               <MdOutlineGeneratingTokens className="text-white" size={24} />
               <h1 className="text-xl font-heading mt-8 text-gray-300">
-                Total Spending
+                Total Withdrawals
               </h1>
               <div className="lg:flex justify-between items-center mt-4 md:mt-10">
                 <h1 className="text-3xl font-bold font-body text-white">
                   KES 0
                 </h1>
-                <p className="text-gray-300 py-2">{userChama?.name} Spending</p>
+                <p className="text-gray-300 py-2 text-sm">
+                  {userChama?.name} withdrawals this month
+                </p>
               </div>
             </div>
           </div>
+          <Pay />
           <div className="">
             <Chart />
           </div>
