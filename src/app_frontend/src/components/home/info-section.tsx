@@ -6,7 +6,7 @@ import { FaGear } from "react-icons/fa6";
 import { User, authSubscribe, getDoc } from "@junobuild/core";
 import { FaAngleDoubleRight } from "react-icons/fa";
 import Loader from "../Loader";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 function InfoSection({
@@ -85,7 +85,9 @@ function InfoSection({
         </p>
 
         <div className="flex items-center gap-2">
-          <img src={avatar} alt="avatar" className="w-8 h-8 rounded-full" />
+          <Link to="/profile">
+            <img src={avatar} alt="avatar" className="w-8 h-8 rounded-full" />
+          </Link>
           {/* <IoIosArrowDown /> */}
         </div>
       </div>
