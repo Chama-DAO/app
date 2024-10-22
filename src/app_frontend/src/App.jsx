@@ -11,6 +11,7 @@ import ELearning from "./pages/ELearning";
 import Proposals from "./pages/Proposals";
 import Settings from "./pages/Settings";
 import { Toaster } from "react-hot-toast";
+import Error from "./pages/Error";
 
 function App() {
   const [greeting, setGreeting] = useState("");
@@ -41,6 +42,7 @@ function App() {
           <Route path="/learn" element={<ELearning />} />
           <Route path="/proposals" element={<Proposals />} />
           <Route path="/profile" element={<Settings />} />
+          <Route path="*" element={<Error />} />
         </Routes>
       </BrowserRouter>
       <Toaster />
