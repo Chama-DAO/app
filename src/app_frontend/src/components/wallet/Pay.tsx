@@ -12,7 +12,7 @@ function Pay() {
         <div className="flex justify-center items-center rounded-md bg-secondaryAccent w-full md:w-1/2 cursor-pointer">
           <img src={mpesaLogo} alt="Mpesa Logo" className="h-20 w-30" />
         </div>
-        <div className="flex justify-center items-center rounded-md bg-gray-300 w-full md:w-1/2 cursor-not-allowed">
+        <div className="flex justify-center items-center rounded-md bg-gray-500 w-full md:w-1/2 cursor-not-allowed">
           <img src={equityLogo} alt="Mpesa Logo" className="h-20 w-50 " />
           <p className="text-text font-semibold font-body pt-2">Bank Payment</p>
         </div>
