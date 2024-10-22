@@ -238,7 +238,7 @@ function Wallet() {
                 <h1 className="text-3xl font-bold font-body text-white">
                   KES 0
                 </h1>
-                <p className="text-gray-300 py-2">+0.0%</p>
+                <p className="text-gray-300 py-2">{userChama?.name} Spending</p>
               </div>
             </div>
           </div>
