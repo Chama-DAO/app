@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 import backgroundImage from "../assets/onboarding.gif";
 import Auth from "../components/Auth";
-import { signIn, authSubscribe, User, setDoc, getDoc } from "@junobuild/core";
+import {
+  signIn,
+  authSubscribe,
+  User,
+  setDoc,
+  getDoc,
+  setManyDocs,
+} from "@junobuild/core";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import logo from "../assets/logo.png";
@@ -18,7 +25,8 @@ import Confetti from "react-confetti";
 import finish from "../assets/onb3.png";
 import { financeTypes } from "../utils/financeTypes";
 import toast, { Toaster } from "react-hot-toast";
-import { TUser } from "../utils/user";
+import Loader from "../components/Loader";
+import { format } from "date-fns";
 
 export type TAvatar = {
   id: number;
@@ -39,6 +47,26 @@ export type TFinanceType = {
 };
 
 export type Theme = "dark" | "light";
+export type UserType = {
+  id: string;
+  username: string;
+  financeType: string;
+  theme: string;
+  avatar: string;
+  role: string;
+  isOnboarded: boolean;
+  transactions: any[];
+  monthlySpend: any[];
+  chamas: any[];
+  hasCreatedChama: boolean;
+  stakingInformation: any;
+  notifications: any[];
+  courses: any[];
+  hasCreatedProposal: boolean;
+  proposals: any[];
+  votedOnProposal: any[];
+  adminChama: any[];
+};
 
 function Onboarding() {
   const navigate = useNavigate();
@@ -68,6 +96,28 @@ function Onboarding() {
     }
   }
 
+  // const userBalances = [
+  //   {
+  //     account: "Main",
+  //     balance: 0,
+  //   },
+  //   {
+  //     account: "Staking",
+  //     balance: 0,
+  //   },
+  //   {
+  //     account: "Investment",
+  //     balance: 0,
+  //   },
+  // ];
+
+  const stakingInformation = {
+    amount: 0,
+    dateStaked: "",
+    votingPower: 0,
+    maturityDate: "",
+  };
+
   async function nextStep() {
     if (step === 3) {
       if (userAvailable) {
@@ -79,19 +129,33 @@ function Onboarding() {
           avatar: selectedAvatar,
           role: selectedRole,
           isOnboarded: true,
+          transactions: [],
+          monthlySpend: [],
+          chamas: [],
+          hasCreatedChama: false,
+          stakingInformation: stakingInformation,
+          notifications: [],
+          courses: [],
+          hasCreatedProposal: false,
+          proposals: [],
+          votedOnProposal: [],
+          adminChama: [],
+          invitedChama: "",
+          timestamp: format(new Date(), "MMMM do yyyy"),
         };
         try {
           setSavingData(true);
+          localStorage.setItem("user", JSON.stringify(currUser));
           await setDoc({
             collection: "users",
             doc: {
               key: userAvailable.key,
               data: currUser,
+              description: currUser.username,
             },
           });
           setSavingData(false);
           toast.success("Profile saved successfully");
-          //  console.log("User:", currUser);
           navigate("/dashboard");
         } catch (error) {
           toast.error("An error occurred!");
@@ -253,7 +317,7 @@ function Onboarding() {
         </div>
       ),
       content: (
-        <div className="flex gap-2 my-4 py-2 md:w-1/2 w-3/4">
+        <div className="flex gap-2 my-4 py-2 w-3/4">
           <CustomDropdown
             avatars={roles}
             selectedAvatar={selectedRole}
@@ -307,7 +371,9 @@ function Onboarding() {
 
   const createUser = async () => {
     setAuthUser(true);
-    await signIn();
+    await signIn({
+      allowPin: true,
+    });
     setAuthUser(false);
   };
   useEffect(() => {
@@ -323,6 +389,7 @@ function Onboarding() {
               key: userAvailable?.key,
             });
             currUser ? navigate("/dashboard") : null;
+            setCheckingUser(false);
           } catch (error) {
             console.error("Error getting document:", error);
           }
@@ -334,12 +401,9 @@ function Onboarding() {
 
   if (savingData || checkUser) {
     return (
-      <Skeleton
-        count={5}
-        baseColor="#d3d3d3"
-        height={30}
-        style={{ padding: 10, margin: 10 }}
-      />
+      <div className="flex items-center justify-center h-screen">
+        <Loader size="sm" />
+      </div>
     );
   }
   return (

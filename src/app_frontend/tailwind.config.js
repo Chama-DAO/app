@@ -1,4 +1,3 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
   content: [
@@ -30,8 +29,19 @@ module.exports = {
         text: "#050315",
         background: "#fbfbfe",
         black: "#0b0b0b",
+        bgDark: "#0b0b0b",
+      },
+      keyframes: {
+        pulseColor: {
+          "0%, 100%": { color: "#0052cc" }, // Primary color
+          "50%": { color: "#D3D3D3" }, // Gray-500 color
+        },
+      },
+      animation: {
+        pulseColor: "pulseColor 2s infinite",
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("daisyui"), require("tailwindcss-animate")],
+  darkMode: "class",
 };
