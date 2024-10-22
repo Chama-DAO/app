@@ -204,14 +204,14 @@ function Wallet() {
         </div>
       </div>
       <div className="flex md:flex-row flex-col gap-4 justify-between">
-        <div className="flex flex-col md:mx-2 mx-1 md:w-[45%]">
+        <div className="flex flex-col md:mx-2 mx-1 md:w-[45%] md:gap-8">
           {balances &&
             balances.map((balance) => (
               <AccountCard balance={balance} key={balance.title} />
             ))}
         </div>
         <div className="flex flex-col md:w-[55%] ">
-          <div className="md:flex justify-between md:gap-8">
+          <div className="md:flex justify-between">
             <div className="bg-secondaryAccent p-4 rounded-lg md:w-1/2 md:h-64 w-full m-1">
               <FaWallet className="text-white" size={24} />
               <h1 className="text-xl font-heading mt-8 text-gray-300">
