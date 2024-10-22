@@ -3,18 +3,26 @@ import learningModules, { TLearningModule } from "../../utils/learningModules";
 import { LuFileSpreadsheet } from "react-icons/lu";
 import { MdOutlineLibraryAddCheck } from "react-icons/md";
 import { BsPeople } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 export function LearnCard({
   learningModule,
 }: {
   learningModule: TLearningModule;
 }) {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/courses/${learningModule.id}`);
+  };
   const completedPercent =
     learningModule.completed === 0
       ? 0
       : (learningModule.completed / learningModule.slides) * 100;
   return (
-    <div className="hover:shadow-sm md:px-4 hover:shadow-primary lg:mx-8 rounded-lg relative my-2 lg:my-8 hover:scale-95 cursor-pointer duration-300 transition-all md:h-80 lg:h-96">
+    <div
+      className="hover:shadow-sm md:px-4 hover:shadow-primary lg:mx-8 rounded-lg relative my-2 lg:my-8 hover:scale-95 cursor-pointer duration-300 transition-all md:h-80 lg:h-96"
+      onClick={handleClick}
+    >
       <img
         src={learningModule.image}
         alt={learningModule.title}
