@@ -18,6 +18,7 @@
     "src/app_server"
   ],
   "dependencies": {
-    "nvm": "^0.0.4"
+    "nvm": "^0.0.4",
+    "azle": "0.24.1"
   }
 }

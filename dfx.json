@@ -7,7 +7,9 @@
       "main": "src/app_backend/src/index.ts",
       "tech_stack": {
         "cdk": {
-          "azle": {}
+          "azle": {
+            "version": "0.24.1"
+          }
         },
         "language": {
           "javascript": {},
@@ -26,7 +28,9 @@
       "gzip": true,
       "tech_stack": {
         "cdk": {
-          "azle": {}
+          "azle": {
+            "version": "0.24.1"
+          }
         },
         "language": {
           "javascript": {},
