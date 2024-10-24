@@ -14,7 +14,8 @@
   "type": "module",
   "workspaces": [
     "src/app_backend",
-    "src/app_frontend"
+    "src/app_frontend",
+    "src/app_server"
   ],
   "dependencies": {
     "nvm": "^0.0.4"

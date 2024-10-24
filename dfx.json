@@ -17,13 +17,26 @@
       "type": "custom",
       "wasm": ".azle/app_backend/app_backend.wasm"
     },
+    "app_server": {
+      "type": "custom",
+      "main": "src/app_server/src/index.ts",
+      "candid": "src/app_server/index.did",
+      "build": "npx azle app_server",
+      "wasm": ".azle/app_server/app_server.wasm",
+      "gzip": true,
+      "tech_stack": {
+        "cdk": {
+          "azle": {}
+        },
+        "language": {
+          "javascript": {},
+          "typescript": {}
+        }
+      }
+    },
     "app_frontend": {
-      "dependencies": [
-        "app_backend"
-      ],
-      "source": [
-        "src/app_frontend/dist"
-      ],
+      "dependencies": ["app_server"],
+      "source": ["src/app_frontend/dist"],
       "type": "assets",
       "workspace": "app_frontend"
     }
