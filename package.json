@@ -14,11 +14,7 @@
   "type": "module",
   "workspaces": [
     "src/app_backend",
-    "src/app_frontend",
-    "src/app_server"
+    "src/app_frontend"
   ],
-  "dependencies": {
-    "nvm": "^0.0.4",
-    "azle": "0.24.1"
-  }
+  "dependencies": {}
 }

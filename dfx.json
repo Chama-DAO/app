@@ -7,9 +7,7 @@
       "main": "src/app_backend/src/index.ts",
       "tech_stack": {
         "cdk": {
-          "azle": {
-            "version": "0.24.1"
-          }
+          "azle": {}
         },
         "language": {
           "javascript": {},
@@ -20,7 +18,7 @@
       "wasm": ".azle/app_backend/app_backend.wasm"
     },
     "app_frontend": {
-      "dependencies": ["app_server"],
+      "dependencies": ["app_backend"],
       "source": ["src/app_frontend/dist"],
       "type": "assets",
       "workspace": "app_frontend"
