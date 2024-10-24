@@ -16,7 +16,5 @@
     "src/app_backend",
     "src/app_frontend"
   ],
-  "dependencies": {
-    "nvm": "^0.0.4"
-  }
+  "dependencies": {}
 }

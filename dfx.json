@@ -18,12 +18,8 @@
       "wasm": ".azle/app_backend/app_backend.wasm"
     },
     "app_frontend": {
-      "dependencies": [
-        "app_backend"
-      ],
-      "source": [
-        "src/app_frontend/dist"
-      ],
+      "dependencies": ["app_backend"],
+      "source": ["src/app_frontend/dist"],
       "type": "assets",
       "workspace": "app_frontend"
     }
