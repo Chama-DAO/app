@@ -48,7 +48,7 @@ export const items = [
     ),
   },
   {
-    name: "Investment",
+    name: "My Learning",
     icon: TbPigMoney,
     content: (
       <ul className="menu dropdown-content bg-base-100 rounded-box w-36 p-2 ">
@@ -58,7 +58,7 @@ export const items = [
         </li>
         <li className="font-body text-sm cursor-pointer">
           <MdOutlineJoinRight />
-          Invest
+          My Courses
         </li>
         <li className="font-body text-sm cursor-pointer">
           <FaBook />
@@ -74,7 +74,7 @@ export const items = [
       <ul className="menu dropdown-content bg-base-100 rounded-box w-36">
         <li className="font-body text-sm cursor-pointer">
           <CgDetailsMore />
-          View Summary
+          ..soon
         </li>
         <li className="font-body text-sm cursor-pointer">
           <MdOutlineGeneratingTokens />
