@@ -30,7 +30,7 @@ function Proposals() {
               4 Proposals
             </p>
           </div>
-          <button className="flex items-center gap-2 bg-secondaryAccent rounded-lg md:py-3 md:px-3 p-2 shadow-lg">
+          <button className="flex items-center gap-2 cursor-not-allowed bg-secondaryAccent/20 rounded-lg md:py-3 md:px-3 p-2 shadow-lg">
             <FaPlus size={20} className="text-white" />
             <h1 className="font-body font-bold text-white md:text-lg text-sm">
               New Proposal

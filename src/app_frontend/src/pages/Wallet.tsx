@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaChevronLeft, FaWallet } from "react-icons/fa";
 import { SidebarHeader } from "../components/Sidebar";
-import { TAccount, userAccounts } from "../utils/userAccounts";
 import card1 from "../../public/card.png";
 import card2 from "../../public/card2.png";
 import card3 from "../../public/card3.png";
@@ -200,7 +199,7 @@ function Wallet() {
           <FaChevronLeft size={24} className="md:mt-2" />
         </Link>
         <div className="mt-2">
-          <SidebarHeader title={`${userChama?.name}`} />
+          <SidebarHeader title={`${userChama ? userChama?.name : "Wallet"}`} />
         </div>
       </div>
       <div className="flex md:flex-row flex-col gap-4 justify-between">

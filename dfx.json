@@ -1,24 +1,7 @@
 {
   "canisters": {
-    "app_backend": {
-      "build": "npx azle app_backend",
-      "candid": "src/app_backend/app_backend.did",
-      "gzip": true,
-      "main": "src/app_backend/src/index.ts",
-      "tech_stack": {
-        "cdk": {
-          "azle": {}
-        },
-        "language": {
-          "javascript": {},
-          "typescript": {}
-        }
-      },
-      "type": "custom",
-      "wasm": ".azle/app_backend/app_backend.wasm"
-    },
     "app_frontend": {
-      "dependencies": ["app_backend"],
+      "dependencies": [],
       "source": ["src/app_frontend/dist"],
       "type": "assets",
       "workspace": "app_frontend"

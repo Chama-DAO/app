@@ -8,6 +8,8 @@ import { MdOutlineGeneratingTokens } from "react-icons/md";
 import { IoCloseSharp } from "react-icons/io5";
 import { authSubscribe, User } from "@junobuild/core";
 import { useUserStore } from "../../store/userStore";
+import { useNavigate } from "react-router-dom";
+import { FaBook } from "react-icons/fa";
 
 type TModalType = "wallet" | "chama" | "investment" | "staking" | null;
 type TBalances = {
@@ -16,6 +18,7 @@ type TBalances = {
 };
 
 function Header({ theme: darkMode }: { theme: boolean }) {
+  const navigate = useNavigate();
   const { user, getUser } = useUserStore((state: any) => ({
     user: state.user,
     getUser: state.getUser,
@@ -62,6 +65,10 @@ function Header({ theme: darkMode }: { theme: boolean }) {
     setCurrentModal(modal);
   };
 
+  const handleNavigation = (route: string) => {
+    navigate(route);
+  };
+
   return (
     <div
       className={`md:grid flex flex-col items-center md:grid-cols-2 xl:grid-cols-4 ${
@@ -88,7 +95,7 @@ function Header({ theme: darkMode }: { theme: boolean }) {
           </h2>
         </div>
         <p className="font-body text-sm text-gray-500 mt-4 w-3/4 p-2">
-          Total Balance
+          Total Chama Balance
         </p>
         {showModal && currentModal === "wallet" && (
           <div className="absolute top-0 right-0">
@@ -101,7 +108,10 @@ function Header({ theme: darkMode }: { theme: boolean }) {
           </div>
         )}
       </div>
-      <div className="rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative h-48">
+      <div
+        onClick={() => handleNavigation("/my-chama")}
+        className="rounded-xl cursor-pointer py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative h-48"
+      >
         <div className="flex items-center justify-between px-4 my-4">
           <GrGroup className="text-2xl" />
           <BsThreeDotsVertical
@@ -127,20 +137,27 @@ function Header({ theme: darkMode }: { theme: boolean }) {
           </div>
         )}
       </div>
-      <div className="rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative h-48">
+      <div
+        onClick={() => handleNavigation("/learn")}
+        className="cursor-pointer rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative h-48"
+      >
         <div className="flex items-center justify-between px-4 my-4">
-          <TbPigMoney className="text-2xl" />
+          <FaBook className="text-2xl" />
           <BsThreeDotsVertical
             className="cursor-pointer text-2xl"
             onClick={() => showModals("investment")}
           />
         </div>
         <div className="flex flex-col">
-          <h1 className="font-heading md:text-xl px-2 font-bold">Investment</h1>
-          <h2 className="font-body text-sm px-2">Start an investment today</h2>
+          <h1 className="font-heading md:text-xl px-2 font-bold">
+            My Learning
+          </h1>
+          <h2 className="font-body text-sm px-2">
+            Learn to use ChamaDAO today
+          </h2>
         </div>
         <p className="font-body text-sm text-gray-500 mt-4 w-3/4 p-2">
-          Provide liquidity and earn.
+          Use our learning resources to get started.
         </p>
         {showModal && currentModal === "investment" && (
           <div className="absolute top-0 right-0">
@@ -156,10 +173,10 @@ function Header({ theme: darkMode }: { theme: boolean }) {
       <div className="rounded-xl py-2 ease-in-out duration-150 transition-all lg:w-56 md:w-44 w-3/4 m-2 relative h-48">
         <div className="flex items-center justify-between px-4 my-4">
           <MdOutlineGeneratingTokens className="text-2xl" />
-          <div onClick={() => showModals("staking")}>
+          {/* <div onClick={() => showModals("staking")}>
             {" "}
             <BsThreeDotsVertical className="cursor-pointer text-2xl" />
-          </div>
+          </div> */}
         </div>
         <div className="flex flex-col">
           <h1 className="font-heading text-xl px-2 font-bold">
@@ -172,14 +189,14 @@ function Header({ theme: darkMode }: { theme: boolean }) {
         <p className="font-body text-sm text-gray-500 mt-4 w-3/4 p-2">
           Staked balance
         </p>
-        {showModal && currentModal === "staking" && (
+        {/* {showModal && currentModal === "staking" && (
           <div className="absolute top-0 right-0 bg-white dark:bg-[#1D232A] shadow rounded-md mx-1">
             <div className="p-2">
               <IoCloseSharp onClick={() => setShowModal(false)} />
             </div>
             {items[3].content}
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

@@ -1,47 +1,79 @@
-# app_server
+# Azle Hello World
 
-Welcome to your first Azle project! This example project will help you to deploy your first canister (application) to the Internet Computer (IC) decentralized cloud. It is a simple getter/setter canister. You can always refer to [The Azle Book](https://demergent-labs.github.io/azle/) for more in-depth documentation.
+-   [Installation](#installation)
+-   [Deployment](#deployment)
 
-`dfx` is the tool you will use to interact with the IC locally and on mainnet. If you don't already have it installed:
+Azle helps you to build secure decentralized/replicated servers in TypeScript or JavaScript on [ICP](https://internetcomputer.org/). The current replication factor is [13-40 times](https://dashboard.internetcomputer.org/subnets).
+
+Please remember that Azle is in beta and thus it may have unknown security vulnerabilities due to the following:
+
+-   Azle is built with various software packages that have not yet reached maturity
+-   Azle does not yet have multiple independent security reviews/audits
+-   Azle does not yet have many live, successful, continuously operating applications deployed to ICP
+
+## Installation
+
+> Windows is only supported through a Linux virtual environment of some kind, such as [WSL](https://learn.microsoft.com/en-us/windows/wsl/install)
+
+You will need [Node.js 20](#nodejs-20) and [dfx](#dfx) to develop ICP applications with Azle:
+
+### Node.js 20
+
+It's recommended to use nvm to install Node.js 20:
 
 ```bash
-npm run dfx_install
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 ```
 
-Next you will want to start a replica, which is a local instance of the IC that you can deploy your canisters to:
+Restart your terminal and then run:
 
 ```bash
-npm run replica_start
+nvm install 20
 ```
 
-If you ever want to stop the replica:
+Check that the installation went smoothly by looking for clean output from the following command:
 
 ```bash
-npm run replica_stop
+node --version
 ```
 
-Now you can deploy your canister locally:
+### dfx
+
+Install the dfx command line tools for managing ICP applications:
 
 ```bash
+DFX_VERSION=0.22.0 sh -ci "$(curl -fsSL https://internetcomputer.org/install.sh)"
+```
+
+Check that the installation went smoothly by looking for clean output from the following command:
+
+```bash
+dfx --version
+```
+
+## Deployment
+
+To create and deploy a simple sample application called `hello_world`:
+
+```bash
+# create a new default project called hello_world
+npx azle new hello_world
+cd hello_world
+```
+
+```bash
+# install all npm dependencies including azle
 npm install
-npm run canister_deploy_local
 ```
 
-To call the methods on your canister:
-
 ```bash
-npm run canister_call_get_message
-npm run canister_call_set_message
+# start up a local ICP replica
+dfx start --clean
 ```
 
-If you run the above commands and then call `npm run canister_call_get_message` you should see:
+In a separate terminal in the `hello_world` directory:
 
 ```bash
-("Hello world!")
-```
-
-Assuming you have [created a cycles wallet](https://internetcomputer.org/docs/current/developer-docs/quickstart/network-quickstart) and funded it with cycles, you can deploy to mainnet like this:
-
-```bash
-npm run canister_deploy_mainnet
+# deploy your canister
+dfx deploy
 ```
