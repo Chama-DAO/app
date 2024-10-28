@@ -22,7 +22,8 @@ export default function Transactions() {
             <TableHead className="text-right">Status</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
+
+        {/* <TableBody>
           <TableRow>
             <TableCell className="font-medium">1.</TableCell>
             <TableCell>Wakulima Chama</TableCell>
@@ -30,8 +31,11 @@ export default function Transactions() {
             <TableCell className="text-right">KES 200</TableCell>
             <TableCell className="text-right">Success</TableCell>
           </TableRow>
-        </TableBody>
+        </TableBody> */}
       </Table>
+      <p className="text-center text-sm font-body text-gray-500 my-5 w-full">
+        Nothing here yet
+      </p>
     </div>
   );
 }
