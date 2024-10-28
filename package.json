@@ -13,7 +13,6 @@
   },
   "type": "module",
   "workspaces": [
-    "src/app_backend",
     "src/app_frontend"
   ],
   "dependencies": {}
